@@ -96,27 +96,56 @@ body::after{
 }
 .logo{height:24px;display:block;}
 .nav-right{display:flex;align-items:center;gap:10px;}
+
+/* ── GRADE SWITCHER ── */
+.grade-switcher{position:relative;}
 .nav-badge{
   display:flex;align-items:center;gap:8px;
   background:var(--navy);border-radius:var(--r-pill);
-  padding:5px 14px 5px 8px;
-  box-shadow:var(--sh-btn);
+  padding:6px 12px 6px 14px;
+  box-shadow:var(--sh-btn);cursor:pointer;
+  transition:background 0.18s,box-shadow 0.18s;
+  user-select:none;
 }
-.nav-badge-num{
-  font-family:var(--font);font-size:13px;font-weight:800;
-  background:var(--rainbow);-webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;background-clip:text;
-  background:linear-gradient(135deg,#FFA41C,#FF4F84);
-  -webkit-text-fill-color:transparent;
-  padding:2px 8px;border-radius:var(--r-pill);
-  background-color:rgba(255,255,255,0.12);
-  background:rgba(255,255,255,0.15);
-  -webkit-text-fill-color:white;
-  font-size:11px;font-weight:700;letter-spacing:0.06em;
-}
+.nav-badge:hover{background:#1a268a;box-shadow:0 6px 20px rgba(15,21,116,0.35);}
 .nav-badge-info{display:flex;flex-direction:column;gap:0;}
-.nav-badge-label{font-size:11px;font-weight:700;color:#fff;letter-spacing:0.06em;text-transform:uppercase;line-height:1.2;}
+.nav-badge-label{font-size:12px;font-weight:700;color:#fff;letter-spacing:0.04em;line-height:1.2;}
 .nav-badge-sub{font-size:9px;color:rgba(255,255,255,0.5);letter-spacing:0.03em;line-height:1;}
+.nav-badge-chevron{color:rgba(255,255,255,0.6);margin-left:2px;transition:transform 0.2s;flex-shrink:0;}
+.grade-switcher.open .nav-badge-chevron{transform:rotate(180deg);}
+
+.grade-dropdown{
+  position:absolute;top:calc(100% + 8px);right:0;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-lg);box-shadow:var(--sh-lg);
+  overflow:hidden;min-width:200px;
+  opacity:0;pointer-events:none;
+  transform:translateY(-6px) scale(0.97);transform-origin:top right;
+  transition:opacity 0.18s,transform 0.18s;z-index:300;
+}
+.grade-switcher.open .grade-dropdown{opacity:1;pointer-events:all;transform:none;}
+.grade-dropdown-hdr{
+  padding:9px 14px 6px;
+  font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--ink4);border-bottom:1px solid var(--border);
+}
+.grade-opt{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;font-size:13px;font-weight:600;color:var(--ink2);
+  cursor:pointer;transition:background 0.13s;
+  border-bottom:1px solid rgba(15,21,116,0.04);
+}
+.grade-opt:last-child{border-bottom:none;}
+.grade-opt:hover{background:rgba(15,21,116,0.04);color:var(--navy);}
+.grade-opt.active{color:var(--purple);background:var(--purple-lt);}
+.grade-opt.active::after{content:'✓';font-size:11px;font-weight:800;color:var(--purple);}
+.grade-opt.soon{color:var(--ink4);cursor:default;}
+.grade-opt.soon:hover{background:transparent;color:var(--ink4);}
+.soon-tag{
+  font-size:9px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;
+  color:var(--amber);background:var(--amber-lt);border:1px solid var(--amber-bd);
+  border-radius:4px;padding:1px 6px;
+}
 
 /* ══ HERO ══ */
 .hero{
@@ -364,11 +393,12 @@ body::after{
   pointer-events:none;
   opacity:0;
   transform:translateY(6px) scale(0.97);
-  transition:opacity 0.2s,transform 0.2s;
-  width:280px;
+  transition:opacity 0.18s,transform 0.18s;
+  width:290px;
 }
 .ws-tooltip.visible{
-  opacity:1;transform:translateY(0) scale(1);pointer-events:none;
+  opacity:1;transform:translateY(0) scale(1);
+  pointer-events:all; /* FIXED: allow mouse to enter tooltip */
 }
 .ws-card{
   background:var(--white);
@@ -422,31 +452,22 @@ body::after{
 /* ══ WORKSHEET MODAL ══ */
 .modal-overlay{
   position:fixed;inset:0;z-index:900;
-  background:rgba(15,21,116,0.35);
-  backdrop-filter:blur(8px);
-  display:flex;align-items:center;justify-content:center;
-  padding:20px;
-  opacity:0;pointer-events:none;
-  transition:opacity 0.25s;
+  background:rgba(15,21,116,0.32);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  opacity:0;pointer-events:none;transition:opacity 0.25s;
 }
 .modal-overlay.open{opacity:1;pointer-events:all;}
 .modal{
-  background:var(--white);
-  border-radius:var(--r-xl);
-  box-shadow:var(--sh-lg);
-  width:100%;max-width:600px;
-  max-height:88vh;
-  overflow:hidden;
-  display:flex;flex-direction:column;
+  background:var(--white);border-radius:var(--r-xl);box-shadow:var(--sh-lg);
+  width:100%;max-width:640px;max-height:90vh;
+  overflow:hidden;display:flex;flex-direction:column;
   transform:translateY(16px) scale(0.98);
   transition:transform 0.28s cubic-bezier(0.34,1.2,0.64,1);
 }
 .modal-overlay.open .modal{transform:none;}
 .modal-top{
   display:flex;align-items:center;gap:12px;
-  padding:18px 20px 14px;
-  border-bottom:1px solid var(--border);
-  flex-shrink:0;
+  padding:16px 20px 14px;border-bottom:1px solid var(--border);flex-shrink:0;
 }
 .modal-icon{
   width:36px;height:36px;border-radius:10px;
@@ -454,72 +475,130 @@ body::after{
   font-family:var(--mono);font-size:15px;font-weight:900;flex-shrink:0;
 }
 .modal-info{flex:1;min-width:0;}
-.modal-domain{
-  font-size:9px;font-weight:700;letter-spacing:0.1em;
-  text-transform:uppercase;margin-bottom:2px;
-}
+.modal-domain{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;}
 .modal-title{font-size:15px;font-weight:700;color:var(--navy);line-height:1.3;}
 .modal-close{
   width:30px;height:30px;border-radius:8px;
   border:1px solid var(--border);background:var(--bg);
   display:flex;align-items:center;justify-content:center;
-  cursor:pointer;flex-shrink:0;
-  transition:all 0.15s;font-size:14px;color:var(--ink3);
+  cursor:pointer;flex-shrink:0;transition:all 0.15s;
+  font-size:14px;color:var(--ink3);
 }
 .modal-close:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
-.modal-body{overflow-y:auto;padding:20px;flex:1;}
+.modal-body{overflow-y:auto;flex:1;}
 .modal-body::-webkit-scrollbar{width:4px;}
 .modal-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
 
-/* worksheet content */
+/* ── MODE CHOICE SCREEN ── */
+.mode-screen{padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;}
+.mode-screen-label{
+  font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--ink4);text-align:center;margin-bottom:4px;
+}
+.mode-card{
+  display:flex;align-items:center;gap:16px;
+  border:1.5px solid var(--border);border-radius:var(--r-lg);
+  padding:18px 20px;cursor:pointer;
+  transition:all 0.18s;
+  background:var(--white);
+}
+.mode-card:hover{border-color:var(--border-hover);box-shadow:var(--sh-md);transform:translateY(-1px);}
+.mode-card-icon{
+  width:44px;height:44px;border-radius:12px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+}
+.mode-card-body{flex:1;}
+.mode-card-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.mode-card-desc{font-size:12px;color:var(--ink3);line-height:1.5;}
+.mode-card-arrow{color:var(--ink4);flex-shrink:0;transition:transform 0.18s;}
+.mode-card:hover .mode-card-arrow{transform:translateX(3px);color:var(--navy);}
+.mode-card.mode-online{border-color:var(--purple-bd);}
+.mode-card.mode-online:hover{border-color:var(--purple);background:var(--purple-lt);}
+.mode-card.mode-pdf{border-color:var(--orange-bd);}
+.mode-card.mode-pdf:hover{border-color:var(--orange);background:var(--orange-lt);}
+
+/* ── ONLINE WORKSHEET ── */
+.ws-screen{padding:20px 24px 24px;display:flex;flex-direction:column;gap:0;}
+.ws-screen-back{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:600;color:var(--ink3);cursor:pointer;
+  margin-bottom:14px;transition:color 0.15s;
+}
+.ws-screen-back:hover{color:var(--navy);}
 .ws-intro{
   font-size:12.5px;color:var(--ink2);line-height:1.7;
-  margin-bottom:16px;padding-bottom:16px;
+  margin-bottom:16px;padding-bottom:14px;
   border-bottom:1px solid var(--border);
 }
 .ws-section-lbl{
-  font-size:9px;font-weight:700;letter-spacing:0.12em;
-  text-transform:uppercase;color:var(--ink4);margin-bottom:10px;
+  font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--ink4);margin-bottom:10px;
   display:flex;align-items:center;gap:8px;
 }
 .ws-section-lbl::after{content:'';flex:1;height:1px;background:var(--border);}
-.ws-questions{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+
 .ws-question{
   background:var(--bg);border:1px solid var(--border);
-  border-radius:var(--r-md);padding:12px 14px;
-  transition:border-color 0.15s,box-shadow 0.15s;
+  border-radius:var(--r-md);padding:14px 16px;margin-bottom:10px;
+  transition:border-color 0.15s;
 }
-.ws-question:hover{border-color:var(--border-hover);box-shadow:var(--sh-xs);}
+.ws-question:hover{border-color:var(--border-hover);}
+.ws-question.answered{border-color:rgba(176,235,51,0.5);background:rgba(176,235,51,0.04);}
 .ws-q-label{
-  font-size:9px;font-weight:700;letter-spacing:0.08em;
-  text-transform:uppercase;margin-bottom:4px;
+  font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  margin-bottom:5px;
 }
-.ws-q-text{font-size:13px;color:var(--ink);font-weight:500;line-height:1.5;}
-.ws-q-hint{
-  font-size:11px;color:var(--ink4);margin-top:4px;font-style:italic;
+.ws-q-text{font-size:13px;color:var(--ink);font-weight:500;line-height:1.55;margin-bottom:10px;}
+.ws-q-textarea{
+  width:100%;min-height:70px;
+  background:var(--white);
+  border:1.5px solid var(--border);border-radius:8px;
+  padding:10px 12px;
+  font-family:var(--font);font-size:13px;color:var(--ink);
+  line-height:1.5;resize:vertical;outline:none;
+  transition:border-color 0.18s,box-shadow 0.18s;
 }
-.ws-answer-area{
-  margin-top:8px;
-  background:var(--white);border:1px dashed var(--border-hover);
-  border-radius:6px;height:36px;
-  display:flex;align-items:center;padding:0 10px;
-  font-size:11px;color:var(--ink4);
-}
+.ws-q-textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(112,88,255,0.12);}
+.ws-q-textarea::placeholder{color:var(--ink4);}
 
-.modal-footer{
-  padding:14px 20px;border-top:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  flex-shrink:0;background:rgba(15,21,116,0.02);
+.ws-progress-bar{
+  height:4px;background:var(--border);border-radius:2px;
+  margin:0 24px 0;flex-shrink:0;overflow:hidden;
 }
-.modal-footer-note{font-size:11px;color:var(--ink4);}
-.modal-btn{
+.ws-progress-fill{height:100%;border-radius:2px;background:var(--cta-grad);transition:width 0.4s ease;}
+
+.ws-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 24px;border-top:1px solid var(--border);
+  flex-shrink:0;background:rgba(15,21,116,0.015);
+}
+.ws-footer-left{font-size:11px;color:var(--ink4);}
+.ws-submit-btn{
   display:inline-flex;align-items:center;gap:6px;
   background:var(--cta-grad);color:#fff;border:none;
   border-radius:var(--r-pill);padding:9px 20px;
   font-family:var(--font);font-size:12px;font-weight:700;
-  cursor:pointer;box-shadow:var(--sh-btn);transition:all 0.2s;
+  cursor:pointer;box-shadow:var(--sh-btn);transition:all 0.18s;
 }
-.modal-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(112,88,255,0.35);}
+.ws-submit-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(112,88,255,0.3);}
+.ws-submit-btn:disabled{opacity:0.5;cursor:default;transform:none;}
+
+/* ── COMPLETION SCREEN ── */
+.done-screen{
+  padding:40px 24px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+}
+.done-icon{font-size:44px;margin-bottom:4px;}
+.done-title{font-size:22px;font-weight:800;color:var(--navy);}
+.done-sub{font-size:14px;color:var(--ink3);max-width:340px;line-height:1.6;}
+.done-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--cta-grad);color:#fff;border:none;
+  border-radius:var(--r-pill);padding:11px 24px;margin-top:8px;
+  font-family:var(--font);font-size:13px;font-weight:700;
+  cursor:pointer;box-shadow:var(--sh-btn);transition:all 0.18s;
+}
+.done-btn:hover{transform:translateY(-1px);}
 
 /* ══ FOOTER ══ */
 .footer{
@@ -562,10 +641,21 @@ body::after{
 <nav class="nav">
   <img class="logo" src="data:image/png;base64,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" alt="Strive Math"/>
   <div class="nav-right">
-    <div class="nav-badge">
-      <div class="nav-badge-info">
-        <span class="nav-badge-label">Grade 7</span>
-        <span class="nav-badge-sub">Mathematics</span>
+    <div class="grade-switcher" id="gradeSwitcher">
+      <div class="nav-badge" onclick="toggleGradeDropdown()">
+        <div class="nav-badge-info">
+          <span class="nav-badge-label" id="currentGradeLabel">Grade 7</span>
+          <span class="nav-badge-sub">Mathematics</span>
+        </div>
+        <svg class="nav-badge-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="2,4 6,8 10,4"/></svg>
+      </div>
+      <div class="grade-dropdown" id="gradeDropdown">
+        <div class="grade-dropdown-hdr">Switch Grade</div>
+        <div class="grade-opt soon">Grade 4 <span class="soon-tag">Coming soon</span></div>
+        <div class="grade-opt soon">Grade 5 <span class="soon-tag">Coming soon</span></div>
+        <div class="grade-opt soon">Grade 6 <span class="soon-tag">Coming soon</span></div>
+        <div class="grade-opt active" data-grade="7" onclick="switchGrade(7)">Grade 7</div>
+        <div class="grade-opt" data-grade="8" onclick="switchGrade(8)">Grade 8 <span class="soon-tag">Coming soon</span></div>
       </div>
     </div>
   </div>
@@ -634,19 +724,24 @@ body::after{
       </div>
       <div class="modal-close" onclick="closeModalDirect()">✕</div>
     </div>
+    <!-- progress bar (hidden on mode screen) -->
+    <div class="ws-progress-bar" id="wsProgressBar" style="margin:0 24px;display:none;">
+      <div class="ws-progress-fill" id="wsProgressFill" style="width:0%"></div>
+    </div>
     <div class="modal-body" id="mBody"></div>
-    <div class="modal-footer">
-      <span class="modal-footer-note">Strive Math · Grade 7 Worksheet</span>
-      <button class="modal-btn" onclick="closeModalDirect()">
+    <!-- footer (hidden on mode screen) -->
+    <div class="ws-footer" id="wsFooter" style="display:none;">
+      <span class="ws-footer-left" id="wsFooterLeft"></span>
+      <button class="ws-submit-btn" id="wsSubmitBtn" onclick="submitWorksheet()">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Done
+        Submit answers
       </button>
     </div>
   </div>
 </div>
 
 <script>
-/* ═══════════ DATA ═══════════ */
+/* ═══════════ GRADE 7 CCSS DATA ═══════════ */
 const DS=[
   {id:'RP',code:'7.RP',icon:'∶',name:'Ratios & Proportional Relationships',desc:'Unit rates, proportionality, percent problems',
    c:'#FF6635',cl:'rgba(255,102,53,0.10)',cb:'rgba(255,102,53,0.22)',
@@ -799,9 +894,57 @@ const DS=[
   ]},
 ];
 
-/* ═══════════ STATE ═══════════ */
-let currentTooltipData = null;
-let tooltipTimeout = null;
+/* ═══════════ GRADE SWITCHER ═══════════ */
+let currentGrade = 7;
+let showTimer = null, hideTimer = null;
+let currentModalData = null;
+
+function toggleGradeDropdown(){
+  document.getElementById('gradeSwitcher').classList.toggle('open');
+}
+function switchGrade(g){
+  document.querySelectorAll('.grade-opt').forEach(o=>{
+    o.classList.toggle('active', parseInt(o.dataset.grade)===g);
+  });
+  currentGrade = g;
+  document.getElementById('currentGradeLabel').textContent = 'Grade '+g;
+  document.getElementById('gradeSwitcher').classList.remove('open');
+
+  if(g === 7){
+    // restore Grade 7 content
+    document.getElementById('accList').style.display = '';
+    document.getElementById('filterBar').style.display = '';
+    document.querySelector('.sec-hdr').style.display = '';
+    document.getElementById('emptyState') && document.getElementById('emptyState').remove();
+    document.querySelector('.hero h1').innerHTML = 'Grade 7 <span class="grad">Learning Outcomes</span>';
+    document.querySelector('.hero-sub').textContent = 'Every standard your child masters this year. Hover any outcome to preview a worksheet. Click to open it.';
+  } else {
+    // empty state for other grades
+    document.getElementById('accList').style.display = 'none';
+    document.getElementById('filterBar').style.display = 'none';
+    document.querySelector('.sec-hdr').style.display = 'none';
+    document.getElementById('emptyState') && document.getElementById('emptyState').remove();
+    document.querySelector('.hero h1').innerHTML = `Grade ${g} <span class="grad">Learning Outcomes</span>`;
+    document.querySelector('.hero-sub').textContent = `Grade ${g} curriculum is coming soon. Check back shortly!`;
+    const empty = document.createElement('div');
+    empty.id = 'emptyState';
+    empty.style.cssText = 'text-align:center;padding:60px 24px;color:var(--ink4);';
+    empty.innerHTML = `
+      <div style="font-size:48px;margin-bottom:16px;">📚</div>
+      <div style="font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px;">Grade ${g} Coming Soon</div>
+      <div style="font-size:13px;line-height:1.7;max-width:320px;margin:0 auto;">
+        We're building out the Grade ${g} curriculum now. Switch back to <strong>Grade 7</strong> to explore a full set of learning outcomes.
+      </div>`;
+    document.getElementById('accList').after(empty);
+  }
+}
+
+// close dropdown when clicking elsewhere
+document.addEventListener('click', e=>{
+  if(!document.getElementById('gradeSwitcher').contains(e.target)){
+    document.getElementById('gradeSwitcher').classList.remove('open');
+  }
+});
 
 /* ═══════════ FLOATING SYMBOLS ═══════════ */
 const SYMS=['∫','∑','π','√','∞','Δ','θ','λ','α','β','±','÷','×','∈','≠','≤'];
@@ -851,76 +994,49 @@ function buildAccordion(){
     const card=document.createElement('div');
     card.className='dom-card';card.dataset.did=d.id;
     card.style.animationDelay=(0.12+di*0.05)+'s';
-
-    // stripe
     const stripe=document.createElement('div');
     stripe.className='dom-stripe';stripe.style.background=d.stripe;
-
-    // header
-    const hdr=document.createElement('div');
-    hdr.className='dom-hdr';
+    const hdr=document.createElement('div');hdr.className='dom-hdr';
     hdr.innerHTML=`
       <div class="dom-icon" style="background:${d.cl};color:${d.c}">${d.icon}</div>
-      <div class="dom-info">
-        <div class="dom-name">${d.name}</div>
-        <div class="dom-desc">${d.desc}</div>
-      </div>
+      <div class="dom-info"><div class="dom-name">${d.name}</div><div class="dom-desc">${d.desc}</div></div>
       <div class="dom-right">
         <span class="dom-code" style="color:${d.c};background:${d.cl};border-color:${d.cb}">${d.code}</span>
         <span class="dom-count">${d.outcomes.length} outcomes</span>
-        <div class="dom-chev">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="2,3 5,7 8,3"/></svg>
-        </div>
+        <div class="dom-chev"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="2,3 5,7 8,3"/></svg></div>
       </div>`;
     hdr.onclick=()=>toggleDomain(d.id);
-
-    // body
     const body=document.createElement('div');body.className='dom-body';body.id='body-'+d.id;
     const inner=document.createElement('div');inner.className='dom-body-inner';inner.id='inner-'+d.id;
     const sep=document.createElement('div');sep.className='dom-sep';inner.appendChild(sep);
-
     d.outcomes.forEach((o,oi)=>{
-      // outcome row
-      const row=document.createElement('div');
-      row.className='oc-row';row.id=`row-${d.id}-${oi}`;
-
+      const row=document.createElement('div');row.className='oc-row';row.id=`row-${d.id}-${oi}`;
       const left=document.createElement('div');left.className='oc-row-left';
       const num=document.createElement('span');num.className='oc-num';
-      num.textContent=String(oi+1).padStart(2,'0');
-      num.style.cssText=`background:${d.cl};color:${d.c};`;
+      num.textContent=String(oi+1).padStart(2,'0');num.style.cssText=`background:${d.cl};color:${d.c};`;
       const title=document.createElement('span');title.className='oc-title';title.textContent=o.t;
       left.appendChild(num);left.appendChild(title);
-
-      // worksheet preview trigger
-      const wsTrig=document.createElement('span');
-      wsTrig.className='oc-preview-trigger';
+      const wsTrig=document.createElement('span');wsTrig.className='oc-preview-trigger';
       wsTrig.innerHTML=`<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><rect x="0.5" y="0.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><line x1="2.5" y1="3" x2="7.5" y2="3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="2.5" y1="5" x2="7.5" y2="5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="2.5" y1="7" x2="5.5" y2="7" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>Worksheet`;
-      wsTrig.addEventListener('mouseenter',(e)=>showTooltip(e,d,o,oi));
-      wsTrig.addEventListener('mouseleave',hideTooltip);
-      wsTrig.addEventListener('click',(e)=>{e.stopPropagation();openModal(d,o,oi);});
-
+      // FIXED: show tooltip on trigger hover too, with its own mouse tracking
+      wsTrig.addEventListener('mouseenter', e=>{ clearTimeout(hideTimer); showTooltip(e,d,o,oi); });
+      wsTrig.addEventListener('mousemove', e=>positionTooltip(e));
+      wsTrig.addEventListener('mouseleave', ()=>startHideTimer());
+      wsTrig.addEventListener('click', e=>{e.stopPropagation();openModal(d,o,oi);});
       const tog=document.createElement('div');tog.className='oc-toggle';
-
       row.appendChild(left);row.appendChild(wsTrig);row.appendChild(tog);
-      row.addEventListener('click',()=>toggleRow(d.id,oi));
-      row.addEventListener('mouseenter',(e)=>{
-        if(!document.getElementById(`row-${d.id}-${oi}`).classList.contains('is-open')){
-          startTooltipTimer(e,d,o,oi);
-        }
-      });
-      row.addEventListener('mouseleave',()=>{clearTimeout(tooltipTimeout);hideTooltip();});
-
-      // detail
+      // FIXED: show tooltip after delay on row hover
+      row.addEventListener('mouseenter', e=>{if(!row.classList.contains('is-open'))startShowTimer(e,d,o,oi);});
+      row.addEventListener('mousemove', e=>positionTooltip(e));
+      row.addEventListener('mouseleave', ()=>startHideTimer());
+      row.addEventListener('click', ()=>toggleRow(d.id,oi));
       const det=document.createElement('div');det.className='oc-det';det.id=`det-${d.id}-${oi}`;
       inner.appendChild(row);inner.appendChild(det);
     });
-
     body.appendChild(inner);
     card.appendChild(stripe);card.appendChild(hdr);card.appendChild(body);
     list.appendChild(card);
   });
-
-  // open all on load
   DS.forEach((d,di)=>setTimeout(()=>toggleDomain(d.id),80+di*55));
 }
 
@@ -929,9 +1045,8 @@ function toggleDomain(did){
   const body=document.getElementById('body-'+did);
   const inner=document.getElementById('inner-'+did);
   const isOpen=card.classList.contains('open');
-  if(isOpen){
-    card.classList.remove('open');body.style.maxHeight='0';
-  } else {
+  if(isOpen){card.classList.remove('open');body.style.maxHeight='0';}
+  else{
     card.classList.add('open');
     const rows=inner.querySelectorAll('.oc-row');
     rows.forEach((r,i)=>setTimeout(()=>r.classList.add('revealed'),30+i*25));
@@ -947,20 +1062,12 @@ function toggleRow(did,oi){
   const inner=document.getElementById('inner-'+did);
   const d=DS.find(x=>x.id===did);const o=d.outcomes[oi];
   const isOpen=row.classList.contains('is-open');
-  if(isOpen){
-    row.classList.remove('is-open');det.style.maxHeight='0';return;
-  }
+  if(isOpen){row.classList.remove('is-open');det.style.maxHeight='0';return;}
   row.classList.add('is-open');
   if(!det.querySelector('.oc-det-in')){
     const tags=o.tags.map(t=>`<span class="oc-tag" style="color:${d.c};background:${d.cl};border-color:${d.cb}">${t}</span>`).join('');
     const skills=o.skills.map(s=>`<div class="oc-skill"><span class="oc-skill-dot" style="background:${d.c}"></span>${s}</div>`).join('');
-    det.innerHTML=`<div class="oc-det-in">
-      <div class="oc-desc">${o.d}</div>
-      <div class="oc-cols">
-        <div><div class="oc-col-lbl">Topics</div><div class="oc-tags">${tags}</div></div>
-        <div><div class="oc-col-lbl">Skills</div><div class="oc-skills">${skills}</div></div>
-      </div>
-    </div>`;
+    det.innerHTML=`<div class="oc-det-in"><div class="oc-desc">${o.d}</div><div class="oc-cols"><div><div class="oc-col-lbl">Topics</div><div class="oc-tags">${tags}</div></div><div><div class="oc-col-lbl">Skills</div><div class="oc-skills">${skills}</div></div></div></div>`;
   }
   det.style.maxHeight='0';
   requestAnimationFrame(()=>{
@@ -969,14 +1076,15 @@ function toggleRow(did,oi){
   });
 }
 
-/* ═══════════ WORKSHEET TOOLTIP ═══════════ */
-function startTooltipTimer(e,d,o,oi){
-  clearTimeout(tooltipTimeout);
-  tooltipTimeout=setTimeout(()=>showTooltip(e,d,o,oi),420);
+/* ═══════════ TOOLTIP — FIXED HOVER HANDOFF ═══════════ */
+
+function startShowTimer(e,d,o,oi){
+  clearTimeout(showTimer);clearTimeout(hideTimer);
+  showTimer=setTimeout(()=>showTooltip(e,d,o,oi),380);
 }
 
 function showTooltip(e,d,o,oi){
-  currentTooltipData={d,o,oi};
+  clearTimeout(hideTimer);
   const tip=document.getElementById('wsTooltip');
   document.getElementById('wsTipIcon').textContent=d.icon;
   document.getElementById('wsTipIcon').style.cssText=`background:${d.cl};color:${d.c};`;
@@ -984,69 +1092,176 @@ function showTooltip(e,d,o,oi){
   document.getElementById('wsTipTitle').style.color=d.c;
   document.getElementById('wsTipSub').textContent=d.code+' · '+d.name;
   const qsEl=document.getElementById('wsTipQs');
-  qsEl.innerHTML=o.qs.slice(0,2).map((q,i)=>`
-    <div class="ws-q">
-      <span class="ws-q-num">${i+1}.</span>
-      <span>${q}</span>
-    </div>`).join('');
+  qsEl.innerHTML=o.qs.slice(0,2).map((q,i)=>`<div class="ws-q"><span class="ws-q-num">${i+1}.</span><span>${q}</span></div>`).join('');
   const cta=document.getElementById('wsTipCta');
-  cta.style.color=d.c;
-  cta.style.background=d.cl;
-  cta.style.borderColor=d.cb;
-  cta.onclick=()=>openModal(d,o,oi);
-
-  // position near cursor
+  cta.style.color=d.c;cta.style.background=d.cl;cta.style.borderTopColor=d.cb;
+  cta.onclick=()=>openModal(d,o,0);
   positionTooltip(e);
   tip.classList.add('visible');
+  // FIXED: tooltip itself keeps it open while mouse is over it
+  tip.onmouseenter=()=>clearTimeout(hideTimer);
+  tip.onmouseleave=()=>startHideTimer();
 }
 
 function positionTooltip(e){
   const tip=document.getElementById('wsTooltip');
-  const tw=290,margin=12;
-  let x=e.clientX+margin,y=e.clientY-60;
+  if(!tip.classList.contains('visible'))return;
+  const tw=295,margin=14;
+  let x=e.clientX+margin, y=e.clientY-70;
   if(x+tw>window.innerWidth-10)x=e.clientX-tw-margin;
   if(y<10)y=10;
-  if(y+tip.offsetHeight>window.innerHeight-10)y=window.innerHeight-tip.offsetHeight-10;
+  const th=tip.offsetHeight||260;
+  if(y+th>window.innerHeight-10)y=window.innerHeight-th-10;
   tip.style.left=x+'px';tip.style.top=y+'px';
 }
 
-function hideTooltip(){
-  clearTimeout(tooltipTimeout);
-  const tip=document.getElementById('wsTooltip');
-  tip.classList.remove('visible');
+function startHideTimer(){
+  clearTimeout(showTimer);
+  hideTimer=setTimeout(()=>{
+    document.getElementById('wsTooltip').classList.remove('visible');
+  },200);
 }
 
-/* ═══════════ MODAL ═══════════ */
+/* ═══════════ MODAL — MODE CHOICE + ONLINE ANSWERING ═══════════ */
+
 function openModal(d,o,oi){
-  hideTooltip();
+  clearTimeout(hideTimer);
+  document.getElementById('wsTooltip').classList.remove('visible');
+  currentModalData = {d,o,oi};
+
   document.getElementById('mIcon').textContent=d.icon;
   document.getElementById('mIcon').style.cssText=`background:${d.cl};color:${d.c};`;
   document.getElementById('mDomain').textContent=d.code+' · '+d.name;
   document.getElementById('mDomain').style.color=d.c;
   document.getElementById('mTitle').textContent=o.t;
 
-  const qs=o.qs.map((q,i)=>`
-    <div class="ws-question">
-      <div class="ws-q-label" style="color:${d.c}">Question ${i+1}</div>
-      <div class="ws-q-text">${q}</div>
-      <div class="ws-q-hint">Show all working</div>
-      <div class="ws-answer-area">Your answer…</div>
-    </div>`).join('');
+  // hide footer + progress until mode chosen
+  document.getElementById('wsFooter').style.display='none';
+  document.getElementById('wsProgressBar').style.display='none';
 
-  const skills=o.skills.map(s=>`<div class="oc-skill"><span class="oc-skill-dot" style="background:${d.c}"></span>${s}</div>`).join('');
-  const tags=o.tags.map(t=>`<span class="oc-tag" style="color:${d.c};background:${d.cl};border-color:${d.cb}">${t}</span>`).join('');
-
-  document.getElementById('mBody').innerHTML=`
-    <div class="ws-intro">${o.d}</div>
-    <div class="ws-section-lbl">Practice Questions</div>
-    <div class="ws-questions">${qs}</div>
-    <div class="ws-section-lbl">Skills covered</div>
-    <div class="oc-skills" style="margin-bottom:16px">${skills}</div>
-    <div class="ws-section-lbl">Topics</div>
-    <div class="oc-tags">${tags}</div>`;
-
+  // show mode choice screen
+  showModeScreen(d,o);
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
+}
+
+function showModeScreen(d,o){
+  document.getElementById('mBody').innerHTML=`
+    <div class="mode-screen">
+      <div class="mode-screen-label">How would you like to work on this?</div>
+      <div class="mode-card mode-online" onclick="startOnlineWorksheet()">
+        <div class="mode-card-icon" style="background:${d.cl}">✏️</div>
+        <div class="mode-card-body">
+          <div class="mode-card-title">Answer Online</div>
+          <div class="mode-card-desc">Type your answers directly in the browser. Get instant progress tracking as you complete each question.</div>
+        </div>
+        <svg class="mode-card-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,4 12,9 6,14"/></svg>
+      </div>
+      <div class="mode-card mode-pdf" onclick="downloadPDF()">
+        <div class="mode-card-icon" style="background:rgba(255,102,53,0.10)">📄</div>
+        <div class="mode-card-body">
+          <div class="mode-card-title">Download PDF</div>
+          <div class="mode-card-desc">Get a printable worksheet to complete on paper — perfect for class or homework.</div>
+        </div>
+        <svg class="mode-card-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,4 12,9 6,14"/></svg>
+      </div>
+    </div>`;
+}
+
+function startOnlineWorksheet(){
+  const {d,o} = currentModalData;
+  // show progress + footer
+  document.getElementById('wsProgressBar').style.display='block';
+  document.getElementById('wsFooter').style.display='flex';
+  updateProgress(0,o.qs.length);
+
+  document.getElementById('mBody').innerHTML=`
+    <div class="ws-screen">
+      <div class="ws-screen-back" onclick="showModeScreen(currentModalData.d, currentModalData.o)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="7,2 3,6 7,10"/></svg>
+        Back
+      </div>
+      <div class="ws-intro">${o.d}</div>
+      <div class="ws-section-lbl">Practice Questions</div>
+      ${o.qs.map((q,i)=>`
+        <div class="ws-question" id="wq${i}">
+          <div class="ws-q-label" style="color:${d.c}">Question ${i+1} of ${o.qs.length}</div>
+          <div class="ws-q-text">${q}</div>
+          <textarea
+            class="ws-q-textarea"
+            placeholder="Type your answer here — show all working…"
+            rows="3"
+            oninput="onAnswerInput(${i}, ${o.qs.length})"
+            id="wqa${i}"
+          ></textarea>
+        </div>`).join('')}
+    </div>`;
+}
+
+function onAnswerInput(idx, total){
+  const ta = document.getElementById('wqa'+idx);
+  const qBox = document.getElementById('wq'+idx);
+  qBox.classList.toggle('answered', ta.value.trim().length > 0);
+  // count filled
+  let filled=0;
+  for(let i=0;i<total;i++){
+    const t=document.getElementById('wqa'+i);
+    if(t && t.value.trim().length>0) filled++;
+  }
+  updateProgress(filled,total);
+  document.getElementById('wsSubmitBtn').disabled = filled===0;
+}
+
+function updateProgress(filled,total){
+  const pct = total>0 ? Math.round(filled/total*100) : 0;
+  document.getElementById('wsProgressFill').style.width=pct+'%';
+  document.getElementById('wsFooterLeft').textContent=`${filled} of ${total} answered`;
+}
+
+function submitWorksheet(){
+  const {d,o} = currentModalData;
+  // collect answers
+  const answers = o.qs.map((_,i)=>{
+    const t=document.getElementById('wqa'+i);
+    return t ? t.value.trim() : '';
+  });
+  const filled = answers.filter(a=>a.length>0).length;
+  document.getElementById('wsProgressFill').style.width='100%';
+  document.getElementById('wsFooter').style.display='none';
+  document.getElementById('wsProgressBar').style.display='none';
+  document.getElementById('mBody').innerHTML=`
+    <div class="done-screen">
+      <div class="done-icon">🎉</div>
+      <div class="done-title">Worksheet complete!</div>
+      <div class="done-sub">You answered ${filled} of ${o.qs.length} questions for <strong>${o.t}</strong>. Great work!</div>
+      <button class="done-btn" onclick="closeModalDirect()">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Done
+      </button>
+    </div>`;
+}
+
+function downloadPDF(){
+  const {d,o} = currentModalData;
+  // generate a simple printable page in a new tab
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"/><title>${o.t} — Worksheet</title>
+  <style>body{font-family:Arial,sans-serif;max-width:680px;margin:40px auto;color:#1a1a2e;line-height:1.6;}
+  h1{font-size:20px;margin-bottom:4px;color:#0F1574;}
+  .meta{font-size:12px;color:#878AB9;margin-bottom:24px;}
+  .intro{font-size:13px;color:#575863;margin-bottom:20px;padding:12px;background:#f9f9fc;border-radius:8px;border-left:3px solid ${d.c};}
+  .q{margin-bottom:20px;padding:14px;border:1px solid #e0e0f0;border-radius:8px;}
+  .q-num{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:${d.c};margin-bottom:6px;}
+  .q-text{font-size:14px;font-weight:500;margin-bottom:10px;}
+  .answer-box{border:1px dashed #ccc;border-radius:6px;height:80px;margin-top:8px;}
+  @media print{body{margin:20px;}}</style>
+  </head><body>
+  <h1>${o.t}</h1>
+  <div class="meta">${d.code} · ${d.name} &nbsp;|&nbsp; Strive Math Grade 7</div>
+  <div class="intro">${o.d}</div>
+  ${o.qs.map((q,i)=>`<div class="q"><div class="q-num">Question ${i+1}</div><div class="q-text">${q}</div><div class="answer-box"></div></div>`).join('')}
+  <script>window.print();</scr`+'ipt></body></html>';
+  const w=window.open('','_blank');
+  w.document.write(html);w.document.close();
 }
 
 function closeModal(e){
