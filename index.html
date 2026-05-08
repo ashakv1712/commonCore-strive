@@ -177,7 +177,7 @@ body::after{
   font-weight:800;line-height:1.05;
   letter-spacing:-0.025em;
   color:var(--navy);
-  margin-bottom:10px;
+  margin-bottom:0;
 }
 .hero h1 .grad{
   background:var(--heading-grad);
@@ -302,7 +302,6 @@ body::after{
   transition:background 0.15s;
 }
 .oc-row:hover{background:rgba(15,21,116,0.025);}
-.oc-row:hover .oc-preview-trigger{opacity:1;}
 .oc-row+.oc-row{border-top:1px solid rgba(15,21,116,0.05);}
 
 .oc-row-left{
@@ -322,21 +321,24 @@ body::after{
 .oc-row:hover .oc-title{color:var(--navy);}
 .oc-row.is-open .oc-title{color:var(--navy);font-weight:600;}
 
-/* worksheet preview badge — shows on hover */
-.oc-preview-trigger{
-  opacity:0;
-  display:inline-flex;align-items:center;gap:4px;
-  font-size:10px;font-weight:700;letter-spacing:0.04em;
-  color:var(--purple);background:var(--purple-lt);
-  border:1px solid var(--purple-bd);
-  border-radius:var(--r-pill);padding:3px 10px;
-  white-space:nowrap;flex-shrink:0;margin-right:10px;
-  transition:opacity 0.18s, transform 0.18s;
-  transform:translateX(4px);
+/* domain worksheet button on header */
+.dom-ws-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:var(--font);font-size:11px;font-weight:700;
+  letter-spacing:0.02em;
+  border:1.5px solid;
+  border-radius:var(--r-pill);
+  padding:5px 12px;
   cursor:pointer;
+  transition:all 0.18s;
+  white-space:nowrap;
+  flex-shrink:0;
 }
-.oc-row:hover .oc-preview-trigger{opacity:1;transform:translateX(0);}
-.oc-preview-trigger:hover{background:var(--purple);color:#fff;border-color:var(--purple);}
+.dom-ws-btn:hover{
+  filter:brightness(0.92);
+  transform:translateY(-1px);
+  box-shadow:var(--sh-md);
+}
 
 .oc-toggle{
   width:20px;height:20px;border-radius:5px;
@@ -548,6 +550,15 @@ body::after{
   font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
   margin-bottom:5px;
 }
+.ws-q-skill{
+  font-size:11px;font-weight:700;
+  letter-spacing:0.01em;
+  margin-bottom:6px;
+  display:flex;align-items:center;gap:6px;
+}
+.ws-q-skill::before{
+  content:'';width:3px;height:12px;border-radius:2px;background:currentColor;
+}
 .ws-q-text{font-size:13px;color:var(--ink);font-weight:500;line-height:1.55;margin-bottom:10px;}
 .ws-q-textarea{
   width:100%;min-height:70px;
@@ -583,7 +594,139 @@ body::after{
 .ws-submit-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(112,88,255,0.3);}
 .ws-submit-btn:disabled{opacity:0.5;cursor:default;transform:none;}
 
-/* ── COMPLETION SCREEN ── */
+/* ── COMPLETION / RESULTS SCREEN ── */
+.results-screen{
+  padding:28px 28px 32px;
+  display:flex;flex-direction:column;gap:0;
+}
+.results-headline{
+  text-align:center;margin-bottom:24px;
+}
+.results-emoji{font-size:42px;margin-bottom:8px;line-height:1;}
+.results-title{
+  font-size:22px;font-weight:800;color:var(--navy);
+  letter-spacing:-0.02em;margin-bottom:4px;
+}
+.results-sub{font-size:13px;color:var(--ink3);}
+
+.score-card{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:18px 20px;
+  margin-bottom:18px;
+  display:flex;align-items:center;gap:16px;
+}
+.score-circle{
+  width:60px;height:60px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font);font-size:18px;font-weight:800;
+  flex-shrink:0;color:#fff;
+  box-shadow:var(--sh-btn);
+}
+.score-info{flex:1;min-width:0;}
+.score-fraction{
+  font-size:24px;font-weight:800;color:var(--navy);
+  letter-spacing:-0.02em;line-height:1.1;margin-bottom:2px;
+}
+.score-fraction-total{font-size:18px;color:var(--ink3);font-weight:600;}
+.score-label{font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--ink4);}
+
+/* mastery bar */
+.mastery-bar-wrap{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:18px 20px;
+  margin-bottom:18px;
+}
+.mastery-row{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;
+}
+.mastery-label{
+  font-size:11px;font-weight:700;letter-spacing:0.06em;
+  text-transform:uppercase;color:var(--ink4);
+}
+.mastery-pill{
+  font-size:11px;font-weight:700;padding:3px 10px;
+  border-radius:var(--r-pill);
+}
+.mastery-track{
+  height:10px;background:var(--bg);border:1px solid var(--border);
+  border-radius:var(--r-pill);position:relative;overflow:hidden;
+}
+.mastery-fill{
+  height:100%;border-radius:var(--r-pill);
+  transition:width 1s cubic-bezier(0.34,1.2,0.64,1);
+  width:0%;
+}
+.mastery-segments{
+  display:flex;justify-content:space-between;
+  margin-top:8px;
+  font-size:9px;font-weight:600;color:var(--ink4);
+  letter-spacing:0.04em;text-transform:uppercase;
+}
+.mastery-msg{
+  margin-top:14px;
+  font-size:13px;color:var(--ink2);line-height:1.6;
+  text-align:center;
+}
+
+/* per-question review */
+.review-section{margin-top:8px;}
+.review-q{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-md);padding:14px 16px;margin-bottom:8px;
+}
+.review-q-head{
+  display:flex;align-items:center;gap:8px;margin-bottom:8px;
+}
+.review-q-num{
+  font-family:var(--mono);font-size:9px;font-weight:700;
+  width:22px;height:22px;border-radius:5px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  color:var(--ink4);background:var(--bg);
+}
+.review-q-text{flex:1;font-size:13px;color:var(--ink);font-weight:500;}
+.review-status{
+  font-size:10px;font-weight:700;padding:3px 9px;
+  border-radius:var(--r-pill);letter-spacing:0.04em;flex-shrink:0;
+}
+.review-status.correct{color:#5a8a0a;background:rgba(176,235,51,0.18);border:1px solid rgba(176,235,51,0.5);}
+.review-status.incorrect{color:#c33;background:rgba(255,79,132,0.10);border:1px solid rgba(255,79,132,0.3);}
+.review-status.skipped{color:var(--ink4);background:var(--bg);border:1px solid var(--border);}
+.review-answers{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;
+}
+@media(max-width:540px){.review-answers{grid-template-columns:1fr;}}
+.review-ans-block{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:7px;padding:7px 10px;
+}
+.review-ans-lbl{
+  font-size:8px;font-weight:700;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--ink4);margin-bottom:3px;
+}
+.review-ans-txt{
+  font-size:12px;color:var(--ink2);line-height:1.4;font-family:var(--mono);
+}
+.review-ans-block.correct-key{border-color:rgba(176,235,51,0.5);background:rgba(176,235,51,0.06);}
+
+/* result actions */
+.result-actions{
+  display:flex;gap:8px;margin-top:8px;
+}
+.result-btn{
+  flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:11px 16px;border-radius:var(--r-pill);
+  font-family:var(--font);font-size:12px;font-weight:700;
+  cursor:pointer;transition:all 0.18s;border:1.5px solid var(--border);
+  background:var(--white);color:var(--navy);
+}
+.result-btn:hover{transform:translateY(-1px);box-shadow:var(--sh-md);border-color:var(--border-hover);}
+.result-btn.primary{
+  background:var(--cta-grad);color:#fff;border-color:transparent;
+  box-shadow:var(--sh-btn);
+}
+.result-btn.primary:hover{box-shadow:0 6px 20px rgba(112,88,255,0.3);}
+
+/* ── COMPLETION SCREEN (legacy fallback) ── */
 .done-screen{
   padding:40px 24px;text-align:center;
   display:flex;flex-direction:column;align-items:center;gap:12px;
@@ -665,12 +808,6 @@ body::after{
 <section class="hero">
   <div class="hero-eyebrow"><span class="eyebrow-dot"></span>Common Core State Standards</div>
   <h1>Grade 7 <span class="grad">Learning Outcomes</span></h1>
-  <p class="hero-sub">Every standard your child masters this year. Hover any outcome to preview a worksheet. Click to open it.</p>
-  <div class="hero-stats">
-    <div class="h-stat"><span class="h-stat-n" style="color:#FF6635">5</span><span class="h-stat-l">Domains</span></div>
-    <div class="h-stat"><span class="h-stat-n" style="color:#7058FF">36</span><span class="h-stat-l">Outcomes</span></div>
-    <div class="h-stat"><span class="h-stat-n" style="color:#2C81ED">130+</span><span class="h-stat-l">Sub-skills</span></div>
-  </div>
 </section>
 
 <!-- FILTER -->
@@ -703,7 +840,7 @@ body::after{
       </div>
     </div>
     <div class="ws-preview-area">
-      <div class="ws-preview-label">Sample questions</div>
+      <div class="ws-preview-label" id="wsTipPreviewLabel">Sample questions</div>
       <div id="wsTipQs"></div>
     </div>
     <div class="ws-cta" id="wsTipCta">
@@ -894,7 +1031,192 @@ const DS=[
   ]},
 ];
 
-/* ═══════════ GRADE SWITCHER ═══════════ */
+/* ═══════════ ANSWER KEYS ═══════════ */
+/* Each key 'domainId-outcomeIndex' maps to an array of acceptable answers per question.
+   Each entry is an array of acceptable forms — student answer is normalised and matched. */
+const ANSWERS = {
+  // Ratios & Proportional Relationships
+  'RP-0': [
+    ['1.5','3/2','1 1/2','one and a half'],
+    ['8/3','2.67','2 2/3','2.6667'],
+    ['25/6','4 1/6','4.17','4.1667'],
+  ],
+  'RP-1': [
+    ['yes','yes proportional','proportional','yes it is'],
+    ['no','no not proportional','not proportional','no its not'],
+    ['a','table a','first','first table'],
+  ],
+  'RP-2': [
+    ['2.5','5/2','2 1/2'],
+    ['3.5','7/2'],
+    ['4','y=4x','y = 4x','k=4'],
+  ],
+  'RP-3': [
+    ['10 cups','10','y=x/6','y=(1/6)x'],
+    ['$20','20','y=2.5x','y = 2.5x'],
+    ['y=12.5x','y = 12.5x','12.5x'],
+  ],
+  'RP-4': [
+    ['$60','60','60.00','sixty dollars'],
+    ['$144','144','144.00'],
+    ['$72','72','72.00','seventy two'],
+  ],
+  // Number System
+  'NS-0': [
+    ['13','+13','positive 13'],
+    ['-2.25','-9/4','-2 1/4'],
+    ['-27 m','-27','27 below','27m below'],
+  ],
+  'NS-1': [
+    ['48','+48'],
+    ['-2.5','-5/2','-2 1/2'],
+    ['-15°c','-15','-15 c','15 below','minus 15'],
+  ],
+  'NS-2': [
+    ['$45','45'],
+    ['6°c','6','six degrees','6 c','6c'],
+    ['15/32 cup','15/32','0.469','0.47'],
+  ],
+  'NS-3': [
+    ['-6x+15','15-6x','-6x + 15','distributive'],
+    ['additive inverse','inverse property','additive inverses'],
+    ['16','4×4=16','4(4)=16'],
+  ],
+  // Expressions & Equations
+  'EE-0': [
+    ['8x+5y','5y+8x','8x + 5y'],
+    ['6x-22','-22+6x','6x - 22'],
+    ['3(2x+3)','3*(2x+3)','3(2x + 3)'],
+  ],
+  'EE-1': [
+    ['15% increase','price plus 15%','original plus 15 percent','adding 15%'],
+    ['yes','yes equivalent','equivalent','yes they are'],
+    ['0.8x','x-0.2x','80% of x','x*0.8'],
+  ],
+  'EE-2': [
+    ['9 hours','9','nine hours'],
+    ['16','number is 16'],
+    ['$38','38','x=38'],
+  ],
+  'EE-3': [
+    ['2x+3=17','3+2x=17','2(x)+3=17'],
+    ['2b+4≤22','2b + 4 <= 22','b≤9','2b+4 ≤ 22'],
+    ['3x-5=16','x=7','3x − 5 = 16'],
+  ],
+  'EE-4': [
+    ['x=5','5'],
+    ['x=11','11'],
+    ['x=12','12'],
+  ],
+  'EE-5': [
+    ['x>4','x > 4'],
+    ['x≤5','x <= 5','x ≤ 5'],
+    ['x≤5','x≤5 tickets','5 tickets max','at most 5'],
+  ],
+  // Geometry
+  'G-0': [
+    ['2.25 km','2250 m','2.25 kilometres','2.25 kilometers'],
+    ['150 m²','150 sq m','150 square metres','150'],
+    ['6×10','6 cm × 10 cm','60 cm²','6 by 10'],
+  ],
+  'G-1': [
+    ['no','triangle inequality','no impossible','not possible'],
+    ['yes unique','yes','unique','one triangle'],
+    ['1','one','exactly one','unique'],
+  ],
+  'G-2': [
+    ['44 cm','44'],
+    ['113.04 m²','113 m²','113.04','113'],
+    ['15 cm','15','15cm'],
+  ],
+  'G-3': [
+    ['40° and 140°','40 and 140','40,140'],
+    ['x=12','x = 12','51°','12'],
+    ['x=45','45','x = 45'],
+  ],
+  'G-4': [
+    ['68 m²','68','68 sq m'],
+    ['93.76 cm²','94 cm²','93.76','94'],
+    ['perimeter calculation','depends on shape','add all sides'],
+  ],
+  'G-5': [
+    ['1520 cm²','1520','1520 sq cm'],
+    ['132 cm²','132'],
+    ['150 cm²','150','150 sq cm'],
+  ],
+  'G-6': [
+    ['240 cm³','240'],
+    ['240 cm³','240'],
+    ['108 cm³','108'],
+  ],
+  'G-7': [
+    ['circle','a circle'],
+    ['rectangle','a rectangle','square'],
+    ['triangle','isosceles triangle'],
+  ],
+  // Statistics & Probability
+  'SP-0': [
+    ['no','no biased','biased','not good'],
+    ['only friends','only one group','convenience sample','example given'],
+    ['yes','yes random','random','yes it is'],
+  ],
+  'SP-1': [
+    ['150','150 students'],
+    ['variation','sampling variability','different samples differ','around 35%'],
+    ['800 kg','800','approximately 800'],
+  ],
+  'SP-2': [
+    ['class a higher','a higher','class a is higher','a > b','classes a higher'],
+    ['group a','a','group a is','a more consistent'],
+    ['mad=2.4','2.4','mad is 2.4'],
+  ],
+  'SP-3': [
+    ['3/10','0.3','30%'],
+    ['1/2','0.5','50%','one half'],
+    ['0.65','65%','13/20'],
+  ],
+  'SP-4': [
+    ['0.48','48/100','48%','12/25'],
+    ['gets closer','converges','approaches 1/6','more accurate'],
+    ['draw cards record','simulation with deck','design experiment'],
+  ],
+  'SP-5': [
+    ['1/4','0.25','25%'],
+    ['0.4','40%','2/5'],
+    ['valid model','any model summing to 1','example given'],
+  ],
+  'SP-6': [
+    ['1/12','0.083','8.3%'],
+    ['1/36','0.028','2.8%'],
+    ['3/10','0.3','30%','6/20'],
+  ],
+  'SP-7': [
+    ['36','thirty six','6/36','1/6'],
+    ['0.12','12%','3/25'],
+    ['3/8','0.375','37.5%'],
+  ],
+};
+
+/* answer-matching utility */
+function normaliseAns(s){
+  return String(s||'').toLowerCase().trim()
+    .replace(/\s+/g,' ')
+    .replace(/[$°]/g,'')
+    .replace(/\s*=\s*/g,'=')
+    .replace(/\s*\/\s*/g,'/');
+}
+function checkAnswer(userAns, acceptable){
+  if(!userAns || !userAns.trim()) return false;
+  if(!acceptable) return false;
+  const u = normaliseAns(userAns);
+  return acceptable.some(a => {
+    const norm = normaliseAns(a);
+    // exact match OR student answer contains the key answer (handles "I think it's 9 hours")
+    return u === norm || u.includes(norm) || (norm.includes(u) && u.length >= 2);
+  });
+}
+
+/* ═══════════ STATE ═══════════ */
 let currentGrade = 7;
 let showTimer = null, hideTimer = null;
 let currentModalData = null;
@@ -917,7 +1239,6 @@ function switchGrade(g){
     document.querySelector('.sec-hdr').style.display = '';
     document.getElementById('emptyState') && document.getElementById('emptyState').remove();
     document.querySelector('.hero h1').innerHTML = 'Grade 7 <span class="grad">Learning Outcomes</span>';
-    document.querySelector('.hero-sub').textContent = 'Every standard your child masters this year. Hover any outcome to preview a worksheet. Click to open it.';
   } else {
     // empty state for other grades
     document.getElementById('accList').style.display = 'none';
@@ -925,7 +1246,6 @@ function switchGrade(g){
     document.querySelector('.sec-hdr').style.display = 'none';
     document.getElementById('emptyState') && document.getElementById('emptyState').remove();
     document.querySelector('.hero h1').innerHTML = `Grade ${g} <span class="grad">Learning Outcomes</span>`;
-    document.querySelector('.hero-sub').textContent = `Grade ${g} curriculum is coming soon. Check back shortly!`;
     const empty = document.createElement('div');
     empty.id = 'emptyState';
     empty.style.cssText = 'text-align:center;padding:60px 24px;color:var(--ink4);';
@@ -1003,9 +1323,21 @@ function buildAccordion(){
       <div class="dom-right">
         <span class="dom-code" style="color:${d.c};background:${d.cl};border-color:${d.cb}">${d.code}</span>
         <span class="dom-count">${d.outcomes.length} outcomes</span>
+        <button class="dom-ws-btn" data-did="${d.id}" style="color:${d.c};background:${d.cl};border-color:${d.cb};">
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><rect x="0.5" y="0.5" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3"/><line x1="2.5" y1="3.2" x2="8.5" y2="3.2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="2.5" y1="5.5" x2="8.5" y2="5.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="2.5" y1="7.8" x2="6.5" y2="7.8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+          Worksheet
+        </button>
         <div class="dom-chev"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="2,3 5,7 8,3"/></svg></div>
       </div>`;
-    hdr.onclick=()=>toggleDomain(d.id);
+    hdr.onclick=(e)=>{ if(!e.target.closest('.dom-ws-btn')) toggleDomain(d.id); };
+
+    // Worksheet button on domain header — hover for preview, click to open modal
+    const wsBtn = hdr.querySelector('.dom-ws-btn');
+    wsBtn.addEventListener('mouseenter', e=>{ clearTimeout(hideTimer); showDomainTooltip(e,d); });
+    wsBtn.addEventListener('mousemove', e=>positionTooltip(e));
+    wsBtn.addEventListener('mouseleave', ()=>startHideTimer());
+    wsBtn.addEventListener('click', e=>{ e.stopPropagation(); openDomainWorksheet(d); });
+
     const body=document.createElement('div');body.className='dom-body';body.id='body-'+d.id;
     const inner=document.createElement('div');inner.className='dom-body-inner';inner.id='inner-'+d.id;
     const sep=document.createElement('div');sep.className='dom-sep';inner.appendChild(sep);
@@ -1016,16 +1348,9 @@ function buildAccordion(){
       num.textContent=String(oi+1).padStart(2,'0');num.style.cssText=`background:${d.cl};color:${d.c};`;
       const title=document.createElement('span');title.className='oc-title';title.textContent=o.t;
       left.appendChild(num);left.appendChild(title);
-      const wsTrig=document.createElement('span');wsTrig.className='oc-preview-trigger';
-      wsTrig.innerHTML=`<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><rect x="0.5" y="0.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><line x1="2.5" y1="3" x2="7.5" y2="3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="2.5" y1="5" x2="7.5" y2="5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="2.5" y1="7" x2="5.5" y2="7" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>Worksheet`;
-      // FIXED: show tooltip on trigger hover too, with its own mouse tracking
-      wsTrig.addEventListener('mouseenter', e=>{ clearTimeout(hideTimer); showTooltip(e,d,o,oi); });
-      wsTrig.addEventListener('mousemove', e=>positionTooltip(e));
-      wsTrig.addEventListener('mouseleave', ()=>startHideTimer());
-      wsTrig.addEventListener('click', e=>{e.stopPropagation();openModal(d,o,oi);});
       const tog=document.createElement('div');tog.className='oc-toggle';
-      row.appendChild(left);row.appendChild(wsTrig);row.appendChild(tog);
-      // FIXED: show tooltip after delay on row hover
+      row.appendChild(left);row.appendChild(tog);
+      // Show sample-questions tooltip on row hover (no worksheet button)
       row.addEventListener('mouseenter', e=>{if(!row.classList.contains('is-open'))startShowTimer(e,d,o,oi);});
       row.addEventListener('mousemove', e=>positionTooltip(e));
       row.addEventListener('mouseleave', ()=>startHideTimer());
@@ -1083,6 +1408,7 @@ function startShowTimer(e,d,o,oi){
   showTimer=setTimeout(()=>showTooltip(e,d,o,oi),380);
 }
 
+// Outcome row hover — shows sample questions only (no CTA)
 function showTooltip(e,d,o,oi){
   clearTimeout(hideTimer);
   const tip=document.getElementById('wsTooltip');
@@ -1091,14 +1417,43 @@ function showTooltip(e,d,o,oi){
   document.getElementById('wsTipTitle').textContent=o.t;
   document.getElementById('wsTipTitle').style.color=d.c;
   document.getElementById('wsTipSub').textContent=d.code+' · '+d.name;
+  document.getElementById('wsTipPreviewLabel').textContent='Sample questions';
   const qsEl=document.getElementById('wsTipQs');
-  qsEl.innerHTML=o.qs.slice(0,2).map((q,i)=>`<div class="ws-q"><span class="ws-q-num">${i+1}.</span><span>${q}</span></div>`).join('');
-  const cta=document.getElementById('wsTipCta');
-  cta.style.color=d.c;cta.style.background=d.cl;cta.style.borderTopColor=d.cb;
-  cta.onclick=()=>openModal(d,o,0);
+  qsEl.innerHTML=o.qs.slice(0,3).map((q,i)=>`<div class="ws-q"><span class="ws-q-num">${i+1}.</span><span>${q}</span></div>`).join('');
+  // Hide CTA on outcome-row preview
+  document.getElementById('wsTipCta').style.display='none';
   positionTooltip(e);
   tip.classList.add('visible');
-  // FIXED: tooltip itself keeps it open while mouse is over it
+  tip.onmouseenter=()=>clearTimeout(hideTimer);
+  tip.onmouseleave=()=>startHideTimer();
+}
+
+// Domain header worksheet button hover — shows preview of cross-outcome questions + CTA
+function showDomainTooltip(e,d){
+  clearTimeout(hideTimer);
+  const tip=document.getElementById('wsTooltip');
+  document.getElementById('wsTipIcon').textContent=d.icon;
+  document.getElementById('wsTipIcon').style.cssText=`background:${d.cl};color:${d.c};`;
+  document.getElementById('wsTipTitle').textContent=d.name+' Worksheet';
+  document.getElementById('wsTipTitle').style.color=d.c;
+  document.getElementById('wsTipSub').textContent=d.code+' · '+d.outcomes.length+' skills covered';
+  document.getElementById('wsTipPreviewLabel').textContent=`Sample — ${d.outcomes.length} questions across all skills`;
+  const qsEl=document.getElementById('wsTipQs');
+  // Pick one preview question from each outcome, prefix with skill number
+  const preview = d.outcomes.slice(0,3).map((o,oi)=>{
+    return `<div class="ws-q"><span class="ws-q-num" style="color:${d.c};">${String(oi+1).padStart(2,'0')}</span><span><strong style="color:var(--ink);font-size:10.5px;display:block;margin-bottom:2px;">${o.t}</strong>${o.qs[0]}</span></div>`;
+  }).join('');
+  const more = d.outcomes.length > 3
+    ? `<div style="font-size:10px;color:var(--ink4);text-align:center;padding:6px 0 2px;font-weight:600;">+ ${d.outcomes.length-3} more skill${d.outcomes.length-3===1?'':'s'} in the full worksheet</div>`
+    : '';
+  qsEl.innerHTML = preview + more;
+  // Show CTA — opens the domain-wide worksheet
+  const cta = document.getElementById('wsTipCta');
+  cta.style.display='flex';
+  cta.style.color=d.c;cta.style.background=d.cl;cta.style.borderTopColor=d.cb;
+  cta.onclick=()=>openDomainWorksheet(d);
+  positionTooltip(e);
+  tip.classList.add('visible');
   tip.onmouseenter=()=>clearTimeout(hideTimer);
   tip.onmouseleave=()=>startHideTimer();
 }
@@ -1122,12 +1477,42 @@ function startHideTimer(){
   },200);
 }
 
+/* ═══════════ DOMAIN WORKSHEET ═══════════ */
+// Build a synthetic outcome containing one question from each sub-skill
+function openDomainWorksheet(d){
+  // Pick first question from each outcome and build aggregated lists
+  const aggregatedQs = d.outcomes.map(o => o.qs[0]);
+  const aggregatedSkillTitles = d.outcomes.map(o => o.t);
+  const aggregatedTags = [...new Set(d.outcomes.flatMap(o => o.tags))].slice(0,8);
+  const aggregatedSkills = d.outcomes.map((o,i) => `Outcome ${String(i+1).padStart(2,'0')} · ${o.t}`);
+
+  const combinedAnswerKey = d.outcomes.map((o,oi) => {
+    const k = ANSWERS[`${d.id}-${oi}`];
+    return k && k[0] ? k[0] : [];
+  });
+
+  const synth = {
+    t: `${d.name} — Full Worksheet`,
+    d: `A mixed-skill worksheet covering all ${d.outcomes.length} outcomes in ${d.code}: ${d.name}. One question is given from each sub-skill so you can practise the full domain in one go.`,
+    tags: aggregatedTags,
+    skills: aggregatedSkills,
+    qs: aggregatedQs,
+    skillTitles: aggregatedSkillTitles,  // used in worksheet rendering
+    isDomain: true,
+    domainAnswerKey: combinedAnswerKey,
+  };
+  openModal(d, synth, -1);
+}
+
 /* ═══════════ MODAL — MODE CHOICE + ONLINE ANSWERING ═══════════ */
 
 function openModal(d,o,oi){
   clearTimeout(hideTimer);
   document.getElementById('wsTooltip').classList.remove('visible');
-  currentModalData = {d,o,oi};
+  // For domain worksheets oi = -1 and the answer key is on the synthetic outcome itself
+  const outcomeIdx = (oi === -1) ? -1 : d.outcomes.indexOf(o);
+  const key = outcomeIdx === -1 ? null : `${d.id}-${outcomeIdx}`;
+  currentModalData = {d, o, oi, key};
 
   document.getElementById('mIcon').textContent=d.icon;
   document.getElementById('mIcon').style.cssText=`background:${d.cl};color:${d.c};`;
@@ -1153,7 +1538,7 @@ function showModeScreen(d,o){
         <div class="mode-card-icon" style="background:${d.cl}">✏️</div>
         <div class="mode-card-body">
           <div class="mode-card-title">Answer Online</div>
-          <div class="mode-card-desc">Type your answers directly in the browser. Get instant progress tracking as you complete each question.</div>
+          <div class="mode-card-desc">Type your answers and get instant feedback. We'll mark your work and show your mastery level.</div>
         </div>
         <svg class="mode-card-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,4 12,9 6,14"/></svg>
       </div>
@@ -1183,9 +1568,15 @@ function startOnlineWorksheet(){
       </div>
       <div class="ws-intro">${o.d}</div>
       <div class="ws-section-lbl">Practice Questions</div>
-      ${o.qs.map((q,i)=>`
+      ${o.qs.map((q,i)=>{
+        // For domain worksheets, prefix with the skill title
+        const skillLine = (o.isDomain && o.skillTitles && o.skillTitles[i])
+          ? `<div class="ws-q-skill" style="color:${d.c};">${o.skillTitles[i]}</div>`
+          : '';
+        return `
         <div class="ws-question" id="wq${i}">
           <div class="ws-q-label" style="color:${d.c}">Question ${i+1} of ${o.qs.length}</div>
+          ${skillLine}
           <div class="ws-q-text">${q}</div>
           <textarea
             class="ws-q-textarea"
@@ -1194,7 +1585,8 @@ function startOnlineWorksheet(){
             oninput="onAnswerInput(${i}, ${o.qs.length})"
             id="wqa${i}"
           ></textarea>
-        </div>`).join('')}
+        </div>`;
+      }).join('')}
     </div>`;
 }
 
@@ -1219,38 +1611,162 @@ function updateProgress(filled,total){
 }
 
 function submitWorksheet(){
-  const {d,o} = currentModalData;
-  // collect answers
-  const answers = o.qs.map((_,i)=>{
-    const t=document.getElementById('wqa'+i);
-    return t ? t.value.trim() : '';
+  const {d, o, key} = currentModalData;
+  const total = o.qs.length;
+
+  // Get answer key — either per-outcome or per-question for domain mode
+  const getAcceptable = (i) => {
+    if(o.isDomain && o.domainAnswerKey){
+      return o.domainAnswerKey[i] || [];
+    }
+    const ak = ANSWERS[key] || [];
+    return ak[i] || [];
+  };
+
+  // grade each question
+  const results = o.qs.map((q, i)=>{
+    const ta = document.getElementById('wqa'+i);
+    const userAns = ta ? ta.value.trim() : '';
+    const acceptable = getAcceptable(i);
+    let status;
+    if(!userAns) status = 'skipped';
+    else if(checkAnswer(userAns, acceptable)) status = 'correct';
+    else status = 'incorrect';
+    const skillLabel = o.isDomain && o.skillTitles ? o.skillTitles[i] : null;
+    return {q, userAns, acceptable, status, i, skillLabel};
   });
-  const filled = answers.filter(a=>a.length>0).length;
-  document.getElementById('wsProgressFill').style.width='100%';
+
+  const correct = results.filter(r=>r.status==='correct').length;
+  const incorrect = results.filter(r=>r.status==='incorrect').length;
+  const skipped = results.filter(r=>r.status==='skipped').length;
+  const pct = Math.round((correct/total)*100);
+
+  // mastery tier
+  let tier, tierLabel, tierColor, tierBg, tierMsg, scoreColor, emoji;
+  if(pct >= 80){
+    tier = 'mastered';
+    tierLabel = 'Mastered';
+    tierColor = '#5a8a0a';
+    tierBg = 'rgba(176,235,51,0.18)';
+    scoreColor = 'linear-gradient(135deg,#B0EB33,#5a8a0a)';
+    tierMsg = "You've mastered this skill — fantastic work! Ready to tackle the next outcome?";
+    emoji = '🎉';
+  } else if(pct >= 50){
+    tier = 'know';
+    tierLabel = 'Know the topic';
+    tierColor = '#7058FF';
+    tierBg = 'rgba(112,88,255,0.14)';
+    scoreColor = 'linear-gradient(135deg,#7058FF,#FF4F84)';
+    tierMsg = "You've got the basics down. A little more practice will get you to mastery.";
+    emoji = '💪';
+  } else {
+    tier = 'practice';
+    tierLabel = 'Keep practising';
+    tierColor = '#FF6635';
+    tierBg = 'rgba(255,102,53,0.14)';
+    scoreColor = 'linear-gradient(135deg,#FFA41C,#FF6635)';
+    tierMsg = "This one needs a bit more work. Review the outcome description and try again — you've got this!";
+    emoji = '🌱';
+  }
+
+  // hide footer + progress
   document.getElementById('wsFooter').style.display='none';
   document.getElementById('wsProgressBar').style.display='none';
-  document.getElementById('mBody').innerHTML=`
-    <div class="done-screen">
-      <div class="done-icon">🎉</div>
-      <div class="done-title">Worksheet complete!</div>
-      <div class="done-sub">You answered ${filled} of ${o.qs.length} questions for <strong>${o.t}</strong>. Great work!</div>
-      <button class="done-btn" onclick="closeModalDirect()">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Done
-      </button>
+
+  // build review markup
+  const reviewMarkup = results.map(r => {
+    const userText = r.userAns || '<em style="color:var(--ink4);font-style:italic;">No answer given</em>';
+    const keyText  = r.acceptable.length ? r.acceptable[0] : '—';
+    const statusClass = r.status;
+    const statusLabel = r.status==='correct' ? '✓ Correct' : r.status==='incorrect' ? '✗ Try again' : '— Skipped';
+    const skillLine = r.skillLabel ? `<div style="font-size:10px;font-weight:700;color:${d.c};margin-bottom:4px;">${r.skillLabel}</div>` : '';
+    return `
+      <div class="review-q">
+        <div class="review-q-head">
+          <span class="review-q-num">${String(r.i+1).padStart(2,'0')}</span>
+          <div style="flex:1;">
+            ${skillLine}
+            <span class="review-q-text">${r.q}</span>
+          </div>
+          <span class="review-status ${statusClass}">${statusLabel}</span>
+        </div>
+        <div class="review-answers">
+          <div class="review-ans-block">
+            <div class="review-ans-lbl">Your answer</div>
+            <div class="review-ans-txt">${userText}</div>
+          </div>
+          <div class="review-ans-block correct-key">
+            <div class="review-ans-lbl" style="color:#5a8a0a;">Sample answer</div>
+            <div class="review-ans-txt">${keyText}</div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('mBody').innerHTML = `
+    <div class="results-screen">
+      <div class="results-headline">
+        <div class="results-emoji">${emoji}</div>
+        <div class="results-title">${tier==='mastered' ? 'Excellent work!' : tier==='know' ? 'Good job!' : 'Nice effort!'}</div>
+        <div class="results-sub">Here's how you did on <strong>${o.t}</strong></div>
+      </div>
+
+      <div class="score-card">
+        <div class="score-circle" style="background:${scoreColor};">${correct}/${total}</div>
+        <div class="score-info">
+          <div class="score-fraction">${correct}<span class="score-fraction-total">/${total} correct</span></div>
+          <div class="score-label">${incorrect>0 ? incorrect+' incorrect · ' : ''}${skipped>0 ? skipped+' skipped' : (incorrect===0?'Perfect!':'')}</div>
+        </div>
+      </div>
+
+      <div class="mastery-bar-wrap">
+        <div class="mastery-row">
+          <span class="mastery-label">Mastery level</span>
+          <span class="mastery-pill" style="background:${tierBg};color:${tierColor};">${tierLabel}</span>
+        </div>
+        <div class="mastery-track">
+          <div class="mastery-fill" id="masteryFill" style="background:${scoreColor};"></div>
+        </div>
+        <div class="mastery-segments">
+          <span>Practising</span>
+          <span>Knows it</span>
+          <span>Mastered</span>
+        </div>
+        <div class="mastery-msg">${tierMsg}</div>
+      </div>
+
+      <div class="ws-section-lbl">Question review</div>
+      <div class="review-section">${reviewMarkup}</div>
+
+      <div class="result-actions">
+        <button class="result-btn" onclick="startOnlineWorksheet()">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="2,6 5,3 5,5 9,5 9,7 5,7 5,9"/></svg>
+          Try again
+        </button>
+        <button class="result-btn primary" onclick="closeModalDirect()">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Done
+        </button>
+      </div>
     </div>`;
+
+  // animate the mastery bar
+  setTimeout(()=>{
+    const fill = document.getElementById('masteryFill');
+    if(fill) fill.style.width = pct+'%';
+  }, 250);
 }
 
 function downloadPDF(){
   const {d,o} = currentModalData;
-  // generate a simple printable page in a new tab
   const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"/><title>${o.t} — Worksheet</title>
   <style>body{font-family:Arial,sans-serif;max-width:680px;margin:40px auto;color:#1a1a2e;line-height:1.6;}
   h1{font-size:20px;margin-bottom:4px;color:#0F1574;}
   .meta{font-size:12px;color:#878AB9;margin-bottom:24px;}
   .intro{font-size:13px;color:#575863;margin-bottom:20px;padding:12px;background:#f9f9fc;border-radius:8px;border-left:3px solid ${d.c};}
   .q{margin-bottom:20px;padding:14px;border:1px solid #e0e0f0;border-radius:8px;}
-  .q-num{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:${d.c};margin-bottom:6px;}
+  .q-num{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:${d.c};margin-bottom:4px;}
+  .q-skill{font-size:11px;font-weight:700;color:${d.c};margin-bottom:6px;}
   .q-text{font-size:14px;font-weight:500;margin-bottom:10px;}
   .answer-box{border:1px dashed #ccc;border-radius:6px;height:80px;margin-top:8px;}
   @media print{body{margin:20px;}}</style>
@@ -1258,7 +1774,10 @@ function downloadPDF(){
   <h1>${o.t}</h1>
   <div class="meta">${d.code} · ${d.name} &nbsp;|&nbsp; Strive Math Grade 7</div>
   <div class="intro">${o.d}</div>
-  ${o.qs.map((q,i)=>`<div class="q"><div class="q-num">Question ${i+1}</div><div class="q-text">${q}</div><div class="answer-box"></div></div>`).join('')}
+  ${o.qs.map((q,i)=>{
+    const skill = (o.isDomain && o.skillTitles && o.skillTitles[i]) ? `<div class="q-skill">${o.skillTitles[i]}</div>` : '';
+    return `<div class="q"><div class="q-num">Question ${i+1}</div>${skill}<div class="q-text">${q}</div><div class="answer-box"></div></div>`;
+  }).join('')}
   <script>window.print();</scr`+'ipt></body></html>';
   const w=window.open('','_blank');
   w.document.write(html);w.document.close();
