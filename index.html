@@ -1634,23 +1634,22 @@ function showTooltip(e,d,o,oi,row){
   tip.onmouseleave=()=>startHideTimer();
 }
 
-// Show tooltip as a dropdown below the hovered row, anchored to its right side
+// Tooltip sits in a CONSISTENT column for all rows in a card:
+// right-aligned with the row's right edge (just left of the toggle),
+// and vertically centered on whichever row is hovered.
 function positionTooltipForRow(row){
   const tip=document.getElementById('wsTooltip');
   const rect = row.getBoundingClientRect();
   const tw = 320;
-  // Anchor right edge of tooltip to right edge of row
-  let x = rect.right - tw;
-  let y = rect.bottom + 6;
-  // Horizontal clamps
-  if(x + tw > window.innerWidth - 16) x = window.innerWidth - tw - 16;
+  // Right-align tooltip with the row's right edge, with a small gap so it doesn't cover the toggle
+  let x = rect.right - tw - 12;
   if(x < 16) x = 16;
-  // Vertical: if there's no room below, place above
+  if(x + tw > window.innerWidth - 16) x = window.innerWidth - tw - 16;
+  // Vertical: center on the hovered row
   const th = tip.offsetHeight || 280;
-  if(y + th > window.innerHeight - 10){
-    y = rect.top - th - 6;
-    if(y < 10) y = 10;
-  }
+  let y = rect.top + rect.height/2 - th/2;
+  if(y < 10) y = 10;
+  if(y + th > window.innerHeight - 10) y = window.innerHeight - th - 10;
   tip.style.left = x + 'px';
   tip.style.top  = y + 'px';
 }
