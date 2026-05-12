@@ -1497,12 +1497,9 @@ function buildAccordion(){
     const sep=document.createElement('div');sep.className='dom-sep';inner.appendChild(sep);
     d.outcomes.forEach((o,oi)=>{
       const row=document.createElement('div');row.className='oc-row';row.id=`row-${d.id}-${oi}`;
-      // LEFT: number + code + title
+      // LEFT: CCSS code + title
       const left=document.createElement('div');left.className='oc-row-left';
-      const num=document.createElement('span');num.className='oc-num';
-      num.textContent=String(oi+1).padStart(2,'0');num.style.cssText=`background:${d.cl};color:${d.c};`;
-      left.appendChild(num);
-      // CCSS code badge (e.g. "7.NS.A.1") right after the number
+      // CCSS code badge (e.g. "7.NS.A.1")
       if(o.code){
         const codeEl=document.createElement('span');
         codeEl.className='oc-row-code';
