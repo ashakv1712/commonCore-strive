@@ -333,6 +333,20 @@ body::after{
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
   letter-spacing:0;
 }
+/* CCSS code badge next to outcome (e.g. "7.NS.A.1") */
+.oc-row-code{
+  font-family:var(--mono);
+  font-size:clamp(10px, 0.78vw, 12.5px);
+  font-weight:700;
+  padding:3px 9px;
+  border-radius:5px;
+  border:1.5px solid;
+  letter-spacing:0.04em;
+  white-space:nowrap;
+  flex-shrink:0;
+  transition:filter 0.15s;
+}
+.oc-row:hover .oc-row-code{filter:brightness(0.95);}
 .oc-title{
   font-size:clamp(13px, 0.95vw, 15.5px);
   font-weight:500;color:var(--ink2);line-height:1.4;
@@ -1474,11 +1488,8 @@ function buildAccordion(){
       </div>`;
     hdr.onclick=(e)=>{ if(!e.target.closest('.dom-ws-btn')) toggleDomain(d.id); };
 
-    // Diagnostic Test button on domain header — hover for preview, click to open worksheet modal
+    // Diagnostic Test button — click only (no hover tooltip so it stays clickable)
     const wsBtn = hdr.querySelector('.dom-ws-btn');
-    wsBtn.addEventListener('mouseenter', e=>{ clearTimeout(hideTimer); showDomainTooltip(e,d); });
-    wsBtn.addEventListener('mousemove', e=>positionTooltip(e));
-    wsBtn.addEventListener('mouseleave', ()=>startHideTimer());
     wsBtn.addEventListener('click', e=>{ e.stopPropagation(); openDomainWorksheet(d); });
 
     const body=document.createElement('div');body.className='dom-body';body.id='body-'+d.id;
@@ -1486,12 +1497,21 @@ function buildAccordion(){
     const sep=document.createElement('div');sep.className='dom-sep';inner.appendChild(sep);
     d.outcomes.forEach((o,oi)=>{
       const row=document.createElement('div');row.className='oc-row';row.id=`row-${d.id}-${oi}`;
-      // LEFT: number + title
+      // LEFT: number + code + title
       const left=document.createElement('div');left.className='oc-row-left';
       const num=document.createElement('span');num.className='oc-num';
       num.textContent=String(oi+1).padStart(2,'0');num.style.cssText=`background:${d.cl};color:${d.c};`;
+      left.appendChild(num);
+      // CCSS code badge (e.g. "7.NS.A.1") right after the number
+      if(o.code){
+        const codeEl=document.createElement('span');
+        codeEl.className='oc-row-code';
+        codeEl.textContent=o.code;
+        codeEl.style.cssText=`color:${d.c};background:${d.cl};border-color:${d.cb};`;
+        left.appendChild(codeEl);
+      }
       const title=document.createElement('span');title.className='oc-title';title.textContent=o.t;
-      left.appendChild(num);left.appendChild(title);
+      left.appendChild(title);
       // CENTER: math example pill
       const center=document.createElement('div');center.className='oc-row-center';
       if(o.ex){
@@ -1569,18 +1589,12 @@ function toggleRow(did,oi){
   row.classList.add('is-open');
   if(!det.querySelector('.oc-det-in')){
     const tags=o.tags.map(t=>`<span class="oc-tag" style="color:${d.c};background:${d.cl};border-color:${d.cb}">${t}</span>`).join('');
-    const ccssBadge = o.code
-      ? `<span class="oc-ccss-code" style="color:${d.c};background:${d.cl};border-color:${d.cb};">${o.code}</span>`
-      : '';
     const exBadge = o.ex
-      ? `<span class="oc-example" style="margin-left:0;">${o.ex}</span>`
+      ? `<div class="oc-ccss-row"><span class="oc-example" style="margin-left:0;">${o.ex}</span></div>`
       : '';
     det.innerHTML=`
       <div class="oc-det-in">
-        <div class="oc-ccss-row">
-          ${ccssBadge}
-          ${exBadge}
-        </div>
+        ${exBadge}
         <div class="oc-desc">${o.d}</div>
         <div class="oc-cols">
           <div>
@@ -1636,18 +1650,27 @@ function showTooltip(e,d,o,oi,row){
 
 // Tooltip sits in a CONSISTENT column for all rows in a card:
 // right-aligned with the row's right edge (just left of the toggle),
-// and vertically centered on whichever row is hovered.
+// vertically constrained to stay within the domain card's bounds.
 function positionTooltipForRow(row){
   const tip=document.getElementById('wsTooltip');
   const rect = row.getBoundingClientRect();
+  const card = row.closest('.dom-card');
+  const cardRect = card ? card.getBoundingClientRect() : rect;
   const tw = 320;
-  // Right-align tooltip with the row's right edge, with a small gap so it doesn't cover the toggle
+  // Right-align tooltip with the row's right edge, with a small gap before the toggle
   let x = rect.right - tw - 12;
   if(x < 16) x = 16;
   if(x + tw > window.innerWidth - 16) x = window.innerWidth - tw - 16;
-  // Vertical: center on the hovered row
+  // Vertical: start at the hovered row's top, but clamp WITHIN the card's bounds
   const th = tip.offsetHeight || 280;
-  let y = rect.top + rect.height/2 - th/2;
+  let y = rect.top;
+  // If tooltip would extend below the card, push it up so its bottom aligns with card bottom
+  if(y + th > cardRect.bottom - 8){
+    y = cardRect.bottom - th - 8;
+  }
+  // Never go above the card's top
+  if(y < cardRect.top + 8) y = cardRect.top + 8;
+  // Final viewport clamp (safety)
   if(y < 10) y = 10;
   if(y + th > window.innerHeight - 10) y = window.innerHeight - th - 10;
   tip.style.left = x + 'px';
