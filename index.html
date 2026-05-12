@@ -81,7 +81,7 @@ body::after{
 }
 
 /* ── page wrapper ── */
-.page{max-width:900px;margin:0 auto;padding:0 24px 100px;position:relative;z-index:1;}
+.page{max-width:none;width:100%;margin:0;padding:0 48px 100px;position:relative;z-index:1;}
 
 /* ══ NAV ══ */
 .nav{
@@ -89,8 +89,8 @@ body::after{
   background:rgba(250,250,250,0.92);
   backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
-  margin:0 -24px;
-  padding:0 24px;
+  margin:0 -48px;
+  padding:0 48px;
   display:flex;align-items:center;justify-content:space-between;
   height:58px;
 }
@@ -340,6 +340,117 @@ body::after{
   box-shadow:var(--sh-md);
 }
 
+/* ── math example pill next to outcome title ── */
+.oc-example{
+  display:inline-flex;align-items:center;
+  font-family:var(--mono);font-size:11px;font-weight:600;
+  color:var(--ink3);
+  background:rgba(15,21,116,0.04);
+  border:1px solid rgba(15,21,116,0.08);
+  border-radius:6px;
+  padding:2px 8px;
+  margin-left:10px;
+  letter-spacing:0;
+  white-space:nowrap;
+  flex-shrink:0;
+  transition:all 0.15s;
+}
+.oc-row:hover .oc-example{
+  background:rgba(15,21,116,0.07);
+  color:var(--navy);
+}
+.oc-row.is-open .oc-example{display:none;}
+
+/* ── CCSS code badge inside expanded view ── */
+.oc-ccss-row{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:10px;flex-wrap:wrap;
+}
+.oc-ccss-code{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:10px;font-weight:700;
+  padding:3px 9px;border-radius:5px;
+  border:1.5px solid;letter-spacing:0.04em;
+}
+.oc-ccss-code::before{
+  content:'CCSS';
+  font-size:8px;font-weight:700;letter-spacing:0.1em;
+  opacity:0.6;
+  padding-right:5px;border-right:1px solid currentColor;
+  border-right-color:rgba(0,0,0,0.12);
+}
+
+/* ── Unit Mastery Test button (bottom of each domain) ── */
+.unit-mastery-wrap{
+  padding:14px 20px 18px;
+  display:flex;justify-content:flex-end;
+  border-top:1px solid var(--border);
+  margin-top:6px;
+  background:rgba(15,21,116,0.012);
+}
+.unit-mastery-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--font);font-size:12px;font-weight:700;
+  letter-spacing:0.02em;
+  border:1.5px solid;
+  border-radius:var(--r-pill);
+  padding:8px 16px;
+  cursor:pointer;
+  transition:all 0.18s;
+  white-space:nowrap;
+  background:transparent;
+}
+.unit-mastery-btn:hover{
+  color:#fff !important;
+  transform:translateY(-1px);
+  box-shadow:var(--sh-md);
+}
+
+/* ── PDF placeholder ── */
+.oc-pdf-placeholder{
+  background:var(--white);
+  border:1.5px dashed var(--border-hover);
+  border-radius:var(--r-md);
+  padding:18px 16px;
+  display:flex;align-items:center;gap:14px;
+  min-height:130px;
+  transition:all 0.2s;
+}
+.oc-pdf-placeholder:hover{
+  border-color:var(--ink3);
+  background:rgba(255,255,255,0.6);
+}
+.oc-pdf-icon{
+  flex-shrink:0;
+  width:48px;height:60px;
+  border-radius:6px;
+  background:linear-gradient(135deg,rgba(15,21,116,0.06),rgba(15,21,116,0.02));
+  border:1.5px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.oc-pdf-icon::after{
+  content:'PDF';
+  font-family:var(--mono);font-size:9px;font-weight:900;
+  letter-spacing:0.05em;
+}
+.oc-pdf-icon-fold{
+  position:absolute;top:-1px;right:-1px;
+  width:13px;height:13px;
+  background:var(--bg);
+  border-left:1.5px solid var(--border);
+  border-bottom:1.5px solid var(--border);
+  border-radius:0 0 0 4px;
+}
+.oc-pdf-text{flex:1;min-width:0;}
+.oc-pdf-title{
+  font-size:12.5px;font-weight:700;color:var(--navy);
+  margin-bottom:3px;line-height:1.4;
+}
+.oc-pdf-desc{
+  font-size:11.5px;color:var(--ink3);line-height:1.55;
+}
+
 .oc-toggle{
   width:20px;height:20px;border-radius:5px;
   border:1px solid var(--border);background:rgba(15,21,116,0.03);
@@ -364,8 +475,8 @@ body::after{
   font-size:12.5px;color:var(--ink2);line-height:1.7;
   margin-bottom:12px;max-width:620px;
 }
-.oc-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-@media(max-width:580px){.oc-cols{grid-template-columns:1fr;}}
+.oc-cols{display:grid;grid-template-columns:1fr 1.4fr;gap:18px;align-items:start;}
+@media(max-width:780px){.oc-cols{grid-template-columns:1fr;}}
 .oc-col-lbl{
   font-size:8px;font-weight:700;letter-spacing:0.12em;
   text-transform:uppercase;color:var(--ink4);margin-bottom:6px;
@@ -810,15 +921,6 @@ body::after{
   <h1>Grade 7 <span class="grad">Learning Outcomes</span></h1>
 </section>
 
-<!-- FILTER -->
-<div class="filter-bar" id="filterBar"></div>
-
-<!-- SECTION LABEL -->
-<div class="sec-hdr">
-  <span class="sec-hdr-txt">Curriculum</span>
-  <div class="sec-hdr-line"></div>
-</div>
-
 <!-- ACCORDION -->
 <div class="acc-list" id="accList"></div>
 
@@ -884,23 +986,23 @@ const DS=[
    c:'#FF6635',cl:'rgba(255,102,53,0.10)',cb:'rgba(255,102,53,0.22)',
    stripe:'linear-gradient(90deg,#FFA41C,#FF6635)',
    outcomes:[
-    {t:'Compute unit rates with fractions',d:'Compute unit rates associated with ratios of fractions, including complex fractions, in real-world contexts such as speed, price, and density.',
+    {code:'7.RP.A.1',ex:'¾ ÷ ½ = ?',t:'Compute unit rates with fractions',d:'Compute unit rates associated with ratios of fractions, including complex fractions, in real-world contexts such as speed, price, and density.',
      tags:['Unit rate','Complex fractions','Real-world ratios','Speed & density'],
      skills:['Find unit rate from a ratio of fractions','Compute miles per hour with fractional values','Find price per unit with fractional quantities','Solve density problems with fractions','Compare unit rates to determine best value'],
      qs:['A car travels ¾ of a mile in ½ a minute. What is the speed in miles per minute?','A faucet drips ⅔ of a litre in ¼ of an hour. Find the leak rate in litres per hour.','A runner covers 2½ km in ⅗ of an hour. What is their speed in km/h?']},
-    {t:'Decide if two quantities are proportional',d:'Decide whether two quantities are in a proportional relationship by testing for equivalent ratios in a table and by graphing on a coordinate plane.',
+    {code:'7.RP.A.2a',ex:'Is (2,6),(4,12),(6,18) proportional?',t:'Decide if two quantities are proportional',d:'Decide whether two quantities are in a proportional relationship by testing for equivalent ratios in a table and by graphing on a coordinate plane.',
      tags:['Proportional relationship','Equivalent ratios','Graph test','Table test'],
      skills:['Test for equivalent ratios in a table','Check proportionality by graphing','Identify proportional vs non-proportional tables','Identify proportional vs non-proportional graphs','Explain why a relationship is or is not proportional'],
      qs:['Does the table show a proportional relationship? x: 2, 4, 6 | y: 6, 12, 18.','A graph passes through (0,2) and (3,8). Is it proportional? Explain.','Which table is proportional? Table A: (1,3),(2,6),(3,9) or Table B: (1,2),(2,5),(3,9)?']},
-    {t:'Identify the constant of proportionality',d:'Identify the constant of proportionality (unit rate) in tables, graphs, equations, diagrams, and verbal descriptions of proportional relationships.',
+    {code:'7.RP.A.2b',ex:'y = kx, point (4,10) → k = ?',t:'Identify the constant of proportionality',d:'Identify the constant of proportionality (unit rate) in tables, graphs, equations, diagrams, and verbal descriptions of proportional relationships.',
      tags:['Constant of proportionality','Unit rate','y = kx','Multiple representations'],
      skills:['Find k from a table','Find k from a graph','Find k from an equation y=kx','Find k from a diagram','Explain the meaning of (1,r)'],
      qs:['A graph of a proportional relationship passes through (4, 10). What is k?','The equation y = 3.5x represents a proportional relationship. What is the unit rate?','From the table: x=3, y=12 | x=5, y=20. Find k and write the equation.']},
-    {t:'Represent proportional relationships as equations',d:'Represent proportional relationships by equations of the form y=kx; explain what a point (x,y) means in context.',
+    {code:'7.RP.A.2c',ex:'Write y = kx for 2 cups : 12 cookies',t:'Represent proportional relationships as equations',d:'Represent proportional relationships by equations of the form y=kx; explain what a point (x,y) means in context.',
      tags:['Equation y=kx','Write equations','Interpret points'],
      skills:['Write y=kx from a table','Write y=kx from a graph','Write y=kx from a word problem','Interpret (1,k) in context','Predict values using y=kx'],
      qs:['A recipe needs 2 cups of flour per 12 cookies. Write y=kx. How much flour for 60 cookies?','A taxi charges $2.50 per mile. Write an equation and find the cost for 8 miles.','The table shows hours (x) and pay (y): (1,12.50),(2,25). Write the equation.']},
-    {t:'Solve multi-step ratio and percent problems',d:'Use proportional relationships to solve multistep ratio and percent problems involving simple interest, tax, markups, discounts, gratuities, percent change, and percent error.',
+    {code:'7.RP.A.3',ex:'$80 jacket, 25% off = ?',t:'Solve multi-step ratio and percent problems',d:'Use proportional relationships to solve multistep ratio and percent problems involving simple interest, tax, markups, discounts, gratuities, percent change, and percent error.',
      tags:['Percent','Simple interest','Tax','Discount','Percent change'],
      skills:['Calculate simple interest I=Prt','Calculate sales tax','Calculate tip and gratuity','Find percent increase','Find percent decrease','Calculate percent error'],
      qs:['A jacket costs $80. It is on sale for 25% off. Find the sale price.','Jake invests $1,200 at 4% simple interest for 3 years. How much does he earn?','A store buys shoes for $45 and marks them up 60%. What is the selling price?']},
@@ -909,19 +1011,19 @@ const DS=[
    c:'#7058FF',cl:'rgba(112,88,255,0.10)',cb:'rgba(112,88,255,0.22)',
    stripe:'linear-gradient(90deg,#7058FF,#FF4F84)',
    outcomes:[
-    {t:'Add and subtract rational numbers',d:'Apply and extend previous understanding of addition and subtraction to add and subtract rational numbers — integers, fractions, and decimals.',
+    {code:'7.NS.A.1',ex:'−14 + 27 = ?',t:'Add and subtract rational numbers',d:'Apply and extend previous understanding of addition and subtraction to add and subtract rational numbers — integers, fractions, and decimals.',
      tags:['Adding integers','Subtracting integers','Fractions','Number line'],
      skills:['Add two positive integers','Add two negative integers','Add integers with different signs','Subtract integers using p−q=p+(−q)','Add and subtract fractions (positive and negative)','Solve real-world problems'],
      qs:['Calculate: −14 + 27','Calculate: −3½ − (−1¼)','A submarine is at −45 m. It rises 18 m. What is the new depth?']},
-    {t:'Multiply and divide rational numbers',d:'Apply rules for multiplying and dividing rational numbers; understand that the product of two negatives is positive; convert to decimals.',
+    {code:'7.NS.A.2',ex:'(−6) × (−4) × 2 = ?',t:'Multiply and divide rational numbers',d:'Apply rules for multiplying and dividing rational numbers; understand that the product of two negatives is positive; convert to decimals.',
      tags:['Multiply integers','Divide integers','Sign rules','Rational to decimal'],
      skills:['Multiply two integers: same sign','Multiply two integers: different signs','Divide integers: same sign','Divide integers: different signs','Convert fraction to decimal'],
      qs:['Calculate: (−6) × (−4) × 2','Calculate: −3¾ ÷ 1½','The temperature drops 2.5°C each hour. What is the change after 6 hours?']},
-    {t:'Solve real-world problems with rational numbers',d:'Solve real-world and mathematical problems involving the four operations with rational numbers.',
+    {code:'7.NS.A.3',ex:'$240 − 3 × $65 = ?',t:'Solve real-world problems with rational numbers',d:'Solve real-world and mathematical problems involving the four operations with rational numbers.',
      tags:['Real-world','Four operations','Multi-step'],
      skills:['Multi-step problems with integers','Multi-step problems with fractions','Multi-step problems with decimals','Interpret negative results'],
      qs:['A bank account starts at $240. Three withdrawals of $65 each are made. What is the balance?','The temperature is −8°C. It rises 3.5°C per hour for 4 hours. What is the final temp?','A recipe serves 8 people and needs ¾ cup sugar. How much sugar for 5 people?']},
-    {t:'Properties of operations with rational numbers',d:'Understand and apply properties — commutative, associative, distributive, identity, inverse — to rational numbers efficiently.',
+    {code:'7.NS.A.1d',ex:'−3(2x − 5) = ?',t:'Properties of operations with rational numbers',d:'Understand and apply properties — commutative, associative, distributive, identity, inverse — to rational numbers efficiently.',
      tags:['Commutative','Associative','Distributive','Inverse'],
      skills:['Apply commutative property','Apply associative property','Apply distributive property with negatives','Use additive and multiplicative inverse'],
      qs:['Use the distributive property to simplify: −3(2x − 5)','Show that −½ + ½ = 0 and explain the property used.','Rewrite 4 × (−3 + 7) using the distributive property and evaluate.']},
@@ -930,27 +1032,27 @@ const DS=[
    c:'#FFA41C',cl:'rgba(255,164,28,0.10)',cb:'rgba(255,164,28,0.22)',
    stripe:'linear-gradient(90deg,#FFA41C,#FF6635)',
    outcomes:[
-    {t:'Apply properties to rewrite expressions',d:'Apply properties of operations to add, subtract, factor, and expand linear expressions with rational coefficients.',
+    {code:'7.EE.A.1',ex:'3x − 2y + 5x + 7y = ?',t:'Apply properties to rewrite expressions',d:'Apply properties of operations to add, subtract, factor, and expand linear expressions with rational coefficients.',
      tags:['Expand','Factor','Like terms','Rational coefficients'],
      skills:['Combine like terms with rational coefficients','Expand using the distributive property','Factor out a common factor','Simplify multi-step expressions'],
      qs:['Simplify: 3x − 2y + 5x + 7y','Expand and simplify: 4(2x − 3) − 2(x + 5)','Factor: 6x + 9']},
-    {t:'Understand equivalent expressions',d:'Understand that rewriting an expression in different forms can shed light on a problem — e.g. a + 0.05a = 1.05a.',
+    {code:'7.EE.A.2',ex:'a + 0.15a = ?',t:'Understand equivalent expressions',d:'Understand that rewriting an expression in different forms can shed light on a problem — e.g. a + 0.05a = 1.05a.',
      tags:['Equivalence','Meaningful forms','Substitution check'],
      skills:['Recognise equivalent forms','Explain what a simplified form reveals','Write a+0.05a=1.05a and explain','Check equivalence by substitution'],
      qs:['Explain why a + 0.15a = 1.15a. What does 1.15a represent?','Are 2(3x + 4) and 6x + 8 equivalent? Show how you know.','Rewrite the expression for "a price reduced by 20%" in two equivalent ways.']},
-    {t:'Solve multi-step real-life problems using equations',d:'Solve multi-step real-life problems posed with positive and negative rational numbers; estimate answers and assess reasonableness.',
+    {code:'7.EE.B.3',ex:'12.50x − 24 = 88',t:'Solve multi-step real-life problems using equations',d:'Solve multi-step real-life problems posed with positive and negative rational numbers; estimate answers and assess reasonableness.',
      tags:['Multi-step equations','Positive and negative rationals','Real-world','Reasonableness'],
      skills:['Solve two-step equations with integers','Solve two-step equations with rational numbers','Write an equation from a word problem','Assess reasonableness'],
      qs:['Aisha earns $12.50 per hour. After paying $24 for lunch, she has $88. How many hours did she work?','A number is doubled then decreased by 9. The result is 23. Find the number.','Maya has $150. She buys 3 books and has $36 left. Write and solve an equation.']},
-    {t:'Use variables to represent and solve problems',d:'Use variables to represent quantities; construct equations and inequalities to solve problems and interpret solutions in context.',
+    {code:'7.EE.B.4',ex:'2x + 3 = 17',t:'Use variables to represent and solve problems',d:'Use variables to represent quantities; construct equations and inequalities to solve problems and interpret solutions in context.',
      tags:['Define a variable','Construct equations','Inequalities','Interpret solutions'],
      skills:['Define a variable to represent an unknown','Write an equation from a scenario','Write an inequality from a scenario','Interpret the solution in context'],
      qs:['Let x = number of apples. Write an equation: "3 more than twice the number of apples is 17."','A bag weighs at most 22 kg. It contains books (2 kg each) and a 4 kg laptop. Write an inequality.','Write and solve: "5 less than 3 times a number equals 16."']},
-    {t:'Solve equations of the form px+q=r and p(x+q)=r',d:'Solve word problems leading to equations of the form px+q=r and p(x+q)=r, where p, q, and r are rational numbers.',
+    {code:'7.EE.B.4a',ex:'3x + 7 = 22 → x = ?',t:'Solve equations of the form px+q=r and p(x+q)=r',d:'Solve word problems leading to equations of the form px+q=r and p(x+q)=r, where p, q, and r are rational numbers.',
      tags:['px+q=r','p(x+q)=r','Two-step equations','Word problems'],
      skills:['Solve px+q=r (integer coefficients)','Solve px+q=r (rational coefficients)','Solve p(x+q)=r','Verify by substitution'],
      qs:['Solve: 3x + 7 = 22','Solve: 2(x − 4) = 14','Solve: ½x + 3 = 9']},
-    {t:'Solve inequalities and graph solution sets',d:'Solve word problems leading to inequalities of the form px+q>r or px+q<r; graph the solution set on a number line.',
+    {code:'7.EE.B.4b',ex:'2x + 3 > 11',t:'Solve inequalities and graph solution sets',d:'Solve word problems leading to inequalities of the form px+q>r or px+q<r; graph the solution set on a number line.',
      tags:['Linear inequalities','Graph solution set','Number line','Open/closed circles'],
      skills:['Solve px+q > r','Solve px+q < r and ≤ r','Graph on a number line','Write and solve an inequality from context'],
      qs:['Solve and graph: 2x + 3 > 11','Solve: 4x − 8 ≤ 12. Describe all solutions.','A cinema charges $6 per ticket. Write and solve an inequality for spending at most $30.']},
@@ -959,35 +1061,35 @@ const DS=[
    c:'#2C81ED',cl:'rgba(44,129,237,0.10)',cb:'rgba(44,129,237,0.22)',
    stripe:'linear-gradient(90deg,#2C81ED,#7058FF)',
    outcomes:[
-    {t:'Solve problems with scale drawings',d:'Solve problems involving scale drawings — compute actual lengths and areas from a scale, and reproduce a drawing at a different scale.',
+    {code:'7.G.A.1',ex:'Map scale 1 : 50,000; 4.5 cm = ?',t:'Solve problems with scale drawings',d:'Solve problems involving scale drawings — compute actual lengths and areas from a scale, and reproduce a drawing at a different scale.',
      tags:['Scale drawing','Scale factor','Actual measurements','Maps'],
      skills:['Find actual length from scale drawing','Find scale factor between drawings','Find area from a scale drawing','Reproduce figure at different scale'],
      qs:['A map has a scale of 1:50,000. Two towns are 4.5 cm apart. Find the real distance.','A floor plan is drawn at 1 cm = 2.5 m. The living room is 6 cm × 4 cm. Find the actual area.','Redraw a 3 cm × 5 cm rectangle at a scale factor of 2.']},
-    {t:'Draw geometric shapes with given conditions',d:'Draw triangles and other shapes with given conditions; identify whether exactly one, more than one, or no triangle can be formed.',
+    {code:'7.G.A.2',ex:'Sides 4, 7, 12 — triangle?',t:'Draw geometric shapes with given conditions',d:'Draw triangles and other shapes with given conditions; identify whether exactly one, more than one, or no triangle can be formed.',
      tags:['Triangle conditions','Unique triangle','Ambiguous case'],
      skills:['Draw triangle given 3 side lengths','Draw triangle given 2 sides and included angle','Identify unique/impossible/ambiguous cases'],
      qs:['Can a triangle be formed with sides 4 cm, 7 cm, and 12 cm? Explain.','Draw a triangle with angles 40°, 60°, 80°. Is it unique?','Two triangles share sides 5 cm and 8 cm with an angle of 90° between them. How many triangles can be drawn?']},
-    {t:'Circumference and area of circles',d:'Know the formulas for area and circumference of a circle; solve problems; give an informal derivation of the area formula.',
+    {code:'7.G.B.4',ex:'C = 2π × 7 = ?',t:'Circumference and area of circles',d:'Know the formulas for area and circumference of a circle; solve problems; give an informal derivation of the area formula.',
      tags:['Circumference C=2πr','Area A=πr²','π','Radius & diameter'],
      skills:['Find circumference given radius/diameter','Find area given radius/diameter','Find radius given circumference/area','Real-world circle problems'],
      qs:['Find the circumference of a circle with radius 7 cm. Use π = 22/7.','A circular pond has diameter 12 m. Find its area. Use π = 3.14.','A wheel travels 94.2 cm in one rotation. What is the radius? (Use π = 3.14)']},
-    {t:'Solve problems using angle relationships',d:'Use facts about supplementary, complementary, vertical, and adjacent angles to write and solve multi-step equations for unknown angles.',
+    {code:'7.G.B.5',ex:'2 supplementary ∠s, ratio 2 : 7',t:'Solve problems using angle relationships',d:'Use facts about supplementary, complementary, vertical, and adjacent angles to write and solve multi-step equations for unknown angles.',
      tags:['Supplementary','Complementary','Vertical angles','Equations'],
      skills:['Find unknown angle — supplementary','Find unknown angle — complementary','Find unknown angle — vertical','Multi-step angle equations'],
      qs:['Two supplementary angles are in ratio 2:7. Find each angle.','Vertical angles are given as (3x + 15)° and (5x − 9)°. Find x and each angle.','Three angles on a straight line are x°, 2x°, and 45°. Find x.']},
-    {t:'Area of composite 2D figures',d:'Solve real-world problems involving area and perimeter of two-dimensional figures composed of triangles, quadrilaterals, and polygons.',
+    {code:'7.G.B.6',ex:'L-shape: 10×8 − 3×4 = ?',t:'Area of composite 2D figures',d:'Solve real-world problems involving area and perimeter of two-dimensional figures composed of triangles, quadrilaterals, and polygons.',
      tags:['Composite figures','Area','Perimeter','Decompose shapes'],
      skills:['Decompose a composite figure','Find area of composite figure','Find area of shaded regions','Find perimeter of composite figure'],
      qs:['An L-shaped room is 10m × 8m with a 3m × 4m cut-out. Find the area.','A square of side 12 cm has a circle (r = 4 cm) cut from it. Find the shaded area.','Find the perimeter of a shape made by joining a 6×4 rectangle and a triangle with base 6 and height 3.']},
-    {t:'Surface area using nets',d:'Solve real-world problems involving surface area of three-dimensional figures using nets.',
+    {code:'7.G.B.6',ex:'SA = 2(lw + lh + wh)',t:'Surface area using nets',d:'Solve real-world problems involving surface area of three-dimensional figures using nets.',
      tags:['Surface area','Nets','Rectangular prism','Triangular prism'],
      skills:['Draw a net for a rectangular prism','Draw a net for a triangular prism','Find surface area from a net','Real-world packaging problems'],
      qs:['A cereal box is 30 cm × 8 cm × 20 cm. Find the total surface area.','A triangular prism has a right triangle base (3 cm, 4 cm, 5 cm) and length 10 cm. Find SA.','Draw the net for a cube with side length 5 cm and find its surface area.']},
-    {t:'Volume of prisms and pyramids',d:'Solve real-world problems involving volume of three-dimensional figures including prisms; extend to pyramids.',
+    {code:'7.G.B.6',ex:'V = l × w × h',t:'Volume of prisms and pyramids',d:'Solve real-world problems involving volume of three-dimensional figures including prisms; extend to pyramids.',
      tags:['Volume','Prisms','Pyramids','V=Bh'],
      skills:['Find volume of rectangular prism','Find volume of triangular prism','Find volume of rectangular pyramid','Compare prism and pyramid volume'],
      qs:['Find the volume of a rectangular prism: 8 cm × 5 cm × 6 cm.','A triangular prism has a base area of 24 cm² and height 10 cm. Find the volume.','A pyramid has a square base 6 cm × 6 cm and height 9 cm. Find the volume.']},
-    {t:'Describe cross-sections of 3D figures',d:'Describe the 2D shapes that result from slicing three-dimensional figures such as prisms, pyramids, cylinders, and cones.',
+    {code:'7.G.A.3',ex:'Cylinder ∥ to base → ?',t:'Describe cross-sections of 3D figures',d:'Describe the 2D shapes that result from slicing three-dimensional figures such as prisms, pyramids, cylinders, and cones.',
      tags:['Cross-section','3D solids','Slicing'],
      skills:['Identify cross-section of a prism','Identify cross-section of a pyramid','Identify cross-section of a cylinder','Sketch cross-section from description'],
      qs:['What shape is formed by slicing a cylinder parallel to its base?','A cube is sliced diagonally from one edge to the opposite edge. What shape is the cross-section?','Describe the cross-section formed by slicing a cone vertically through its apex.']},
@@ -996,35 +1098,35 @@ const DS=[
    c:'#FF4F84',cl:'rgba(255,79,132,0.10)',cb:'rgba(255,79,132,0.22)',
    stripe:'linear-gradient(90deg,#FF4F84,#7058FF)',
    outcomes:[
-    {t:'Understand statistical sampling',d:'Understand that statistics can be used to gain information about a population by examining a sample; random sampling gives representative results.',
+    {code:'7.SP.A.1',ex:'Random vs biased?',t:'Understand statistical sampling',d:'Understand that statistics can be used to gain information about a population by examining a sample; random sampling gives representative results.',
      tags:['Population','Sample','Random sampling','Bias'],
      skills:['Distinguish population from sample','Identify random vs non-random samples','Identify biased sampling methods','Critique a sampling method'],
      qs:['A school surveys 20 students from the same sports team about lunchtime preferences. Is this a good sample? Why?','Give an example of a biased sample and explain how to improve it.','A researcher randomly selects 50 names from a school roll of 600. Is this random sampling? Explain.']},
-    {t:'Draw inferences from random samples',d:'Use data from a random sample to draw inferences about a population; generate multiple samples and observe variation.',
+    {code:'7.SP.A.2',ex:'12 of 40 → 500 students → ?',t:'Draw inferences from random samples',d:'Use data from a random sample to draw inferences about a population; generate multiple samples and observe variation.',
      tags:['Inference','Sample proportion','Sampling variability'],
      skills:['Use sample proportion to estimate population','Generate multiple samples and compare','Identify reasonable vs unreasonable inferences'],
      qs:['In a sample of 40 students, 12 prefer science. Estimate how many students in a school of 500 prefer science.','Two samples of a bag of coloured counters give 30% and 40% red. What can you conclude?','A sample of 25 fish has mean length 18 cm. The lake has 2000 fish. Estimate total fish biomass if mean weight is 0.4 kg.']},
-    {t:'Compare two populations informally',d:'Informally assess the degree of visual overlap of two data distributions; use measures of centre and variability to compare populations.',
+    {code:'7.SP.B.3',ex:'Compare means: 80.6 vs 79',t:'Compare two populations informally',d:'Informally assess the degree of visual overlap of two data distributions; use measures of centre and variability to compare populations.',
      tags:['Compare distributions','Mean','Median','MAD','IQR','Box plots'],
      skills:['Compare centres (means or medians)','Compare variability (MAD or IQR)','Interpret overlap in dot plots','Interpret side-by-side box plots'],
      qs:['Class A test scores: 72, 80, 85, 90, 76. Class B: 65, 70, 88, 92, 80. Compare the means.','Two box plots show the IQR for Group A is 8 and Group B is 22. Which is more consistent?','Find the MAD for: 5, 7, 9, 11, 13. What does it tell you?']},
-    {t:'Understand probability fundamentals',d:'Understand that probability is a number between 0 and 1 expressing likelihood; interpret as long-run relative frequency.',
+    {code:'7.SP.C.5',ex:'3 red, 5 blue, 2 green → P(red)',t:'Understand probability fundamentals',d:'Understand that probability is a number between 0 and 1 expressing likelihood; interpret as long-run relative frequency.',
      tags:['Probability scale 0–1','Theoretical probability','Complementary events'],
      skills:['Place events on a 0–1 scale','Calculate theoretical probability P(E)','Identify complementary events','Compare experimental and theoretical probability'],
      qs:['A bag has 3 red, 5 blue, and 2 green marbles. Find P(red).','Roll a fair die. Find P(even number) and P(not even).','If P(rain) = 0.35, what is P(no rain)? Explain which property you used.']},
-    {t:'Approximate probability through experiments',d:'Approximate the probability of a chance event by collecting data; observe convergence to theoretical probability over many trials.',
+    {code:'7.SP.C.6',ex:'100 flips, 48 heads → P(H)',t:'Approximate probability through experiments',d:'Approximate the probability of a chance event by collecting data; observe convergence to theoretical probability over many trials.',
      tags:['Experiment','Relative frequency','Long-run','Simulation'],
      skills:['Design and conduct a probability experiment','Calculate relative frequency','Observe convergence to theoretical probability','Use technology to simulate trials'],
      qs:['A coin is tossed 100 times. Heads comes up 48 times. Find the experimental probability of heads.','How does the experimental probability of rolling a 6 change as you increase the number of rolls from 10 to 1000?','Design an experiment to estimate P(drawing an ace from a deck of cards).']},
-    {t:'Develop probability models',d:'Develop probability models (uniform and non-uniform) and use them to find probabilities; compare model predictions to observed frequencies.',
+    {code:'7.SP.C.7',ex:'Spinner 4 equal → P(blue)',t:'Develop probability models',d:'Develop probability models (uniform and non-uniform) and use them to find probabilities; compare model predictions to observed frequencies.',
      tags:['Uniform model','Non-uniform model','Sample space','Observed vs expected'],
      skills:['Assign probabilities using a uniform model','Assign probabilities using a non-uniform model','Find probability of simple events','Find probability of the complement'],
      qs:['A spinner has 4 equal sections (red, blue, green, yellow). Find P(blue).','A biased coin lands heads 60% of the time. Find P(tails) and P(2 heads in a row).','Design a non-uniform probability model for a spinner with sections of 40%, 30%, 20%, 10%.']},
-    {t:'Find probabilities of compound events',d:'Find probabilities of compound events using organised lists, tables, tree diagrams, and simulation.',
+    {code:'7.SP.C.8',ex:'Coin + die → P(H, 4)',t:'Find probabilities of compound events',d:'Find probabilities of compound events using organised lists, tables, tree diagrams, and simulation.',
      tags:['Compound events','Tree diagram','Sample space table','Simulation'],
      skills:['List outcomes of a compound event','Use a tree diagram','Use a sample space table','Find P(A and B) for independent events'],
      qs:['Draw a tree diagram for flipping a coin and rolling a die. Find P(Head and 4).','Using a sample space table, find P(two 5s when rolling two dice).','A bag has 2 red and 3 blue balls. Find P(red, then blue) if the first ball is not replaced.']},
-    {t:'Probability as fractions of outcomes',d:'Understand that the probability of a compound event is the fraction of outcomes in the sample space for which it occurs.',
+    {code:'7.SP.C.8b',ex:'P(A) × P(B), 0.4 × 0.3 = ?',t:'Probability as fractions of outcomes',d:'Understand that the probability of a compound event is the fraction of outcomes in the sample space for which it occurs.',
      tags:['Sample space fractions','P(A and B)','Independent events'],
      skills:['List complete sample space','Find P(A and B)','Find P(A or B) for mutually exclusive events','Apply P(A)×P(B) for independent events'],
      qs:['Two dice are rolled. How many outcomes are in the sample space? Find P(sum=7).','P(A)=0.4 and P(B)=0.3. If A and B are independent, find P(A and B).','Three coins are flipped. Write out the sample space and find P(exactly 2 heads).']},
@@ -1235,15 +1337,11 @@ function switchGrade(g){
   if(g === 7){
     // restore Grade 7 content
     document.getElementById('accList').style.display = '';
-    document.getElementById('filterBar').style.display = '';
-    document.querySelector('.sec-hdr').style.display = '';
     document.getElementById('emptyState') && document.getElementById('emptyState').remove();
     document.querySelector('.hero h1').innerHTML = 'Grade 7 <span class="grad">Learning Outcomes</span>';
   } else {
     // empty state for other grades
     document.getElementById('accList').style.display = 'none';
-    document.getElementById('filterBar').style.display = 'none';
-    document.querySelector('.sec-hdr').style.display = 'none';
     document.getElementById('emptyState') && document.getElementById('emptyState').remove();
     document.querySelector('.hero h1').innerHTML = `Grade ${g} <span class="grad">Learning Outcomes</span>`;
     const empty = document.createElement('div');
@@ -1324,14 +1422,14 @@ function buildAccordion(){
         <span class="dom-code" style="color:${d.c};background:${d.cl};border-color:${d.cb}">${d.code}</span>
         <span class="dom-count">${d.outcomes.length} outcomes</span>
         <button class="dom-ws-btn" data-did="${d.id}" style="color:${d.c};background:${d.cl};border-color:${d.cb};">
-          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><rect x="0.5" y="0.5" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3"/><line x1="2.5" y1="3.2" x2="8.5" y2="3.2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="2.5" y1="5.5" x2="8.5" y2="5.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="2.5" y1="7.8" x2="6.5" y2="7.8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
-          Worksheet
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 3h7M2 5.5h7M2 8h4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="8.5" cy="8" r="1.5" stroke="currentColor" stroke-width="1.1" fill="none"/></svg>
+          Diagnostic Test
         </button>
         <div class="dom-chev"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="2,3 5,7 8,3"/></svg></div>
       </div>`;
     hdr.onclick=(e)=>{ if(!e.target.closest('.dom-ws-btn')) toggleDomain(d.id); };
 
-    // Worksheet button on domain header — hover for preview, click to open modal
+    // Diagnostic Test button on domain header — hover for preview, click to open worksheet modal
     const wsBtn = hdr.querySelector('.dom-ws-btn');
     wsBtn.addEventListener('mouseenter', e=>{ clearTimeout(hideTimer); showDomainTooltip(e,d); });
     wsBtn.addEventListener('mousemove', e=>positionTooltip(e));
@@ -1348,16 +1446,46 @@ function buildAccordion(){
       num.textContent=String(oi+1).padStart(2,'0');num.style.cssText=`background:${d.cl};color:${d.c};`;
       const title=document.createElement('span');title.className='oc-title';title.textContent=o.t;
       left.appendChild(num);left.appendChild(title);
+      // Math example pill (e.g. "¾ ÷ ½ = ?")
+      if(o.ex){
+        const exEl=document.createElement('span');
+        exEl.className='oc-example';
+        exEl.textContent=o.ex;
+        left.appendChild(exEl);
+      }
       const tog=document.createElement('div');tog.className='oc-toggle';
       row.appendChild(left);row.appendChild(tog);
-      // Show sample-questions tooltip on row hover (no worksheet button)
-      row.addEventListener('mouseenter', e=>{if(!row.classList.contains('is-open'))startShowTimer(e,d,o,oi);});
-      row.addEventListener('mousemove', e=>positionTooltip(e));
+      // Show sample-questions tooltip on row hover (anchored to row, not cursor)
+      row.addEventListener('mouseenter', e=>{if(!row.classList.contains('is-open'))startShowTimer(e,d,o,oi,row);});
       row.addEventListener('mouseleave', ()=>startHideTimer());
       row.addEventListener('click', ()=>toggleRow(d.id,oi));
       const det=document.createElement('div');det.className='oc-det';det.id=`det-${d.id}-${oi}`;
       inner.appendChild(row);inner.appendChild(det);
     });
+
+    // Unit Mastery Test button (bottom of each domain)
+    const masteryWrap=document.createElement('div');
+    masteryWrap.className='unit-mastery-wrap';
+    masteryWrap.innerHTML=`
+      <button class="unit-mastery-btn" style="color:${d.c};border-color:${d.cb};background:${d.cl};">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 1.5l1.6 3.2 3.5.5-2.5 2.5.6 3.5L6.5 9.5l-3.2 1.7.6-3.5L1.4 5.2l3.5-.5z"/></svg>
+        Unit Mastery Test
+      </button>`;
+    const masteryBtn=masteryWrap.querySelector('.unit-mastery-btn');
+    masteryBtn.addEventListener('mouseenter', ()=>{
+      masteryBtn.style.background = d.c;
+      masteryBtn.style.color = '#fff';
+    });
+    masteryBtn.addEventListener('mouseleave', ()=>{
+      masteryBtn.style.background = d.cl;
+      masteryBtn.style.color = d.c;
+    });
+    masteryBtn.addEventListener('click', e=>{
+      e.stopPropagation();
+      window.open('https://strivemath.org/worksheet', '_blank', 'noopener,noreferrer');
+    });
+    inner.appendChild(masteryWrap);
+
     body.appendChild(inner);
     card.appendChild(stripe);card.appendChild(hdr);card.appendChild(body);
     list.appendChild(card);
@@ -1391,8 +1519,36 @@ function toggleRow(did,oi){
   row.classList.add('is-open');
   if(!det.querySelector('.oc-det-in')){
     const tags=o.tags.map(t=>`<span class="oc-tag" style="color:${d.c};background:${d.cl};border-color:${d.cb}">${t}</span>`).join('');
-    const skills=o.skills.map(s=>`<div class="oc-skill"><span class="oc-skill-dot" style="background:${d.c}"></span>${s}</div>`).join('');
-    det.innerHTML=`<div class="oc-det-in"><div class="oc-desc">${o.d}</div><div class="oc-cols"><div><div class="oc-col-lbl">Topics</div><div class="oc-tags">${tags}</div></div><div><div class="oc-col-lbl">Skills</div><div class="oc-skills">${skills}</div></div></div></div>`;
+    const ccssBadge = o.code
+      ? `<span class="oc-ccss-code" style="color:${d.c};background:${d.cl};border-color:${d.cb};">${o.code}</span>`
+      : '';
+    const exBadge = o.ex
+      ? `<span class="oc-example" style="margin-left:0;">${o.ex}</span>`
+      : '';
+    det.innerHTML=`
+      <div class="oc-det-in">
+        <div class="oc-ccss-row">
+          ${ccssBadge}
+          ${exBadge}
+        </div>
+        <div class="oc-desc">${o.d}</div>
+        <div class="oc-cols">
+          <div>
+            <div class="oc-col-lbl">Topics</div>
+            <div class="oc-tags">${tags}</div>
+          </div>
+          <div>
+            <div class="oc-col-lbl">Worksheet Preview</div>
+            <div class="oc-pdf-placeholder">
+              <div class="oc-pdf-icon"><span class="oc-pdf-icon-fold"></span></div>
+              <div class="oc-pdf-text">
+                <div class="oc-pdf-title">${o.t}</div>
+                <div class="oc-pdf-desc">PDF worksheet preview coming soon. Click <strong style="color:${d.c};">Diagnostic Test</strong> at the top of this domain to access the live worksheet.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`;
   }
   det.style.maxHeight='0';
   requestAnimationFrame(()=>{
@@ -1403,29 +1559,63 @@ function toggleRow(did,oi){
 
 /* ═══════════ TOOLTIP — FIXED HOVER HANDOFF ═══════════ */
 
-function startShowTimer(e,d,o,oi){
+function startShowTimer(e,d,o,oi,row){
   clearTimeout(showTimer);clearTimeout(hideTimer);
-  showTimer=setTimeout(()=>showTooltip(e,d,o,oi),380);
+  showTimer=setTimeout(()=>showTooltip(e,d,o,oi,row),380);
 }
 
 // Outcome row hover — shows sample questions only (no CTA)
-function showTooltip(e,d,o,oi){
+// Anchored to the RIGHT side of the row so it doesn't block the learning skill text
+function showTooltip(e,d,o,oi,row){
   clearTimeout(hideTimer);
   const tip=document.getElementById('wsTooltip');
   document.getElementById('wsTipIcon').textContent=d.icon;
   document.getElementById('wsTipIcon').style.cssText=`background:${d.cl};color:${d.c};`;
   document.getElementById('wsTipTitle').textContent=o.t;
   document.getElementById('wsTipTitle').style.color=d.c;
-  document.getElementById('wsTipSub').textContent=d.code+' · '+d.name;
+  document.getElementById('wsTipSub').textContent=(o.code||d.code)+' · '+d.name;
   document.getElementById('wsTipPreviewLabel').textContent='Sample questions';
   const qsEl=document.getElementById('wsTipQs');
   qsEl.innerHTML=o.qs.slice(0,3).map((q,i)=>`<div class="ws-q"><span class="ws-q-num">${i+1}.</span><span>${q}</span></div>`).join('');
-  // Hide CTA on outcome-row preview
   document.getElementById('wsTipCta').style.display='none';
-  positionTooltip(e);
+  positionTooltipForRow(row);
   tip.classList.add('visible');
   tip.onmouseenter=()=>clearTimeout(hideTimer);
   tip.onmouseleave=()=>startHideTimer();
+}
+
+// Anchor tooltip to right edge of the hovered row (in the empty space)
+function positionTooltipForRow(row){
+  const tip=document.getElementById('wsTooltip');
+  const rect = row.getBoundingClientRect();
+  const tw = 295;
+  const margin = 16;
+  // Default: place tooltip to the right of the row, aligned with row top
+  let x = rect.right + margin;
+  let y = rect.top - 8;
+  // If it would overflow the right edge of the viewport, place to the LEFT of the row instead
+  if(x + tw > window.innerWidth - 10){
+    x = rect.left - tw - margin;
+  }
+  // Clamp vertically
+  if(y < 10) y = 10;
+  const th = tip.offsetHeight || 260;
+  if(y + th > window.innerHeight - 10) y = window.innerHeight - th - 10;
+  tip.style.left = x + 'px';
+  tip.style.top  = y + 'px';
+}
+
+// Old positionTooltip is still used by the domain Diagnostic Test button hover (cursor-anchored)
+function positionTooltip(e){
+  const tip=document.getElementById('wsTooltip');
+  if(!tip.classList.contains('visible'))return;
+  const tw=295,margin=14;
+  let x=e.clientX+margin, y=e.clientY-70;
+  if(x+tw>window.innerWidth-10)x=e.clientX-tw-margin;
+  if(y<10)y=10;
+  const th=tip.offsetHeight||260;
+  if(y+th>window.innerHeight-10)y=window.innerHeight-th-10;
+  tip.style.left=x+'px';tip.style.top=y+'px';
 }
 
 // Domain header worksheet button hover — shows preview of cross-outcome questions + CTA
@@ -1456,18 +1646,6 @@ function showDomainTooltip(e,d){
   tip.classList.add('visible');
   tip.onmouseenter=()=>clearTimeout(hideTimer);
   tip.onmouseleave=()=>startHideTimer();
-}
-
-function positionTooltip(e){
-  const tip=document.getElementById('wsTooltip');
-  if(!tip.classList.contains('visible'))return;
-  const tw=295,margin=14;
-  let x=e.clientX+margin, y=e.clientY-70;
-  if(x+tw>window.innerWidth-10)x=e.clientX-tw-margin;
-  if(y<10)y=10;
-  const th=tip.offsetHeight||260;
-  if(y+th>window.innerHeight-10)y=window.innerHeight-th-10;
-  tip.style.left=x+'px';tip.style.top=y+'px';
 }
 
 function startHideTimer(){
@@ -1803,7 +1981,6 @@ function buildFooter(){
 
 /* ═══════════ INIT ═══════════ */
 launchSymbols();
-buildFilter();
 buildAccordion();
 buildFooter();
 </script>
