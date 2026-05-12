@@ -173,7 +173,7 @@ body::after{
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.6);}}
 
 .hero h1{
-  font-size:clamp(26px,3.8vw,40px);
+  font-size:clamp(28px,3.5vw,52px);
   font-weight:800;line-height:1.05;
   letter-spacing:-0.025em;
   color:var(--navy);
@@ -259,28 +259,41 @@ body::after{
 }
 .dom-hdr:hover{background:rgba(15,21,116,0.018);}
 .dom-icon{
-  width:40px;height:40px;border-radius:12px;
+  width:clamp(40px, 3vw, 52px);
+  height:clamp(40px, 3vw, 52px);
+  border-radius:12px;
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:16px;font-weight:900;flex-shrink:0;
+  font-family:var(--mono);
+  font-size:clamp(16px, 1.2vw, 20px);
+  font-weight:900;flex-shrink:0;
 }
 .dom-info{flex:1;min-width:0;}
 .dom-name{
-  font-size:14px;font-weight:700;color:var(--navy);
-  margin-bottom:1px;letter-spacing:-0.01em;
+  font-size:clamp(14px, 1.1vw, 17px);
+  font-weight:700;color:var(--navy);
+  margin-bottom:2px;letter-spacing:-0.01em;
 }
-.dom-desc{font-size:11px;color:var(--ink4);}
-.dom-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.dom-desc{
+  font-size:clamp(11px, 0.85vw, 13.5px);
+  color:var(--ink4);
+}
+.dom-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .dom-code{
-  font-family:var(--mono);font-size:9px;font-weight:700;
-  padding:2px 8px;border-radius:5px;border:1.5px solid;letter-spacing:0.05em;
+  font-family:var(--mono);
+  font-size:clamp(9px, 0.7vw, 11px);
+  font-weight:700;
+  padding:3px 9px;border-radius:5px;border:1.5px solid;letter-spacing:0.05em;
 }
 .dom-count{
-  font-size:10px;font-weight:600;color:var(--ink4);
+  font-size:clamp(10px, 0.75vw, 12px);
+  font-weight:600;color:var(--ink4);
   background:var(--bg);border:1px solid var(--border);
-  border-radius:5px;padding:2px 8px;
+  border-radius:5px;padding:3px 9px;
 }
 .dom-chev{
-  width:26px;height:26px;border-radius:7px;
+  width:clamp(26px, 1.9vw, 32px);
+  height:clamp(26px, 1.9vw, 32px);
+  border-radius:7px;
   background:rgba(15,21,116,0.04);border:1px solid var(--border);
   display:flex;align-items:center;justify-content:center;
   transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
@@ -296,7 +309,7 @@ body::after{
 
 /* ── OUTCOME ROW ── */
 .oc-row{
-  display:flex;align-items:center;gap:0;
+  display:flex;align-items:center;gap:16px;
   padding:0 20px;
   position:relative;cursor:pointer;
   transition:background 0.15s;
@@ -304,31 +317,53 @@ body::after{
 .oc-row:hover{background:rgba(15,21,116,0.025);}
 .oc-row+.oc-row{border-top:1px solid rgba(15,21,116,0.05);}
 
+/* TITLE CLUSTER (left) — number + title, sized to content */
 .oc-row-left{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 0;flex:1;min-width:0;
+  display:flex;align-items:center;gap:12px;
+  padding:14px 0;
+  flex:0 1 auto;min-width:0;max-width:60%;
 }
 .oc-num{
-  font-family:var(--mono);font-size:9px;font-weight:700;
-  width:22px;height:22px;border-radius:5px;
+  font-family:var(--mono);
+  font-size:clamp(9px, 0.7vw, 11px);
+  font-weight:700;
+  width:clamp(22px, 1.7vw, 28px);
+  height:clamp(22px, 1.7vw, 28px);
+  border-radius:6px;
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
   letter-spacing:0;
 }
 .oc-title{
-  font-size:13px;font-weight:500;color:var(--ink2);line-height:1.4;flex:1;
+  font-size:clamp(13px, 0.95vw, 15.5px);
+  font-weight:500;color:var(--ink2);line-height:1.4;
   transition:color 0.15s;
 }
 .oc-row:hover .oc-title{color:var(--navy);}
 .oc-row.is-open .oc-title{color:var(--navy);font-weight:600;}
 
+/* CENTER ZONE — math example pill, fills empty space */
+.oc-row-center{
+  flex:1 1 auto;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 16px;min-width:0;
+}
+
+/* RIGHT ZONE — toggle aligned right, fixed width */
+.oc-row-right{
+  flex:0 0 auto;
+  display:flex;align-items:center;
+}
+
 /* domain worksheet button on header */
 .dom-ws-btn{
-  display:inline-flex;align-items:center;gap:5px;
-  font-family:var(--font);font-size:11px;font-weight:700;
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font);
+  font-size:clamp(11px, 0.85vw, 13.5px);
+  font-weight:700;
   letter-spacing:0.02em;
   border:1.5px solid;
   border-radius:var(--r-pill);
-  padding:5px 12px;
+  padding:7px 14px;
   cursor:pointer;
   transition:all 0.18s;
   white-space:nowrap;
@@ -340,26 +375,34 @@ body::after{
   box-shadow:var(--sh-md);
 }
 
-/* ── math example pill next to outcome title ── */
+/* ── math example pill (sits in center of row) ── */
 .oc-example{
   display:inline-flex;align-items:center;
-  font-family:var(--mono);font-size:11px;font-weight:600;
+  font-family:var(--mono);
+  font-size:clamp(12px, 0.85vw, 14.5px);
+  font-weight:600;
   color:var(--ink3);
   background:rgba(15,21,116,0.04);
   border:1px solid rgba(15,21,116,0.08);
-  border-radius:6px;
-  padding:2px 8px;
-  margin-left:10px;
+  border-radius:8px;
+  padding:4px 12px;
   letter-spacing:0;
   white-space:nowrap;
-  flex-shrink:0;
-  transition:all 0.15s;
+  transition:all 0.18s;
 }
 .oc-row:hover .oc-example{
-  background:rgba(15,21,116,0.07);
+  background:rgba(15,21,116,0.08);
   color:var(--navy);
+  border-color:rgba(15,21,116,0.14);
 }
 .oc-row.is-open .oc-example{display:none;}
+
+/* on narrow screens collapse center into left cluster */
+@media (max-width: 780px){
+  .oc-row{flex-wrap:wrap;}
+  .oc-row-left{max-width:none;flex:1 1 100%;}
+  .oc-row-center{flex:0 1 auto;justify-content:flex-start;padding:0 0 12px 56px;}
+}
 
 /* ── CCSS code badge inside expanded view ── */
 .oc-ccss-row{
@@ -507,11 +550,11 @@ body::after{
   opacity:0;
   transform:translateY(6px) scale(0.97);
   transition:opacity 0.18s,transform 0.18s;
-  width:290px;
+  width:320px;
 }
 .ws-tooltip.visible{
   opacity:1;transform:translateY(0) scale(1);
-  pointer-events:all; /* FIXED: allow mouse to enter tooltip */
+  pointer-events:all;
 }
 .ws-card{
   background:var(--white);
@@ -521,34 +564,36 @@ body::after{
   overflow:hidden;
 }
 .ws-card-header{
-  padding:12px 14px 8px;
+  padding:13px 15px 9px;
   border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:8px;
+  display:flex;align-items:center;gap:9px;
 }
 .ws-card-icon{
-  width:28px;height:28px;border-radius:7px;
+  width:32px;height:32px;border-radius:8px;
   display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:900;font-family:var(--mono);flex-shrink:0;
+  font-size:13px;font-weight:900;font-family:var(--mono);flex-shrink:0;
 }
-.ws-card-title{font-size:11px;font-weight:700;color:var(--navy);line-height:1.3;}
-.ws-card-sub{font-size:9px;color:var(--ink4);margin-top:1px;}
+.ws-card-title{font-size:12.5px;font-weight:700;color:var(--navy);line-height:1.3;}
+.ws-card-sub{font-size:10px;color:var(--ink4);margin-top:2px;font-family:var(--mono);letter-spacing:0.02em;}
 .ws-preview-area{
-  padding:10px 14px;
+  padding:11px 15px;
   background:rgba(15,21,116,0.02);
 }
 .ws-preview-label{
-  font-size:8px;font-weight:700;letter-spacing:0.1em;
-  text-transform:uppercase;color:var(--ink4);margin-bottom:6px;
+  font-size:9px;font-weight:700;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--ink4);margin-bottom:8px;
 }
 .ws-q{
   background:var(--white);border:1px solid var(--border);
-  border-radius:6px;padding:7px 10px;margin-bottom:4px;
-  font-size:11px;color:var(--ink2);line-height:1.5;
-  display:flex;align-items:flex-start;gap:6px;
+  border-radius:7px;padding:9px 11px;margin-bottom:5px;
+  font-size:12.5px;color:var(--ink);font-weight:500;line-height:1.55;
+  display:flex;align-items:flex-start;gap:7px;
+  font-family:var(--mono);
+  letter-spacing:0.01em;
 }
 .ws-q-num{
-  font-family:var(--mono);font-size:9px;font-weight:700;
-  color:var(--ink4);flex-shrink:0;margin-top:1px;
+  font-family:var(--mono);font-size:10px;font-weight:700;
+  color:var(--ink4);flex-shrink:0;margin-top:2px;
 }
 .ws-cta{
   display:flex;align-items:center;justify-content:center;gap:6px;
@@ -1441,20 +1486,25 @@ function buildAccordion(){
     const sep=document.createElement('div');sep.className='dom-sep';inner.appendChild(sep);
     d.outcomes.forEach((o,oi)=>{
       const row=document.createElement('div');row.className='oc-row';row.id=`row-${d.id}-${oi}`;
+      // LEFT: number + title
       const left=document.createElement('div');left.className='oc-row-left';
       const num=document.createElement('span');num.className='oc-num';
       num.textContent=String(oi+1).padStart(2,'0');num.style.cssText=`background:${d.cl};color:${d.c};`;
       const title=document.createElement('span');title.className='oc-title';title.textContent=o.t;
       left.appendChild(num);left.appendChild(title);
-      // Math example pill (e.g. "¾ ÷ ½ = ?")
+      // CENTER: math example pill
+      const center=document.createElement('div');center.className='oc-row-center';
       if(o.ex){
         const exEl=document.createElement('span');
         exEl.className='oc-example';
         exEl.textContent=o.ex;
-        left.appendChild(exEl);
+        center.appendChild(exEl);
       }
+      // RIGHT: toggle
+      const right=document.createElement('div');right.className='oc-row-right';
       const tog=document.createElement('div');tog.className='oc-toggle';
-      row.appendChild(left);row.appendChild(tog);
+      right.appendChild(tog);
+      row.appendChild(left);row.appendChild(center);row.appendChild(right);
       // Show sample-questions tooltip on row hover (anchored to row, not cursor)
       row.addEventListener('mouseenter', e=>{if(!row.classList.contains('is-open'))startShowTimer(e,d,o,oi,row);});
       row.addEventListener('mouseleave', ()=>startHideTimer());
@@ -1584,23 +1634,23 @@ function showTooltip(e,d,o,oi,row){
   tip.onmouseleave=()=>startHideTimer();
 }
 
-// Anchor tooltip to right edge of the hovered row (in the empty space)
+// Show tooltip as a dropdown below the hovered row, anchored to its right side
 function positionTooltipForRow(row){
   const tip=document.getElementById('wsTooltip');
   const rect = row.getBoundingClientRect();
-  const tw = 295;
-  const margin = 16;
-  // Default: place tooltip to the right of the row, aligned with row top
-  let x = rect.right + margin;
-  let y = rect.top - 8;
-  // If it would overflow the right edge of the viewport, place to the LEFT of the row instead
-  if(x + tw > window.innerWidth - 10){
-    x = rect.left - tw - margin;
+  const tw = 320;
+  // Anchor right edge of tooltip to right edge of row
+  let x = rect.right - tw;
+  let y = rect.bottom + 6;
+  // Horizontal clamps
+  if(x + tw > window.innerWidth - 16) x = window.innerWidth - tw - 16;
+  if(x < 16) x = 16;
+  // Vertical: if there's no room below, place above
+  const th = tip.offsetHeight || 280;
+  if(y + th > window.innerHeight - 10){
+    y = rect.top - th - 6;
+    if(y < 10) y = 10;
   }
-  // Clamp vertically
-  if(y < 10) y = 10;
-  const th = tip.offsetHeight || 260;
-  if(y + th > window.innerHeight - 10) y = window.innerHeight - th - 10;
   tip.style.left = x + 'px';
   tip.style.top  = y + 'px';
 }
