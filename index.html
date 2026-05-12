@@ -2,1006 +2,837 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Strive Math · Grade 8 Curriculum</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Strive Math · Grade 7 Learning Outcomes</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Inconsolata:wght@400;600;700;900&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --coral:   #E8420A;
-  --teal:    #00C896;
-  --amber:   #F5A623;
-  --blue:    #4A8FFF;
-  --purple:  #C44DFF;
-  --navy:    #060D1C;
-  --navy2:   #0A1528;
-  --navy3:   #0F1E36;
-  --navy4:   #162540;
-  --border:  #1A2E4A;
-  --border2: #243D5C;
-  --text1:   #EEF4FF;
-  --text2:   #94AECB;
-  --text3:   #4A6A8A;
-  --font:    'DM Sans', sans-serif;
-  --mono:    'DM Mono', monospace;
+/* ══ TOKENS ══ */
+:root{
+  --orange:#FF6635; --orange-lt:rgba(255,102,53,0.10); --orange-bd:rgba(255,102,53,0.22);
+  --purple:#7058FF; --purple-lt:rgba(112,88,255,0.09); --purple-bd:rgba(112,88,255,0.20);
+  --pink:  #FF4F84; --pink-lt:  rgba(255,79,132,0.09);  --pink-bd:  rgba(255,79,132,0.20);
+  --amber: #FFA41C; --amber-lt: rgba(255,164,28,0.10);  --amber-bd: rgba(255,164,28,0.22);
+  --blue:  #2C81ED; --blue-lt:  rgba(44,129,237,0.09);  --blue-bd:  rgba(44,129,237,0.20);
+  --green: #B0EB33;
+  --navy:  #0F1574; --navy-lt:  #878AB9; --navy-faint: rgba(15,21,116,0.06);
+  --rainbow: linear-gradient(to right,#FFA41C,#FF4F84,#7058FF,#2C81ED,#B0EB33);
+  --cta-grad: linear-gradient(135deg,#FFA41C,#FF4F84,#7058FF);
+  --heading-grad: linear-gradient(135deg,#FE6636,#FF4F84 40%,#7058FF 80%);
+
+  --bg:     #FAFAFA;
+  --white:  #FFFFFF;
+  --ink:    #0F1574;
+  --ink2:   #575863;
+  --ink3:   #878AB9;
+  --ink4:   #B1B1C2;
+  --border: rgba(15,21,116,0.08);
+  --border-hover: rgba(15,21,116,0.18);
+
+  --sh-xs:  0 1px 3px rgba(15,21,116,0.06);
+  --sh-sm:  0 2px 8px rgba(15,21,116,0.08);
+  --sh-md:  0 8px 30px rgba(15,21,116,0.09);
+  --sh-lg:  0 20px 60px rgba(15,21,116,0.12);
+  --sh-btn: 0 4px 14px rgba(0,0,0,0.18);
+
+  --r-sm:4px; --r-md:12px; --r-lg:18px; --r-xl:24px; --r-pill:100px;
+
+  --font:'Jost',sans-serif;
+  --mono:'Inconsolata',monospace;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
 
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: var(--font);
-  background: var(--navy);
-  color: var(--text1);
-  min-height: 100vh;
-  line-height: 1.5;
-  overflow-x: hidden;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-text-size-adjust: 100%;
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--ink);
+  min-height:100vh;
+  overflow-x:hidden;
+  line-height:1.6;
 }
 
-/* ─── NOISE TEXTURE OVERLAY ─── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.022;
-  pointer-events: none;
-  z-index: 0;
+/* ── subtle bg decoration ── */
+body::before{
+  content:'';
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 50% at -5% -5%, rgba(255,102,53,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 105% 0%,  rgba(112,88,255,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 35% at 105% 105%,rgba(44,129,237,0.05) 0%, transparent 50%);
+}
+body::after{
+  content:'';
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:radial-gradient(circle, rgba(15,21,116,0.055) 1px, transparent 1px);
+  background-size:32px 32px;
 }
 
-/* ─── LAYOUT ─── */
-.page { max-width: 1100px; margin: 0 auto; padding: 0 32px 80px; position: relative; z-index: 1; }
-
-/* ─── HEADER ─── */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 28px 0 0;
-  margin-bottom: 32px;
+/* ── floating symbols ── */
+.sym-layer{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.sym{
+  position:absolute;font-family:var(--mono);font-weight:700;
+  opacity:0;animation:floatUp linear infinite;user-select:none;
 }
-.logo { height: 30px; width: auto; display: block; }
-.header-right { display: flex; align-items: center; gap: 12px; }
-.grade-pill {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--text3);
-  background: var(--navy3);
-  border: 0.5px solid var(--border);
-  border-radius: 100px;
-  padding: 5px 14px;
-}
-.standard-pill {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--teal);
-  background: rgba(0,200,150,0.08);
-  border: 0.5px solid rgba(0,200,150,0.2);
-  border-radius: 100px;
-  padding: 5px 12px;
+@keyframes floatUp{
+  0%{opacity:0;transform:translateY(0) rotate(0deg);}
+  10%{opacity:1;}88%{opacity:0.5;}
+  100%{opacity:0;transform:translateY(-90vh) rotate(18deg);}
 }
 
-/* ─── HERO STRIP ─── */
-.hero {
-  background: var(--navy3);
-  border: 0.5px solid var(--border);
-  border-radius: 20px;
-  padding: 32px 36px;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -60px; right: -60px;
-  width: 240px; height: 240px;
-  background: radial-gradient(circle, rgba(232,66,10,0.12) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: -40px; left: 30%;
-  width: 180px; height: 180px;
-  background: radial-gradient(circle, rgba(0,200,150,0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-text { position: relative; z-index: 1; }
-.hero-eyebrow {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--coral);
-  margin-bottom: 8px;
-}
-.hero-title {
-  font-size: 28px;
-  font-weight: 300;
-  color: var(--text1);
-  line-height: 1.2;
-  margin-bottom: 6px;
-  letter-spacing: -0.02em;
-}
-.hero-title strong { font-weight: 600; }
-.hero-sub { font-size: 13px; color: var(--text3); font-weight: 400; }
-.hero-stats { display: flex; gap: 24px; position: relative; z-index: 1; flex-shrink: 0; }
-.stat { text-align: right; }
-.stat-num { font-size: 26px; font-weight: 600; color: var(--text1); line-height: 1; margin-bottom: 3px; letter-spacing: -0.02em; }
-.stat-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; }
+/* ── page wrapper ── */
+.page{max-width:900px;margin:0 auto;padding:0 24px 100px;position:relative;z-index:1;}
 
-/* ─── DOMAIN SECTIONS ─── */
-.domains { display: flex; flex-direction: column; gap: 8px; padding-top: 16px; }
+/* ══ NAV ══ */
+.nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(250,250,250,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  margin:0 -24px;
+  padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:58px;
+}
+.logo{height:24px;display:block;}
+.nav-right{display:flex;align-items:center;gap:10px;}
 
-.domain-block {
-  background: var(--navy2);
-  border: 0.5px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: border-color 0.2s;
+/* ── GRADE SWITCHER ── */
+.grade-switcher{position:relative;}
+.nav-badge{
+  display:flex;align-items:center;gap:8px;
+  background:var(--navy);border-radius:var(--r-pill);
+  padding:6px 12px 6px 14px;
+  box-shadow:var(--sh-btn);cursor:pointer;
+  transition:background 0.18s,box-shadow 0.18s;
+  user-select:none;
 }
-.domain-block:hover { border-color: var(--border2); }
-.domain-block.is-active { border-color: var(--border2); }
+.nav-badge:hover{background:#1a268a;box-shadow:0 6px 20px rgba(15,21,116,0.35);}
+.nav-badge-info{display:flex;flex-direction:column;gap:0;}
+.nav-badge-label{font-size:12px;font-weight:700;color:#fff;letter-spacing:0.04em;line-height:1.2;}
+.nav-badge-sub{font-size:9px;color:rgba(255,255,255,0.5);letter-spacing:0.03em;line-height:1;}
+.nav-badge-chevron{color:rgba(255,255,255,0.6);margin-left:2px;transition:transform 0.2s;flex-shrink:0;}
+.grade-switcher.open .nav-badge-chevron{transform:rotate(180deg);}
 
-.domain-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 20px 24px;
-  cursor: pointer;
-  user-select: none;
-  transition: background 0.15s;
+.grade-dropdown{
+  position:absolute;top:calc(100% + 8px);right:0;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-lg);box-shadow:var(--sh-lg);
+  overflow:hidden;min-width:200px;
+  opacity:0;pointer-events:none;
+  transform:translateY(-6px) scale(0.97);transform-origin:top right;
+  transition:opacity 0.18s,transform 0.18s;z-index:300;
 }
-.domain-header:hover { background: rgba(255,255,255,0.02); }
-
-.domain-accent {
-  width: 4px;
-  border-radius: 2px;
-  height: 36px;
-  flex-shrink: 0;
-  transition: height 0.2s;
+.grade-switcher.open .grade-dropdown{opacity:1;pointer-events:all;transform:none;}
+.grade-dropdown-hdr{
+  padding:9px 14px 6px;
+  font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--ink4);border-bottom:1px solid var(--border);
 }
-.domain-block.is-open .domain-accent { height: 44px; }
-
-.domain-icon-wrap {
-  width: 40px; height: 40px;
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  font-size: 18px;
+.grade-opt{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;font-size:13px;font-weight:600;color:var(--ink2);
+  cursor:pointer;transition:background 0.13s;
+  border-bottom:1px solid rgba(15,21,116,0.04);
 }
-.domain-meta { flex: 1; min-width: 0; }
-.domain-name { font-size: 15px; font-weight: 600; color: var(--text1); margin-bottom: 2px; }
-.domain-desc { font-size: 12px; color: var(--text3); }
-.domain-right { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
-.domain-code {
-  font-family: var(--mono);
-  font-size: 10px;
-  padding: 3px 9px;
-  border-radius: 6px;
-  letter-spacing: 0.04em;
-  font-weight: 500;
-}
-.domain-badge {
-  font-size: 11px;
-  color: var(--text3);
-  background: var(--navy4);
-  border: 0.5px solid var(--border);
-  border-radius: 8px;
-  padding: 3px 10px;
-}
-.chevron {
-  width: 16px; height: 16px;
-  color: var(--text3);
-  transition: transform 0.28s cubic-bezier(0.4,0,0.2,1), color 0.2s;
-  flex-shrink: 0;
-}
-.domain-block.is-open .chevron { transform: rotate(180deg); color: var(--text2); }
-
-/* ─── OUTCOMES LIST ─── */
-.outcomes-wrap {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1);
-}
-.outcomes-inner { padding: 0 24px 20px; }
-.outcomes-divider {
-  height: 0.5px;
-  background: var(--border);
-  margin-bottom: 16px;
+.grade-opt:last-child{border-bottom:none;}
+.grade-opt:hover{background:rgba(15,21,116,0.04);color:var(--navy);}
+.grade-opt.active{color:var(--purple);background:var(--purple-lt);}
+.grade-opt.active::after{content:'✓';font-size:11px;font-weight:800;color:var(--purple);}
+.grade-opt.soon{color:var(--ink4);cursor:default;}
+.grade-opt.soon:hover{background:transparent;color:var(--ink4);}
+.soon-tag{
+  font-size:9px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;
+  color:var(--amber);background:var(--amber-lt);border:1px solid var(--amber-bd);
+  border-radius:4px;padding:1px 6px;
 }
 
-/* ─── OUTCOME ROW ─── */
-.outcome-row {
-  border: 0.5px solid var(--border);
-  border-radius: 12px;
-  margin-bottom: 6px;
-  overflow: hidden;
-  transition: border-color 0.18s;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.25s ease, transform 0.25s ease, border-color 0.18s;
+/* ══ HERO ══ */
+.hero{
+  padding:40px 0 28px;
+  text-align:center;
+  position:relative;
 }
-.outcome-row.revealed { opacity: 1; transform: translateY(0); }
-.outcome-row:hover { border-color: var(--border2); }
-.outcome-row.is-open { border-color: var(--border2); }
+.hero::after{
+  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:80%;height:1px;background:var(--rainbow);opacity:0.3;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--purple);
+  background:var(--purple-lt);
+  border:1.5px solid var(--purple-bd);
+  border-radius:var(--r-pill);padding:4px 14px;margin-bottom:14px;
+}
+.eyebrow-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--cta-grad);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.6);}}
 
-.outcome-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 16px;
-  cursor: pointer;
-  user-select: none;
+.hero h1{
+  font-size:clamp(26px,3.8vw,40px);
+  font-weight:800;line-height:1.05;
+  letter-spacing:-0.025em;
+  color:var(--navy);
+  margin-bottom:0;
 }
-.outcome-index {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--text3);
-  width: 22px;
-  flex-shrink: 0;
-  text-align: center;
+.hero h1 .grad{
+  background:var(--heading-grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-style:italic;font-weight:700;
+  padding-bottom:0.06em;display:inline;
 }
-.outcome-bullet { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.outcome-title { flex: 1; font-size: 13px; font-weight: 500; color: var(--text2); line-height: 1.4; }
-.outcome-row.is-open .outcome-title { color: var(--text1); }
-.outcome-row:hover .outcome-title { color: var(--text1); }
-.outcome-expand-icon {
-  width: 20px; height: 20px;
-  border-radius: 6px;
-  background: var(--navy4);
-  border: 0.5px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.2s;
+.hero-sub{
+  font-size:14px;color:var(--ink3);
+  max-width:440px;margin:0 auto 20px;line-height:1.65;
 }
-.outcome-row.is-open .outcome-expand-icon { background: var(--navy3); border-color: var(--border2); }
-.expand-cross {
-  width: 10px; height: 10px;
-  position: relative;
-  display: flex; align-items: center; justify-content: center;
+.hero-stats{
+  display:flex;justify-content:center;gap:8px;flex-wrap:wrap;
 }
-.expand-cross::before, .expand-cross::after {
-  content: '';
-  position: absolute;
-  background: var(--text3);
-  border-radius: 1px;
-  transition: all 0.22s;
+.h-stat{
+  display:flex;align-items:center;gap:6px;
+  background:var(--white);border:1.5px solid var(--border);
+  border-radius:var(--r-pill);padding:5px 14px;
+  box-shadow:var(--sh-xs);
 }
-.expand-cross::before { width: 10px; height: 1.5px; }
-.expand-cross::after  { width: 1.5px; height: 10px; }
-.outcome-row.is-open .expand-cross::before { background: var(--text2); }
-.outcome-row.is-open .expand-cross::after  { background: var(--text2); transform: rotate(90deg); opacity: 0; }
+.h-stat-n{font-size:15px;font-weight:800;line-height:1;}
+.h-stat-l{font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink4);}
 
-/* ─── SUB-SKILLS PANEL ─── */
-.sub-panel {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+/* ══ DOMAIN FILTER ══ */
+.filter-bar{
+  display:flex;gap:5px;padding:20px 0 0;
+  overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap;
 }
-.sub-inner {
-  padding: 0 16px 14px 50px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.filter-bar::-webkit-scrollbar{display:none;}
+.fb{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 13px;border-radius:var(--r-pill);
+  border:1.5px solid var(--border);background:var(--white);
+  font-family:var(--font);font-size:11px;font-weight:600;
+  color:var(--ink3);cursor:pointer;white-space:nowrap;
+  box-shadow:var(--sh-xs);transition:all 0.18s;letter-spacing:0.01em;
 }
-.sub-desc {
-  font-size: 12.5px;
-  color: var(--text2);
-  line-height: 1.6;
-  padding-bottom: 8px;
-  border-bottom: 0.5px solid var(--border);
-  margin-bottom: 4px;
+.fb:hover{color:var(--navy);border-color:var(--border-hover);transform:translateY(-1px);box-shadow:var(--sh-sm);}
+.fb.on{color:#fff;border-color:transparent;box-shadow:var(--sh-btn);transform:translateY(-1px);}
+.fb-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.fb-count{
+  font-size:9px;font-weight:700;padding:1px 5px;border-radius:4px;
+  background:rgba(0,0,0,0.07);
 }
-.sub-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.sub-tag {
-  font-size: 11px;
-  font-weight: 500;
-  padding: 4px 11px;
-  border-radius: 8px;
-  border: 0.5px solid;
-  letter-spacing: 0.01em;
-  transition: all 0.15s;
-  cursor: default;
-}
-.sub-tag:hover { filter: brightness(1.2); }
-.sub-tag-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; color: var(--text3); }
+.fb.on .fb-count{background:rgba(255,255,255,0.2);}
 
-/* ─── FOOTER ─── */
-.footer {
-  margin-top: 48px;
-  padding-top: 20px;
-  border-top: 0.5px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* ══ SECTION HEADER ══ */
+.sec-hdr{
+  display:flex;align-items:center;gap:12px;padding:22px 0 14px;
 }
-.footer-left { font-size: 11px; color: var(--text3); }
-.footer-right { font-size: 11px; color: var(--text3); font-family: var(--mono); }
+.sec-hdr-txt{
+  font-size:9px;font-weight:700;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--ink4);white-space:nowrap;
+}
+.sec-hdr-line{flex:1;height:1px;background:var(--border);}
 
-/* ─── ANIMATIONS ─── */
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(16px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-.domain-block { animation: fadeUp 0.4s ease both; }
-.domain-block:nth-child(1) { animation-delay: 0.05s; }
-.domain-block:nth-child(2) { animation-delay: 0.10s; }
-.domain-block:nth-child(3) { animation-delay: 0.15s; }
-.domain-block:nth-child(4) { animation-delay: 0.20s; }
-.domain-block:nth-child(5) { animation-delay: 0.25s; }
+/* ══ DOMAIN ACCORDION CARDS ══ */
+.acc-list{display:flex;flex-direction:column;gap:8px;}
 
-/* ─── GRADE SWITCHER ─── */
-.grade-switcher { position: relative; }
-.grade-switcher-btn {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--navy3);
-  border: 0.5px solid var(--border);
-  border-radius: 100px;
-  padding: 6px 12px 6px 14px;
-  cursor: pointer;
-  transition: all 0.18s;
-  user-select: none;
+.dom-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r-xl);
+  box-shadow:var(--sh-xs);
+  overflow:hidden;
+  transition:box-shadow 0.2s,border-color 0.2s;
 }
-.grade-switcher-btn:hover { background: var(--navy4); border-color: var(--border2); }
-.grade-switcher-label {
-  font-size: 11px; font-weight: 500; letter-spacing: 0.07em;
-  text-transform: uppercase; color: var(--text2);
-}
-.grade-chevron { color: var(--text3); transition: transform 0.2s; }
-.grade-switcher.open .grade-chevron { transform: rotate(180deg); }
+.dom-card:hover{box-shadow:var(--sh-sm);}
+.dom-card.open{box-shadow:var(--sh-md);border-color:rgba(15,21,116,0.12);}
 
-.grade-dropdown {
-  position: absolute; top: calc(100% + 8px); right: 0;
-  background: var(--navy2);
-  border: 0.5px solid var(--border);
-  border-radius: 14px;
-  box-shadow: 0 18px 50px rgba(0,0,0,0.5);
-  overflow: hidden; min-width: 190px;
-  opacity: 0; pointer-events: none;
-  transform: translateY(-6px) scale(0.97);
-  transform-origin: top right;
-  transition: opacity 0.18s, transform 0.18s;
-  z-index: 300;
-}
-.grade-switcher.open .grade-dropdown { opacity: 1; pointer-events: all; transform: none; }
-.grade-dropdown-hdr {
-  padding: 10px 14px 7px;
-  font-size: 9px; font-weight: 600; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--text3);
-  border-bottom: 0.5px solid var(--border);
-}
-.grade-opt {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 10px 14px;
-  font-size: 13px; font-weight: 500; color: var(--text2);
-  cursor: pointer; transition: background 0.13s;
-  border-bottom: 0.5px solid var(--border);
-}
-.grade-opt:last-child { border-bottom: none; }
-.grade-opt:hover { background: var(--navy3); color: var(--text1); }
-.grade-opt.active { color: var(--teal); background: rgba(0,200,150,0.08); }
-.grade-opt.active::after {
-  content: '✓'; font-size: 11px; font-weight: 700; color: var(--teal);
-}
-.grade-opt.soon { color: var(--text3); cursor: default; }
-.grade-opt.soon:hover { background: transparent; color: var(--text3); }
-.soon-tag {
-  font-size: 9px; font-weight: 600; letter-spacing: 0.05em;
-  text-transform: uppercase; color: var(--amber);
-  background: rgba(245,166,35,0.08);
-  border: 0.5px solid rgba(245,166,35,0.25);
-  border-radius: 4px; padding: 1px 6px;
-}
+/* card accent stripe */
+.dom-stripe{height:3px;}
 
-/* ─── DOMAIN WORKSHEET BUTTON ─── */
-.domain-ws-btn {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-family: var(--font); font-size: 11px; font-weight: 600;
-  letter-spacing: 0.02em;
-  border: 0.5px solid;
-  border-radius: 100px;
-  padding: 5px 12px;
-  cursor: pointer;
-  transition: all 0.18s;
-  white-space: nowrap;
-  background: transparent;
+/* domain header */
+.dom-hdr{
+  display:flex;align-items:center;gap:12px;
+  padding:16px 20px;cursor:pointer;user-select:none;
+  transition:background 0.15s;
 }
-.domain-ws-btn:hover { filter: brightness(1.15); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
+.dom-hdr:hover{background:rgba(15,21,116,0.018);}
+.dom-icon{
+  width:40px;height:40px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:16px;font-weight:900;flex-shrink:0;
+}
+.dom-info{flex:1;min-width:0;}
+.dom-name{
+  font-size:14px;font-weight:700;color:var(--navy);
+  margin-bottom:1px;letter-spacing:-0.01em;
+}
+.dom-desc{font-size:11px;color:var(--ink4);}
+.dom-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.dom-code{
+  font-family:var(--mono);font-size:9px;font-weight:700;
+  padding:2px 8px;border-radius:5px;border:1.5px solid;letter-spacing:0.05em;
+}
+.dom-count{
+  font-size:10px;font-weight:600;color:var(--ink4);
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:5px;padding:2px 8px;
+}
+.dom-chev{
+  width:26px;height:26px;border-radius:7px;
+  background:rgba(15,21,116,0.04);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+.dom-card.open .dom-chev{background:var(--navy);border-color:var(--navy);}
+.dom-chev svg{transition:transform 0.25s cubic-bezier(0.4,0,0.2,1);color:var(--ink4);}
+.dom-card.open .dom-chev svg{transform:rotate(180deg);color:#fff;}
 
-/* ─── HOVER TOOLTIP ─── */
-.ws-tooltip {
-  position: fixed; z-index: 500;
-  pointer-events: none; opacity: 0;
-  transform: translateY(6px) scale(0.97);
-  transition: opacity 0.18s, transform 0.18s;
-  width: 290px;
-}
-.ws-tooltip.visible { opacity: 1; transform: none; pointer-events: all; }
-.ws-card {
-  background: var(--navy2);
-  border: 0.5px solid var(--border2);
-  border-radius: 14px;
-  box-shadow: 0 22px 60px rgba(0,0,0,0.6);
-  overflow: hidden;
-}
-.ws-card-hdr {
-  padding: 12px 14px 8px;
-  border-bottom: 0.5px solid var(--border);
-  display: flex; align-items: center; gap: 9px;
-}
-.ws-card-icon {
-  width: 28px; height: 28px; border-radius: 7px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--mono); font-size: 12px; font-weight: 700; flex-shrink: 0;
-}
-.ws-card-title { font-size: 11px; font-weight: 700; line-height: 1.3; }
-.ws-card-sub { font-size: 9px; color: var(--text3); margin-top: 1px; font-family: var(--mono); }
-.ws-preview-area { padding: 10px 14px; background: var(--navy3); }
-.ws-preview-label {
-  font-size: 8px; font-weight: 600; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--text3); margin-bottom: 6px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.ws-rotate-dot {
-  display: inline-block; width: 4px; height: 4px; border-radius: 50%;
-  background: var(--teal); animation: pulse 1.6s ease-in-out infinite;
-}
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-.ws-q {
-  background: var(--navy);
-  border: 0.5px solid var(--border);
-  border-radius: 7px;
-  padding: 10px 12px; margin-bottom: 4px;
-  font-size: 13px; color: var(--text1); line-height: 1.65;
-  font-weight: 500;
-  display: flex; align-items: flex-start; gap: 8px;
-  animation: fadeQ 0.4s ease;
-  font-feature-settings: 'ss01', 'ss02';
-  letter-spacing: 0.01em;
-}
-@keyframes fadeQ { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; } }
-.ws-q-num {
-  font-family: var(--mono); font-size: 9px; font-weight: 700;
-  color: var(--text3); flex-shrink: 0; margin-top: 2px;
-}
-.ws-q-skill {
-  font-size: 9.5px; font-weight: 700; line-height: 1.3;
-  margin-bottom: 2px; letter-spacing: 0;
-}
-.ws-cta {
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  padding: 9px 14px;
-  font-size: 11px; font-weight: 700;
-  cursor: pointer;
-  border-top: 0.5px solid;
-  transition: filter 0.15s;
-}
-.ws-cta:hover { filter: brightness(1.2); }
+/* ══ OUTCOMES LIST ══ */
+.dom-body{max-height:0;overflow:hidden;transition:max-height 0.48s cubic-bezier(0.4,0,0.2,1);}
+.dom-body-inner{padding:0 0 10px;}
+.dom-sep{height:1px;background:var(--border);margin:0 20px 8px;}
 
-/* ─── WORKSHEET MODAL ─── */
-.modal-overlay {
-  position: fixed; inset: 0; z-index: 900;
-  background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
-  display: flex; align-items: center; justify-content: center;
-  padding: 20px;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.25s;
+/* ── OUTCOME ROW ── */
+.oc-row{
+  display:flex;align-items:center;gap:0;
+  padding:0 20px;
+  position:relative;cursor:pointer;
+  transition:background 0.15s;
 }
-.modal-overlay.open { opacity: 1; pointer-events: all; }
-.modal {
-  background: var(--navy2);
-  border: 0.5px solid var(--border2);
-  border-radius: 18px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.7);
-  width: 100%; max-width: 620px; max-height: 88vh;
-  overflow: hidden; display: flex; flex-direction: column;
-  transform: translateY(16px) scale(0.98);
-  transition: transform 0.28s cubic-bezier(0.34,1.2,0.64,1);
-}
-.modal-overlay.open .modal { transform: none; }
-.modal-top {
-  display: flex; align-items: center; gap: 12px;
-  padding: 16px 20px;
-  border-bottom: 0.5px solid var(--border);
-  flex-shrink: 0;
-}
-.modal-icon {
-  width: 36px; height: 36px; border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--mono); font-size: 14px; font-weight: 700; flex-shrink: 0;
-}
-.modal-info { flex: 1; min-width: 0; }
-.modal-domain {
-  font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
-  text-transform: uppercase; margin-bottom: 2px;
-}
-.modal-title { font-size: 14px; font-weight: 600; line-height: 1.3; color: var(--text1); }
-.modal-close {
-  width: 30px; height: 30px; border-radius: 8px;
-  border: 0.5px solid var(--border);
-  background: var(--navy3);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; flex-shrink: 0;
-  transition: all 0.15s; font-size: 14px; color: var(--text3);
-}
-.modal-close:hover { background: var(--navy4); color: var(--text1); }
-.modal-body {
-  overflow-y: auto; padding: 20px 24px 24px; flex: 1;
-}
-.modal-body::-webkit-scrollbar { width: 5px; }
-.modal-body::-webkit-scrollbar-thumb { background: var(--border2); }
+.oc-row:hover{background:rgba(15,21,116,0.025);}
+.oc-row+.oc-row{border-top:1px solid rgba(15,21,116,0.05);}
 
-.ws-intro {
-  font-size: 12.5px; color: var(--text2); line-height: 1.7;
-  margin-bottom: 18px; padding-bottom: 14px;
-  border-bottom: 0.5px solid var(--border);
+.oc-row-left{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 0;flex:1;min-width:0;
 }
-.ws-section-lbl {
-  font-size: 9px; font-weight: 600; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--text3);
-  margin-bottom: 12px;
-  display: flex; align-items: center; gap: 8px;
+.oc-num{
+  font-family:var(--mono);font-size:9px;font-weight:700;
+  width:22px;height:22px;border-radius:5px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  letter-spacing:0;
 }
-.ws-section-lbl::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+.oc-title{
+  font-size:13px;font-weight:500;color:var(--ink2);line-height:1.4;flex:1;
+  transition:color 0.15s;
+}
+.oc-row:hover .oc-title{color:var(--navy);}
+.oc-row.is-open .oc-title{color:var(--navy);font-weight:600;}
 
-.modal-q {
-  background: var(--navy3);
-  border: 0.5px solid var(--border);
-  border-radius: 12px;
-  padding: 14px 16px;
-  margin-bottom: 10px;
+/* domain worksheet button on header */
+.dom-ws-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:var(--font);font-size:11px;font-weight:700;
+  letter-spacing:0.02em;
+  border:1.5px solid;
+  border-radius:var(--r-pill);
+  padding:5px 12px;
+  cursor:pointer;
+  transition:all 0.18s;
+  white-space:nowrap;
+  flex-shrink:0;
 }
-.modal-q-skill {
-  font-size: 10px; font-weight: 700; margin-bottom: 6px;
-  display: flex; align-items: center; gap: 6px;
-}
-.modal-q-skill::before {
-  content: ''; width: 3px; height: 12px; border-radius: 2px;
-  background: currentColor;
-}
-.modal-q-label {
-  font-size: 9px; font-weight: 600; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--text3); margin-bottom: 4px;
-}
-.modal-q-text {
-  font-size: 13px; color: var(--text1); font-weight: 500;
-  line-height: 1.55; margin-bottom: 10px;
-}
-.modal-q-input {
-  width: 100%; min-height: 64px;
-  background: var(--navy);
-  border: 0.5px solid var(--border);
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-family: var(--font); font-size: 13px;
-  color: var(--text1); line-height: 1.5;
-  resize: vertical; outline: none;
-  transition: border-color 0.18s, box-shadow 0.18s;
-}
-.modal-q-input:focus {
-  border-color: var(--teal);
-  box-shadow: 0 0 0 3px rgba(0,200,150,0.1);
-}
-.modal-q-input::placeholder { color: var(--text3); }
-
-.modal-footer {
-  padding: 12px 20px;
-  border-top: 0.5px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-  flex-shrink: 0; background: var(--navy);
-}
-.modal-footer-note { font-size: 11px; color: var(--text3); }
-.modal-btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  border: none; border-radius: 100px;
-  padding: 9px 20px;
-  font-family: var(--font); font-size: 12px; font-weight: 700;
-  color: white; cursor: pointer;
-  transition: all 0.18s;
-  background: linear-gradient(135deg, var(--teal), var(--blue));
-  box-shadow: 0 4px 14px rgba(0,200,150,0.25);
-}
-.modal-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,200,150,0.35); }
-
-/* ─── EMPTY GRADE STATE ─── */
-.empty-grade {
-  text-align: center;
-  padding: 80px 24px;
-}
-.empty-grade-icon {
-  font-size: 48px; margin-bottom: 16px;
-  filter: grayscale(0.3);
-}
-.empty-grade-title {
-  font-size: 22px; font-weight: 700;
-  color: var(--text1); margin-bottom: 8px;
-  letter-spacing: -0.02em;
-}
-.empty-grade-sub {
-  font-size: 13px; color: var(--text2);
-  line-height: 1.7; max-width: 380px; margin: 0 auto;
+.dom-ws-btn:hover{
+  filter:brightness(0.92);
+  transform:translateY(-1px);
+  box-shadow:var(--sh-md);
 }
 
-/* ─── SKELETON DOMAIN STATE ─── */
-.skeleton-tag {
-  font-size: 9px; font-weight: 600; letter-spacing: 0.06em;
-  text-transform: uppercase; color: var(--amber);
-  background: rgba(245,166,35,0.08);
-  border: 0.5px solid rgba(245,166,35,0.25);
-  border-radius: 4px; padding: 2px 8px;
+.oc-toggle{
+  width:20px;height:20px;border-radius:5px;
+  border:1px solid var(--border);background:rgba(15,21,116,0.03);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all 0.2s;position:relative;
 }
-.domain-block.skeleton {
-  cursor: default;
-  opacity: 0.85;
+.oc-row.is-open .oc-toggle{background:var(--navy);border-color:var(--navy);}
+.oc-toggle::before,.oc-toggle::after{content:'';position:absolute;border-radius:1px;transition:all 0.2s;}
+.oc-toggle::before{width:8px;height:1.5px;background:var(--ink4);}
+.oc-toggle::after{width:1.5px;height:8px;background:var(--ink4);}
+.oc-row.is-open .oc-toggle::before,.oc-row.is-open .oc-toggle::after{background:#fff;}
+.oc-row.is-open .oc-toggle::after{transform:rotate(90deg);opacity:0;}
+
+/* ── ROW DETAIL ── */
+.oc-det{max-height:0;overflow:hidden;transition:max-height 0.36s cubic-bezier(0.4,0,0.2,1);}
+.oc-det-in{
+  padding:12px 20px 16px 52px;
+  background:rgba(15,21,116,0.018);
+  border-top:1px solid rgba(15,21,116,0.06);
 }
-.domain-block.skeleton:hover {
-  border-color: var(--border);
-  background: var(--navy2);
+.oc-desc{
+  font-size:12.5px;color:var(--ink2);line-height:1.7;
+  margin-bottom:12px;max-width:620px;
 }
-.domain-block.skeleton .domain-header:hover {
-  background: transparent;
+.oc-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:580px){.oc-cols{grid-template-columns:1fr;}}
+.oc-col-lbl{
+  font-size:8px;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--ink4);margin-bottom:6px;
+}
+.oc-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.oc-tag{
+  font-size:11px;font-weight:600;padding:3px 10px;
+  border-radius:var(--r-pill);border:1.5px solid;
+  transition:transform 0.15s;cursor:default;
+}
+.oc-tag:hover{transform:translateY(-1px);}
+.oc-skills{display:flex;flex-direction:column;gap:4px;}
+.oc-skill{
+  display:flex;align-items:flex-start;gap:7px;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:6px;padding:6px 10px;
+  font-size:11.5px;color:var(--ink2);line-height:1.4;
+  transition:border-color 0.15s,transform 0.15s;
+}
+.oc-skill:hover{border-color:var(--border-hover);transform:translateX(2px);}
+.oc-skill-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+
+/* ══ WORKSHEET PREVIEW TOOLTIP ══ */
+.ws-tooltip{
+  position:fixed;
+  z-index:500;
+  pointer-events:none;
+  opacity:0;
+  transform:translateY(6px) scale(0.97);
+  transition:opacity 0.18s,transform 0.18s;
+  width:290px;
+}
+.ws-tooltip.visible{
+  opacity:1;transform:translateY(0) scale(1);
+  pointer-events:all; /* FIXED: allow mouse to enter tooltip */
+}
+.ws-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  box-shadow:var(--sh-lg);
+  overflow:hidden;
+}
+.ws-card-header{
+  padding:12px 14px 8px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;
+}
+.ws-card-icon{
+  width:28px;height:28px;border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:900;font-family:var(--mono);flex-shrink:0;
+}
+.ws-card-title{font-size:11px;font-weight:700;color:var(--navy);line-height:1.3;}
+.ws-card-sub{font-size:9px;color:var(--ink4);margin-top:1px;}
+.ws-preview-area{
+  padding:10px 14px;
+  background:rgba(15,21,116,0.02);
+}
+.ws-preview-label{
+  font-size:8px;font-weight:700;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--ink4);margin-bottom:6px;
+}
+.ws-q{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:6px;padding:7px 10px;margin-bottom:4px;
+  font-size:11px;color:var(--ink2);line-height:1.5;
+  display:flex;align-items:flex-start;gap:6px;
+}
+.ws-q-num{
+  font-family:var(--mono);font-size:9px;font-weight:700;
+  color:var(--ink4);flex-shrink:0;margin-top:1px;
+}
+.ws-cta{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:8px 14px 10px;
+  font-size:11px;font-weight:700;color:var(--purple);
+  cursor:pointer;
+  background:var(--purple-lt);
+  border-top:1px solid var(--purple-bd);
+  transition:background 0.15s;
+  pointer-events:all;
+}
+.ws-cta:hover{background:var(--purple);color:#fff;}
+
+/* ══ WORKSHEET MODAL ══ */
+.modal-overlay{
+  position:fixed;inset:0;z-index:900;
+  background:rgba(15,21,116,0.32);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  opacity:0;pointer-events:none;transition:opacity 0.25s;
+}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{
+  background:var(--white);border-radius:var(--r-xl);box-shadow:var(--sh-lg);
+  width:100%;max-width:640px;max-height:90vh;
+  overflow:hidden;display:flex;flex-direction:column;
+  transform:translateY(16px) scale(0.98);
+  transition:transform 0.28s cubic-bezier(0.34,1.2,0.64,1);
+}
+.modal-overlay.open .modal{transform:none;}
+.modal-top{
+  display:flex;align-items:center;gap:12px;
+  padding:16px 20px 14px;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.modal-icon{
+  width:36px;height:36px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:15px;font-weight:900;flex-shrink:0;
+}
+.modal-info{flex:1;min-width:0;}
+.modal-domain{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;}
+.modal-title{font-size:15px;font-weight:700;color:var(--navy);line-height:1.3;}
+.modal-close{
+  width:30px;height:30px;border-radius:8px;
+  border:1px solid var(--border);background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;transition:all 0.15s;
+  font-size:14px;color:var(--ink3);
+}
+.modal-close:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+.modal-body{overflow-y:auto;flex:1;}
+.modal-body::-webkit-scrollbar{width:4px;}
+.modal-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+
+/* ── MODE CHOICE SCREEN ── */
+.mode-screen{padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;}
+.mode-screen-label{
+  font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--ink4);text-align:center;margin-bottom:4px;
+}
+.mode-card{
+  display:flex;align-items:center;gap:16px;
+  border:1.5px solid var(--border);border-radius:var(--r-lg);
+  padding:18px 20px;cursor:pointer;
+  transition:all 0.18s;
+  background:var(--white);
+}
+.mode-card:hover{border-color:var(--border-hover);box-shadow:var(--sh-md);transform:translateY(-1px);}
+.mode-card-icon{
+  width:44px;height:44px;border-radius:12px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+}
+.mode-card-body{flex:1;}
+.mode-card-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.mode-card-desc{font-size:12px;color:var(--ink3);line-height:1.5;}
+.mode-card-arrow{color:var(--ink4);flex-shrink:0;transition:transform 0.18s;}
+.mode-card:hover .mode-card-arrow{transform:translateX(3px);color:var(--navy);}
+.mode-card.mode-online{border-color:var(--purple-bd);}
+.mode-card.mode-online:hover{border-color:var(--purple);background:var(--purple-lt);}
+.mode-card.mode-pdf{border-color:var(--orange-bd);}
+.mode-card.mode-pdf:hover{border-color:var(--orange);background:var(--orange-lt);}
+
+/* ── ONLINE WORKSHEET ── */
+.ws-screen{padding:20px 24px 24px;display:flex;flex-direction:column;gap:0;}
+.ws-screen-back{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:600;color:var(--ink3);cursor:pointer;
+  margin-bottom:14px;transition:color 0.15s;
+}
+.ws-screen-back:hover{color:var(--navy);}
+.ws-intro{
+  font-size:12.5px;color:var(--ink2);line-height:1.7;
+  margin-bottom:16px;padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+}
+.ws-section-lbl{
+  font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--ink4);margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.ws-section-lbl::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.ws-question{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:var(--r-md);padding:14px 16px;margin-bottom:10px;
+  transition:border-color 0.15s;
+}
+.ws-question:hover{border-color:var(--border-hover);}
+.ws-question.answered{border-color:rgba(176,235,51,0.5);background:rgba(176,235,51,0.04);}
+.ws-q-label{
+  font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  margin-bottom:5px;
+}
+.ws-q-skill{
+  font-size:11px;font-weight:700;
+  letter-spacing:0.01em;
+  margin-bottom:6px;
+  display:flex;align-items:center;gap:6px;
+}
+.ws-q-skill::before{
+  content:'';width:3px;height:12px;border-radius:2px;background:currentColor;
+}
+.ws-q-text{font-size:13px;color:var(--ink);font-weight:500;line-height:1.55;margin-bottom:10px;}
+.ws-q-textarea{
+  width:100%;min-height:70px;
+  background:var(--white);
+  border:1.5px solid var(--border);border-radius:8px;
+  padding:10px 12px;
+  font-family:var(--font);font-size:13px;color:var(--ink);
+  line-height:1.5;resize:vertical;outline:none;
+  transition:border-color 0.18s,box-shadow 0.18s;
+}
+.ws-q-textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(112,88,255,0.12);}
+.ws-q-textarea::placeholder{color:var(--ink4);}
+
+.ws-progress-bar{
+  height:4px;background:var(--border);border-radius:2px;
+  margin:0 24px 0;flex-shrink:0;overflow:hidden;
+}
+.ws-progress-fill{height:100%;border-radius:2px;background:var(--cta-grad);transition:width 0.4s ease;}
+
+.ws-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 24px;border-top:1px solid var(--border);
+  flex-shrink:0;background:rgba(15,21,116,0.015);
+}
+.ws-footer-left{font-size:11px;color:var(--ink4);}
+.ws-submit-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--cta-grad);color:#fff;border:none;
+  border-radius:var(--r-pill);padding:9px 20px;
+  font-family:var(--font);font-size:12px;font-weight:700;
+  cursor:pointer;box-shadow:var(--sh-btn);transition:all 0.18s;
+}
+.ws-submit-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(112,88,255,0.3);}
+.ws-submit-btn:disabled{opacity:0.5;cursor:default;transform:none;}
+
+/* ── COMPLETION / RESULTS SCREEN ── */
+.results-screen{
+  padding:28px 28px 32px;
+  display:flex;flex-direction:column;gap:0;
+}
+.results-headline{
+  text-align:center;margin-bottom:24px;
+}
+.results-emoji{font-size:42px;margin-bottom:8px;line-height:1;}
+.results-title{
+  font-size:22px;font-weight:800;color:var(--navy);
+  letter-spacing:-0.02em;margin-bottom:4px;
+}
+.results-sub{font-size:13px;color:var(--ink3);}
+
+.score-card{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:18px 20px;
+  margin-bottom:18px;
+  display:flex;align-items:center;gap:16px;
+}
+.score-circle{
+  width:60px;height:60px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font);font-size:18px;font-weight:800;
+  flex-shrink:0;color:#fff;
+  box-shadow:var(--sh-btn);
+}
+.score-info{flex:1;min-width:0;}
+.score-fraction{
+  font-size:24px;font-weight:800;color:var(--navy);
+  letter-spacing:-0.02em;line-height:1.1;margin-bottom:2px;
+}
+.score-fraction-total{font-size:18px;color:var(--ink3);font-weight:600;}
+.score-label{font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--ink4);}
+
+/* mastery bar */
+.mastery-bar-wrap{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:18px 20px;
+  margin-bottom:18px;
+}
+.mastery-row{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;
+}
+.mastery-label{
+  font-size:11px;font-weight:700;letter-spacing:0.06em;
+  text-transform:uppercase;color:var(--ink4);
+}
+.mastery-pill{
+  font-size:11px;font-weight:700;padding:3px 10px;
+  border-radius:var(--r-pill);
+}
+.mastery-track{
+  height:10px;background:var(--bg);border:1px solid var(--border);
+  border-radius:var(--r-pill);position:relative;overflow:hidden;
+}
+.mastery-fill{
+  height:100%;border-radius:var(--r-pill);
+  transition:width 1s cubic-bezier(0.34,1.2,0.64,1);
+  width:0%;
+}
+.mastery-segments{
+  display:flex;justify-content:space-between;
+  margin-top:8px;
+  font-size:9px;font-weight:600;color:var(--ink4);
+  letter-spacing:0.04em;text-transform:uppercase;
+}
+.mastery-msg{
+  margin-top:14px;
+  font-size:13px;color:var(--ink2);line-height:1.6;
+  text-align:center;
 }
 
-/* ─── SCROLLBAR ─── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+/* per-question review */
+.review-section{margin-top:8px;}
+.review-q{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-md);padding:14px 16px;margin-bottom:8px;
+}
+.review-q-head{
+  display:flex;align-items:center;gap:8px;margin-bottom:8px;
+}
+.review-q-num{
+  font-family:var(--mono);font-size:9px;font-weight:700;
+  width:22px;height:22px;border-radius:5px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  color:var(--ink4);background:var(--bg);
+}
+.review-q-text{flex:1;font-size:13px;color:var(--ink);font-weight:500;}
+.review-status{
+  font-size:10px;font-weight:700;padding:3px 9px;
+  border-radius:var(--r-pill);letter-spacing:0.04em;flex-shrink:0;
+}
+.review-status.correct{color:#5a8a0a;background:rgba(176,235,51,0.18);border:1px solid rgba(176,235,51,0.5);}
+.review-status.incorrect{color:#c33;background:rgba(255,79,132,0.10);border:1px solid rgba(255,79,132,0.3);}
+.review-status.skipped{color:var(--ink4);background:var(--bg);border:1px solid var(--border);}
+.review-answers{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;
+}
+@media(max-width:540px){.review-answers{grid-template-columns:1fr;}}
+.review-ans-block{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:7px;padding:7px 10px;
+}
+.review-ans-lbl{
+  font-size:8px;font-weight:700;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--ink4);margin-bottom:3px;
+}
+.review-ans-txt{
+  font-size:12px;color:var(--ink2);line-height:1.4;font-family:var(--mono);
+}
+.review-ans-block.correct-key{border-color:rgba(176,235,51,0.5);background:rgba(176,235,51,0.06);}
 
-/* ═══════════════════════════════════════
-   MOBILE RESPONSIVE
-═══════════════════════════════════════ */
-@media (max-width: 900px) {
-  .page { padding: 0 18px 60px; }
+/* result actions */
+.result-actions{
+  display:flex;gap:8px;margin-top:8px;
+}
+.result-btn{
+  flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:11px 16px;border-radius:var(--r-pill);
+  font-family:var(--font);font-size:12px;font-weight:700;
+  cursor:pointer;transition:all 0.18s;border:1.5px solid var(--border);
+  background:var(--white);color:var(--navy);
+}
+.result-btn:hover{transform:translateY(-1px);box-shadow:var(--sh-md);border-color:var(--border-hover);}
+.result-btn.primary{
+  background:var(--cta-grad);color:#fff;border-color:transparent;
+  box-shadow:var(--sh-btn);
+}
+.result-btn.primary:hover{box-shadow:0 6px 20px rgba(112,88,255,0.3);}
 
-  /* HEADER */
-  .header {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 18px 0 0;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-  .logo { height: 24px; }
-  .header-right {
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-  .standard-pill {
-    font-size: 9.5px;
-    padding: 4px 9px;
-    letter-spacing: 0.04em;
-  }
-  .grade-switcher-btn {
-    padding: 6px 10px 6px 12px;
-    min-height: 32px;
-  }
-  .grade-switcher-label { font-size: 10.5px; }
+/* ── COMPLETION SCREEN (legacy fallback) ── */
+.done-screen{
+  padding:40px 24px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+}
+.done-icon{font-size:44px;margin-bottom:4px;}
+.done-title{font-size:22px;font-weight:800;color:var(--navy);}
+.done-sub{font-size:14px;color:var(--ink3);max-width:340px;line-height:1.6;}
+.done-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--cta-grad);color:#fff;border:none;
+  border-radius:var(--r-pill);padding:11px 24px;margin-top:8px;
+  font-family:var(--font);font-size:13px;font-weight:700;
+  cursor:pointer;box-shadow:var(--sh-btn);transition:all 0.18s;
+}
+.done-btn:hover{transform:translateY(-1px);}
 
-  /* HERO */
-  .hero {
-    padding: 22px 20px;
-    border-radius: 16px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  .hero-eyebrow { font-size: 9.5px; margin-bottom: 6px; }
-  .hero-title {
-    font-size: clamp(22px, 6.5vw, 30px);
-    line-height: 1.2;
-    margin-bottom: 4px;
-  }
-  .hero-sub { font-size: 12px; line-height: 1.55; }
-
-  /* DOMAIN CARDS */
-  .domains { padding-top: 8px; gap: 8px; }
-  .domain-block { border-radius: 14px; }
-
-  /* Two-row domain header on mobile: icon+text first, code+button+chev second */
-  .domain-header {
-    padding: 14px 14px;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  .domain-left {
-    gap: 11px;
-    flex: 1 1 100%;
-    min-width: 0;
-  }
-  .domain-icon {
-    width: 38px; height: 38px;
-    border-radius: 10px;
-    font-size: 14px;
-    flex-shrink: 0;
-  }
-  .domain-text { min-width: 0; flex: 1; }
-  .domain-name {
-    font-size: 13.5px;
-    line-height: 1.3;
-    font-weight: 600;
-  }
-  .domain-desc {
-    font-size: 11px;
-    line-height: 1.45;
-    white-space: normal;
-    overflow: visible;
-    text-overflow: clip;
-    margin-top: 2px;
-  }
-  .domain-right {
-    flex: 1 1 100%;
-    justify-content: flex-start;
-    gap: 8px;
-    margin-top: 2px;
-    padding-left: 49px; /* aligns with text after icon */
-  }
-  .domain-code {
-    font-size: 9px;
-    padding: 3px 8px;
-  }
-  .domain-count {
-    display: none; /* hidden on mobile to save space */
-  }
-  .domain-ws-btn {
-    font-size: 11px;
-    padding: 6px 12px;
-    min-height: 32px; /* tap target */
-  }
-  .chevron {
-    width: 28px; height: 28px;
-    margin-left: auto;
-  }
-
-  /* OUTCOME ROWS */
-  .outcome-row + .outcome-row { border-top-color: var(--border); }
-  .outcome-header {
-    padding: 12px 14px;
-    gap: 10px;
-    min-height: 44px; /* tap target */
-  }
-  .outcome-num {
-    font-size: 9.5px;
-    width: 24px; height: 24px;
-    flex-shrink: 0;
-  }
-  .outcome-title {
-    font-size: 12.5px;
-    line-height: 1.45;
-    font-weight: 500;
-  }
-
-  /* OUTCOME EXPANDED CONTENT */
-  .outcome-body { padding: 0 14px 14px 14px; }
-  .outcome-desc {
-    font-size: 12px;
-    line-height: 1.65;
-    margin-bottom: 14px;
-  }
-  .outcome-cols {
-    grid-template-columns: 1fr !important;
-    gap: 14px;
-  }
-  .col-label { font-size: 9px; margin-bottom: 6px; }
-  .tag {
-    font-size: 10.5px;
-    padding: 3px 10px;
-  }
-  .skill-row {
-    font-size: 11.5px;
-    padding: 7px 10px;
-    line-height: 1.45;
-  }
-
-  /* GRADE DROPDOWN — anchor right but pull within viewport */
-  .grade-dropdown {
-    right: 0;
-    left: auto;
-    min-width: 200px;
-    transform-origin: top right;
-  }
-
-  /* TOOLTIP — usually doesn't trigger on touch, but if it does:
-     keep it manageable */
-  .ws-tooltip {
-    width: calc(100vw - 24px);
-    max-width: 320px;
-  }
-  .ws-card-hdr { padding: 11px 12px 7px; }
-  .ws-card-title { font-size: 11.5px; }
-  .ws-card-sub { font-size: 9px; }
-  .ws-preview-area { padding: 10px 12px; }
-  .ws-q {
-    font-size: 12.5px;
-    padding: 9px 11px;
-  }
-
-  /* MODAL — slides up like a sheet */
-  .modal-overlay {
-    padding: 0;
-    align-items: flex-end;
-  }
-  .modal {
-    max-height: 92vh;
-    border-radius: 20px 20px 0 0;
-    width: 100%;
-    max-width: 100%;
-  }
-  .modal-top {
-    padding: 16px 18px;
-    gap: 11px;
-  }
-  .modal-icon {
-    width: 34px; height: 34px;
-    font-size: 13px;
-    border-radius: 9px;
-  }
-  .modal-domain { font-size: 9px; }
-  .modal-title { font-size: 13.5px; line-height: 1.35; }
-  .modal-close {
-    width: 32px; height: 32px; /* tap target */
-  }
-  .modal-body { padding: 18px 18px 20px; }
-  .modal-q {
-    padding: 13px 14px;
-    border-radius: 10px;
-  }
-  .modal-q-skill { font-size: 10px; }
-  .modal-q-label { font-size: 9px; }
-  .modal-q-text { font-size: 13px; line-height: 1.55; }
-  .modal-q-input {
-    font-size: 16px; /* prevents iOS auto-zoom on focus */
-    min-height: 64px;
-    padding: 10px 12px;
-  }
-  .modal-footer {
-    padding: 12px 18px;
-    flex-direction: column;
-    gap: 10px;
-    align-items: stretch;
-  }
-  .modal-footer-note {
-    font-size: 10.5px;
-    text-align: center;
-  }
-  .modal-btn {
-    width: 100%;
-    justify-content: center;
-    padding: 12px 18px;
-    font-size: 13px;
-    min-height: 44px; /* tap target */
-  }
-
-  /* FOOTER */
-  .footer {
-    flex-direction: column;
-    gap: 6px;
-    text-align: center;
-    padding: 24px 0 0;
-  }
-  .footer-left, .footer-right { font-size: 10.5px; }
+/* ══ FOOTER ══ */
+.footer{
+  margin-top:50px;padding-top:20px;
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:10px;
+}
+.foot-l{font-size:11px;color:var(--ink4);font-weight:500;}
+.foot-codes{display:flex;gap:4px;flex-wrap:wrap;}
+.foot-code{
+  font-family:var(--mono);font-size:9px;font-weight:700;
+  padding:2px 8px;border-radius:4px;letter-spacing:0.05em;
 }
 
-/* ─── SMALL PHONES ─── */
-@media (max-width: 480px) {
-  .page { padding: 0 14px 50px; }
+/* ══ LOAD ANIMATIONS ══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.hero{animation:fadeUp 0.45s ease both 0.04s;}
+.filter-bar{animation:fadeUp 0.4s ease both 0.1s;}
+.dom-card{animation:fadeUp 0.38s ease both;}
+.dom-card:nth-child(1){animation-delay:0.12s;}
+.dom-card:nth-child(2){animation-delay:0.17s;}
+.dom-card:nth-child(3){animation-delay:0.22s;}
+.dom-card:nth-child(4){animation-delay:0.27s;}
+.dom-card:nth-child(5){animation-delay:0.32s;}
+@keyframes rowIn{from{opacity:0;transform:translateX(-5px);}to{opacity:1;transform:none;}}
+.oc-row.revealed{animation:rowIn 0.2s ease both;}
 
-  .header { padding: 14px 0 0; margin-bottom: 16px; }
-  .logo { height: 22px; }
-  .standard-pill { display: none; } /* save space — info is in dropdown */
-
-  .hero { padding: 20px 18px; }
-  .hero-title { font-size: clamp(20px, 6vw, 26px); }
-  .hero-sub { font-size: 11.5px; }
-
-  .domain-header { padding: 13px 12px; }
-  .domain-icon {
-    width: 34px; height: 34px;
-    font-size: 13px;
-    border-radius: 9px;
-  }
-  .domain-left { gap: 10px; }
-  .domain-name { font-size: 13px; }
-  .domain-desc { font-size: 10.5px; }
-  .domain-right { padding-left: 44px; }
-  .domain-ws-btn { font-size: 10.5px; padding: 5px 11px; }
-
-  .outcome-header { padding: 11px 12px; gap: 9px; }
-  .outcome-num { width: 22px; height: 22px; font-size: 9px; }
-  .outcome-title { font-size: 12px; }
-
-  .outcome-body { padding: 0 12px 13px 12px; }
-  .outcome-desc { font-size: 11.5px; }
-
-  .modal-top { padding: 14px 16px; }
-  .modal-body { padding: 16px 16px 18px; }
-  .modal-footer { padding: 12px 16px; }
-}
-
-/* ─── EXTRA SMALL ─── */
-@media (max-width: 360px) {
-  .page { padding: 0 12px 48px; }
-  .hero { padding: 18px 16px; }
-  .domain-header { padding: 12px 12px; }
-  .grade-switcher-label { font-size: 10px; }
-}
-
-/* ─── TOUCH DEVICES — disable hover-only effects ─── */
-@media (hover: none) {
-  .domain-block:hover { transform: none; background: var(--navy2); }
-  .outcome-row:hover { background: transparent; }
-  .domain-ws-btn:hover { transform: none; filter: none; }
-  .domain-header:hover { background: transparent; }
-  .outcome-header:hover { background: transparent; }
-  /* On touch, active tap gives visual feedback instead */
-  .domain-ws-btn:active { transform: scale(0.96); filter: brightness(1.1); }
-  .modal-btn:active { transform: scale(0.98); }
-  .grade-opt:active { background: var(--navy3); }
-  /* Tooltip won't fire on hover — Worksheet button still tappable */
-}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(15,21,116,0.12);border-radius:3px;}
 </style>
 </head>
 <body>
+<div class="sym-layer" id="symLayer"></div>
+
 <div class="page">
 
-  <!-- HEADER -->
-  <header class="header">
-    <img class="logo" src="data:image/png;base64,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" alt="Strive Math"/>
-    <div class="header-right">
-      <div class="grade-switcher" id="gradeSwitcher">
-        <div class="grade-switcher-btn" onclick="toggleGradeDropdown(event)">
-          <span class="grade-switcher-label" id="currentGradeLabel">Grade 8</span>
-          <svg class="grade-chevron" width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><polyline points="2.5,4 5.5,7 8.5,4"/></svg>
+<!-- NAV -->
+<nav class="nav">
+  <img class="logo" src="data:image/png;base64,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" alt="Strive Math"/>
+  <div class="nav-right">
+    <div class="grade-switcher" id="gradeSwitcher">
+      <div class="nav-badge" onclick="toggleGradeDropdown()">
+        <div class="nav-badge-info">
+          <span class="nav-badge-label" id="currentGradeLabel">Grade 7</span>
+          <span class="nav-badge-sub">Mathematics</span>
         </div>
-          <div class="grade-dropdown" id="gradeDropdown">
-            <div class="grade-dropdown-hdr">Switch Grade</div>
-            <div class="grade-opt soon">Grade 4 <span class="soon-tag">Soon</span></div>
-            <div class="grade-opt soon">Grade 5 <span class="soon-tag">Soon</span></div>
-            <div class="grade-opt" data-grade="6" onclick="switchGrade(6)">Grade 6 <span class="soon-tag">Preview</span></div>
-            <div class="grade-opt" data-grade="7" onclick="switchGrade(7)">Grade 7 <span class="soon-tag">Preview</span></div>
-            <div class="grade-opt active" data-grade="8" onclick="switchGrade(8)">Grade 8</div>
-          </div>
+        <svg class="nav-badge-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="2,4 6,8 10,4"/></svg>
       </div>
-      <span class="standard-pill">CCSS · Mathematics</span>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-text">
-      <div class="hero-eyebrow">Curriculum Overview</div>
-      <div class="hero-title"><strong>Grade 8</strong> Learning Outcomes</div>
-      <div class="hero-sub">Common Core State Standards · Mathematics</div>
+      <div class="grade-dropdown" id="gradeDropdown">
+        <div class="grade-dropdown-hdr">Switch Grade</div>
+        <div class="grade-opt soon">Grade 4 <span class="soon-tag">Coming soon</span></div>
+        <div class="grade-opt soon">Grade 5 <span class="soon-tag">Coming soon</span></div>
+        <div class="grade-opt soon">Grade 6 <span class="soon-tag">Coming soon</span></div>
+        <div class="grade-opt active" data-grade="7" onclick="switchGrade(7)">Grade 7</div>
+        <div class="grade-opt" data-grade="8" onclick="switchGrade(8)">Grade 8 <span class="soon-tag">Coming soon</span></div>
+      </div>
     </div>
   </div>
+</nav>
 
-  <!-- DOMAINS -->
-  <div class="domains" id="domainsContainer"></div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow"><span class="eyebrow-dot"></span>Common Core State Standards</div>
+  <h1>Grade 7 <span class="grad">Learning Outcomes</span></h1>
+</section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-left">Strive Math · Grade 8 Common Core Curriculum</div>
-    <div class="footer-right">8.NS · 8.EE · 8.F · 8.G · 8.SP</div>
-  </footer>
+<!-- FILTER -->
+<div class="filter-bar" id="filterBar"></div>
 
+<!-- SECTION LABEL -->
+<div class="sec-hdr">
+  <span class="sec-hdr-txt">Curriculum</span>
+  <div class="sec-hdr-line"></div>
 </div>
 
-<!-- HOVER TOOLTIP -->
+<!-- ACCORDION -->
+<div class="acc-list" id="accList"></div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span class="foot-l">Strive Math · Grade 7 Common Core State Standards</span>
+  <div class="foot-codes" id="footCodes"></div>
+</footer>
+</div>
+
+<!-- WORKSHEET TOOLTIP -->
 <div class="ws-tooltip" id="wsTooltip">
   <div class="ws-card">
-    <div class="ws-card-hdr">
+    <div class="ws-card-header">
       <div class="ws-card-icon" id="wsTipIcon"></div>
       <div>
         <div class="ws-card-title" id="wsTipTitle"></div>
@@ -1009,814 +840,972 @@ body::before {
       </div>
     </div>
     <div class="ws-preview-area">
-      <div class="ws-preview-label">
-        <span id="wsTipLabel">Sample question</span>
-        <span class="ws-rotate-dot" id="wsTipDot"></span>
-      </div>
+      <div class="ws-preview-label" id="wsTipPreviewLabel">Sample questions</div>
       <div id="wsTipQs"></div>
     </div>
-    <div class="ws-cta" id="wsTipCta" style="display:none;">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V7"/><polyline points="7,2 10,2 10,5"/><line x1="6" y1="6" x2="10" y2="2"/></svg>
-      Open worksheet on Strive
+    <div class="ws-cta" id="wsTipCta">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="1" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><line x1="4" y1="4" x2="8" y2="4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="4" y1="6.5" x2="8" y2="6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Open worksheet
     </div>
   </div>
 </div>
 
 <!-- WORKSHEET MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModalOuter(event)">
-  <div class="modal">
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
     <div class="modal-top">
       <div class="modal-icon" id="mIcon"></div>
       <div class="modal-info">
         <div class="modal-domain" id="mDomain"></div>
         <div class="modal-title" id="mTitle"></div>
       </div>
-      <div class="modal-close" onclick="closeModal()">✕</div>
+      <div class="modal-close" onclick="closeModalDirect()">✕</div>
+    </div>
+    <!-- progress bar (hidden on mode screen) -->
+    <div class="ws-progress-bar" id="wsProgressBar" style="margin:0 24px;display:none;">
+      <div class="ws-progress-fill" id="wsProgressFill" style="width:0%"></div>
     </div>
     <div class="modal-body" id="mBody"></div>
-    <div class="modal-footer">
-      <span class="modal-footer-note" id="mFooterNote">Strive Math · Grade 8 Worksheet</span>
-      <button class="modal-btn" onclick="closeModal()">
+    <!-- footer (hidden on mode screen) -->
+    <div class="ws-footer" id="wsFooter" style="display:none;">
+      <span class="ws-footer-left" id="wsFooterLeft"></span>
+      <button class="ws-submit-btn" id="wsSubmitBtn" onclick="submitWorksheet()">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Done
+        Submit answers
       </button>
     </div>
   </div>
 </div>
 
 <script>
-const DOMAINS = [
-  {
-    id: 'NS', code: '8.NS', name: 'The Number System',
-    desc: 'Rational and irrational numbers, decimal expansions',
-    color: '#E8420A', bg: 'rgba(232,66,10,0.1)', icon: 'ℝ',
-    outcomes: [
-      {
-        title: 'Know and approximate irrational numbers',
-        desc: 'Understand that some numbers cannot be expressed as fractions and learn to place them on a number line using rational approximations.',
-        tags: ['Rational vs irrational','Number classification','Approximation strategies'],
-        skills: ['Identify irrational numbers (e.g. √2, π)', 'Approximate to 1 decimal place', 'Approximate to 2 decimal places', 'Compare two irrational numbers', 'Order a mix of rational and irrational numbers']
-      },
-      {
-        title: 'Locate irrationals on a number line',
-        desc: 'Use rational approximations to place irrational numbers between consecutive integers or tenths on a number line.',
-        tags: ['Number line','Visual estimation','Rational approximation'],
-        skills: ['Place between consecutive integers', 'Place between consecutive tenths', 'Estimate from a number line', 'Use a calculator to verify placement']
-      },
-      {
-        title: 'Compare sizes using rational approximations',
-        desc: 'Use decimal approximations to compare and order irrational numbers in real-world and mathematical contexts.',
-        tags: ['Comparison','Ordering','Decimal approximation'],
-        skills: ['Use inequality symbols (<, >, =)', 'Order a set of irrational numbers', 'Compare irrational expressions', 'Apply to real-world measurements']
-      },
-      {
-        title: 'Decimal expansions and fraction conversion',
-        desc: 'Understand that every rational number has a terminating or repeating decimal expansion and convert between forms.',
-        tags: ['Repeating decimals','Terminating decimals','Fraction conversion'],
-        skills: ['Convert repeating decimal to fraction', 'Identify terminating vs repeating', 'Long division to find decimal expansion', 'Recognize patterns in expansions']
-      },
-    ]
-  },
-  {
-    id: 'EE', code: '8.EE', name: 'Expressions & Equations',
-    desc: 'Exponents, scientific notation, slope, linear equations, systems',
-    color: '#00C896', bg: 'rgba(0,200,150,0.09)', icon: '=',
-    outcomes: [
-      {
-        title: 'Properties of integer exponents',
-        desc: 'Apply the laws of exponents to simplify and generate equivalent numerical and algebraic expressions, including zero and negative exponents.',
-        tags: ['Product rule','Quotient rule','Power rule','Negative exponents'],
-        skills: ['Multiply powers with same base', 'Divide powers with same base', 'Power of a power', 'Zero exponent rule', 'Negative exponent rule', 'Combine multiple exponent rules']
-      },
-      {
-        title: 'Square roots and cube roots',
-        desc: 'Use radical notation to represent solutions to x²=p and x³=p; evaluate square and cube roots of perfect values.',
-        tags: ['Square roots','Cube roots','Radical notation','Perfect squares'],
-        skills: ['Evaluate √ of perfect squares (1–225)', 'Evaluate ∛ of perfect cubes (1–512)', 'Solve x²=p for positive p', 'Solve x³=p', 'Estimate non-perfect square roots']
-      },
-      {
-        title: 'Scientific notation — write and interpret',
-        desc: 'Express and interpret very large and very small numbers using scientific notation; understand how technology displays these numbers.',
-        tags: ['Scientific notation','Powers of 10','Standard form'],
-        skills: ['Convert large numbers to sci. notation', 'Convert small numbers to sci. notation', 'Convert from sci. notation to standard', 'Interpret calculator scientific notation', 'Choose appropriate units of size']
-      },
-      {
-        title: 'Operations with scientific notation',
-        desc: 'Add, subtract, multiply, and divide numbers in scientific notation; express results in proper scientific notation form.',
-        tags: ['Multiply','Divide','Add','Subtract','Scientific notation'],
-        skills: ['Multiply numbers in sci. notation', 'Divide numbers in sci. notation', 'Add with same power of 10', 'Add with different powers of 10', 'Real-world multi-step problems']
-      },
-      {
-        title: 'Proportional relationships and slope',
-        desc: 'Graph proportional relationships; interpret the unit rate as the slope of the graph and compare two proportional relationships represented differently.',
-        tags: ['Slope','Unit rate','Proportionality','Graphing'],
-        skills: ['Calculate unit rate from a table', 'Identify slope from a graph', 'Compare two proportional relationships', 'Write equation y=kx from context', 'Interpret slope in real-world context']
-      },
-      {
-        title: 'Slope via similar triangles',
-        desc: 'Use the properties of similar triangles to explain why slope is constant between any two distinct points on a non-vertical line in the coordinate plane.',
-        tags: ['Similar triangles','Constant slope','Coordinate plane','Proof'],
-        skills: ['Identify rise and run from a graph', 'Verify slope using two different pairs of points', 'Explain slope constancy with triangles', 'Slope between any two points formula']
-      },
-      {
-        title: 'Solve linear equations in one variable',
-        desc: 'Solve linear equations with rational number coefficients; recognize when equations have one solution, infinitely many solutions, or no solution.',
-        tags: ['One solution','No solution','Infinitely many','Distributive property'],
-        skills: ['Solve with integer coefficients', 'Solve with rational coefficients', 'Solve using distributive property', 'Combine like terms first', 'Identify number of solutions', 'Write equations from word problems']
-      },
-      {
-        title: 'Understand systems of linear equations',
-        desc: 'Understand that the solution to a system is the point of intersection of the two lines; recognize consistent, inconsistent, and dependent systems.',
-        tags: ['Intersection','Consistent','Inconsistent','Dependent'],
-        skills: ['Identify solution from a graph', 'Understand what "no solution" means graphically', 'Understand infinitely many solutions graphically', 'Interpret systems in context']
-      },
-      {
-        title: 'Solve systems graphically',
-        desc: 'Estimate the solution to a system of two linear equations by graphing both lines and finding their point of intersection.',
-        tags: ['Graph two lines','Estimate intersection','Slope-intercept form'],
-        skills: ['Graph both lines in slope-intercept form', 'Estimate intersection coordinates', 'Verify solution algebraically', 'Identify parallel lines (no solution)', 'Identify same line (infinite solutions)']
-      },
-      {
-        title: 'Solve systems algebraically',
-        desc: 'Solve systems of two linear equations using substitution and elimination methods; apply to real-world problems.',
-        tags: ['Substitution','Elimination','Two variables'],
-        skills: ['Substitution method — simple', 'Substitution method — complex', 'Elimination by addition/subtraction', 'Elimination by multiplication first', 'Choose the most efficient method']
-      },
-      {
-        title: 'Real-world problems with systems',
-        desc: 'Model and solve real-world situations that lead to a system of two linear equations in two variables.',
-        tags: ['Modelling','Word problems','Two unknowns'],
-        skills: ['Set up a system from a word problem', 'Solve mixture problems', 'Solve distance/rate/time problems', 'Solve cost and revenue problems', 'Interpret the solution in context']
-      },
-    ]
-  },
-  {
-    id: 'F', code: '8.F', name: 'Functions',
-    desc: 'Defining functions, linear vs non-linear, constructing models',
-    color: '#F5A623', bg: 'rgba(245,166,35,0.09)', icon: 'f(x)',
-    outcomes: [
-      {
-        title: 'Define and identify functions',
-        desc: 'Understand that a function assigns exactly one output to each input; use function notation f(x) and determine whether a relation is a function.',
-        tags: ['Input/output','Vertical line test','Mapping diagrams','Function notation'],
-        skills: ['Identify functions from mapping diagrams', 'Identify functions from tables', 'Apply vertical line test to graphs', 'Use function notation f(x)', 'Evaluate f(x) for a given input', 'Determine domain from context']
-      },
-      {
-        title: 'Compare properties of two functions',
-        desc: 'Compare rate of change and initial values of two functions represented in different ways — algebraically, graphically, numerically, or verbally.',
-        tags: ['Rate of change','Initial value','Multiple representations'],
-        skills: ['Compare slopes from graph vs table', 'Compare slopes from equation vs graph', 'Identify greater rate of change', 'Compare y-intercepts across representations', 'Real-world comparison problems']
-      },
-      {
-        title: 'Linear functions and y = mx + b',
-        desc: 'Interpret the equation y=mx+b as defining a linear function; understand that the graph is a straight line where m is slope and b is y-intercept.',
-        tags: ['Slope-intercept form','y-intercept','Linear graph','Rate of change'],
-        skills: ['Identify slope and y-intercept from equation', 'Graph y=mx+b', 'Write equation from slope and a point', 'Write equation from two points', 'Identify parallel and perpendicular lines']
-      },
-      {
-        title: 'Identify non-linear functions',
-        desc: 'Recognize that not all functions are linear; identify non-linear functions from their equations, tables, or graphs.',
-        tags: ['Quadratic','Absolute value','Non-linear patterns','Graphs'],
-        skills: ['Identify non-linear from a table', 'Identify non-linear from a graph', 'Give examples of non-linear functions', 'Compare linear and non-linear graphs', 'Classify A=s² and V=s³']
-      },
-      {
-        title: 'Construct a function from a relationship',
-        desc: 'Build a linear function to model a relationship between two quantities; determine and interpret the rate of change and initial value from any representation.',
-        tags: ['Modelling','Real-world context','Rate of change','Initial value'],
-        skills: ['Write function from a word problem', 'Find rate of change from a table', 'Find initial value from a table', 'Interpret slope in real-world context', 'Interpret y-intercept in real-world context', 'Predict values using the function']
-      },
-      {
-        title: 'Describe and sketch functional graphs',
-        desc: 'Describe qualitatively the functional relationship between two quantities shown in a graph; sketch a graph from a verbal description.',
-        tags: ['Qualitative description','Increasing/decreasing','Sketch','Interval analysis'],
-        skills: ['Identify increasing and decreasing intervals', 'Identify constant intervals', 'Describe real-world graph stories', 'Sketch a graph from a description', 'Interpret maximum and minimum points', 'Match graphs to scenarios']
-      },
-    ]
-  },
-  {
-    id: 'G', code: '8.G', name: 'Geometry',
-    desc: 'Transformations, congruence, similarity, Pythagorean theorem, volume',
-    color: '#4A8FFF', bg: 'rgba(74,143,255,0.09)', icon: '△',
-    outcomes: [
-      {
-        title: 'Properties of rotations',
-        desc: 'Verify experimentally that rotations preserve line lengths, angle measures, and parallelism; lines map to lines and parallel lines remain parallel.',
-        tags: ['Rotation','Angle preservation','Length preservation','Centre of rotation'],
-        skills: ['Rotate a figure 90°, 180°, 270°', 'Identify the center of rotation', 'Verify lengths are preserved', 'Verify angles are preserved', 'Describe a rotation fully (center, angle, direction)']
-      },
-      {
-        title: 'Properties of reflections',
-        desc: 'Verify experimentally that reflections preserve line lengths and angle measures; lines map to lines and orientation is reversed.',
-        tags: ['Reflection','Line of reflection','Orientation','Symmetry'],
-        skills: ['Reflect across x-axis', 'Reflect across y-axis', 'Reflect across y=x', 'Reflect across any given line', 'Identify the line of reflection']
-      },
-      {
-        title: 'Properties of translations',
-        desc: 'Verify experimentally that translations preserve line lengths and angle measures; lines map to parallel lines.',
-        tags: ['Translation','Translation vector','Parallel lines','Preservation'],
-        skills: ['Translate using a vector (a, b)', 'Write the translation rule', 'Verify lengths and angles preserved', 'Identify direction and distance of translation']
-      },
-      {
-        title: 'Properties of dilations',
-        desc: 'Verify that a dilation takes a line not through the center to a parallel line; lines through the center map to themselves. Dilations preserve angle measures.',
-        tags: ['Dilation','Scale factor','Centre of dilation','Similarity'],
-        skills: ['Dilate from the origin', 'Dilate from a point other than origin', 'Find the scale factor', 'Verify angles are preserved', 'Determine if lines are parallel after dilation']
-      },
-      {
-        title: 'Congruence and rigid motions',
-        desc: 'Two figures are congruent if one can be obtained from the other by a sequence of rotations, reflections, and translations.',
-        tags: ['Congruent figures','Rigid motions','Sequence of transformations','Proof'],
-        skills: ['Determine if two figures are congruent', 'Describe the sequence of rigid motions', 'Identify corresponding parts', 'Use coordinates to verify congruence']
-      },
-      {
-        title: 'Similarity and dilations',
-        desc: 'Two figures are similar if one can be obtained from the other by a dilation (and possibly rigid motions). Use this to establish AA similarity for triangles.',
-        tags: ['Similar figures','Dilation + rigid motion','AA criterion','Scale factor'],
-        skills: ['Determine if two figures are similar', 'Find the scale factor between similar figures', 'Apply AA similarity criterion', 'Find missing side lengths using similarity', 'Describe similarity transformation sequence']
-      },
-      {
-        title: 'Angle relationships: parallel lines & transversals',
-        desc: 'Identify and use angle relationships formed when parallel lines are cut by a transversal including corresponding, alternate interior, and co-interior angles.',
-        tags: ['Corresponding angles','Alternate interior','Co-interior','Transversal'],
-        skills: ['Name angle pairs', 'Find missing angles using angle relationships', 'Prove lines are parallel from angle evidence', 'Apply in multi-step problems']
-      },
-      {
-        title: 'Angle sum of triangles',
-        desc: 'Use properties of parallel lines and transversals to establish that the interior angle sum of any triangle is 180°.',
-        tags: ['180° sum','Informal proof','Exterior angles','Triangle properties'],
-        skills: ['Find a missing angle in a triangle', 'Apply angle sum in multi-step problems', 'Use exterior angle theorem', 'Prove angle sum using parallel lines']
-      },
-      {
-        title: 'Proof of the Pythagorean theorem',
-        desc: 'Explain and understand a proof of the Pythagorean theorem (a²+b²=c²) and its converse using area models or similar triangles.',
-        tags: ['Proof','a²+b²=c²','Converse','Area model'],
-        skills: ['State the theorem correctly', 'Explain area-based proof', 'Identify the hypotenuse', 'Apply the converse to verify right angles']
-      },
-      {
-        title: 'Apply the Pythagorean theorem',
-        desc: 'Use a²+b²=c² to find unknown side lengths in right triangles; apply in 2D and 3D real-world problems.',
-        tags: ['Unknown sides','Right triangles','Real-world','2D and 3D'],
-        skills: ['Find the hypotenuse', 'Find a missing leg', 'Apply in real-world 2D context', 'Apply in 3D (diagonal of box, ladder problems)', 'Multi-step Pythagorean problems']
-      },
-      {
-        title: 'Distance in the coordinate plane',
-        desc: 'Apply the Pythagorean theorem to find the distance between two points in a coordinate system by forming a right triangle.',
-        tags: ['Distance formula','Coordinate plane','Right triangle','Midpoint'],
-        skills: ['Find distance between two points', 'Derive the distance formula', 'Find the length of a line segment on a grid', 'Apply distance in real-world map problems']
-      },
-      {
-        title: 'Volume of cones and cylinders',
-        desc: 'Know and apply the formulas V=πr²h for cylinders and V=⅓πr²h for cones to solve real-world and mathematical problems.',
-        tags: ['Cylinder volume','Cone volume','πr²h','Real-world'],
-        skills: ['Find volume of a cylinder given r and h', 'Find volume of a cone given r and h', 'Find missing dimension given volume', 'Compare volumes of cylinder and cone', 'Real-world composite problems']
-      },
-      {
-        title: 'Volume of spheres',
-        desc: 'Know and apply the formula V=⁴⁄₃πr³ to solve problems involving the volume of spheres in mathematical and real-world contexts.',
-        tags: ['Sphere volume','⁴⁄₃πr³','Real-world applications'],
-        skills: ['Find volume given radius', 'Find volume given diameter', 'Find the radius given volume', 'Compare sphere to cylinder volume', 'Multi-shape real-world problems']
-      },
-    ]
-  },
-  {
-    id: 'SP', code: '8.SP', name: 'Statistics & Probability',
-    desc: 'Scatter plots, association, line of best fit, two-way tables',
-    color: '#C44DFF', bg: 'rgba(196,77,255,0.09)', icon: '∑',
-    outcomes: [
-      {
-        title: 'Construct and read scatter plots',
-        desc: 'Construct scatter plots for bivariate measurement data; describe and interpret patterns, clusters, gaps, and outliers.',
-        tags: ['Scatter plot','Bivariate data','Clusters','Outliers','Association'],
-        skills: ['Plot bivariate data on a scatter plot', 'Describe the overall pattern', 'Identify outliers', 'Identify clusters and gaps', 'Describe direction of association (positive/negative/none)', 'Describe form (linear/non-linear)']
-      },
-      {
-        title: 'Describe patterns of association',
-        desc: 'Identify positive, negative, and no association; linear and non-linear forms; strong and weak associations in scatter plots.',
-        tags: ['Positive association','Negative association','Strong/weak','Linear form'],
-        skills: ['Identify positive vs negative association', 'Distinguish linear from non-linear association', 'Describe strength of association', 'Match scatter plots to descriptions', 'Compare two scatter plots']
-      },
-      {
-        title: 'Informally fit a line to data',
-        desc: 'Draw a line of best fit (trend line) through data; understand the line should pass through the middle of the data with roughly equal points above and below.',
-        tags: ['Line of best fit','Trend line','Informal fit','Residuals'],
-        skills: ['Draw a line of best fit by eye', 'Assess quality of fit', 'Understand the concept of residuals informally', 'Identify a poor fit vs good fit']
-      },
-      {
-        title: 'Use a linear model to make predictions',
-        desc: 'Use the equation of a linear model to solve problems; distinguish between interpolation (within data range) and extrapolation (beyond data range).',
-        tags: ['Prediction','Interpolation','Extrapolation','Linear model equation'],
-        skills: ['Write the equation of a line of best fit', 'Predict a y-value for a given x', 'Predict an x-value for a given y', 'Recognise limits of extrapolation', 'Real-world prediction problems']
-      },
-      {
-        title: 'Interpret slope and intercept of a linear model',
-        desc: 'Interpret the meaning of the slope and y-intercept of a linear model within the real-world context of the bivariate data.',
-        tags: ['Slope interpretation','Intercept interpretation','Context','Rate of change'],
-        skills: ['Interpret slope as a rate of change in context', 'Interpret y-intercept in context', 'Explain what the slope value means in words', 'Explain whether intercept is meaningful in context']
-      },
-      {
-        title: 'Two-way frequency tables',
-        desc: 'Construct and interpret two-way tables summarising data on two categorical variables collected from the same subjects.',
-        tags: ['Two-way table','Categorical data','Frequency','Joint/marginal'],
-        skills: ['Construct a two-way frequency table', 'Read joint frequencies', 'Read marginal frequencies', 'Find totals and grand total', 'Identify patterns across categories']
-      },
-      {
-        title: 'Relative frequency and association',
-        desc: 'Use relative frequencies calculated for rows or columns to describe possible associations between two categorical variables.',
-        tags: ['Relative frequency','Row proportions','Column proportions','Association'],
-        skills: ['Calculate row relative frequencies', 'Calculate column relative frequencies', 'Identify association from relative frequencies', 'Compare relative frequencies across groups', 'Draw conclusions about categorical association']
-      },
-    ]
-  }
+/* ═══════════ GRADE 7 CCSS DATA ═══════════ */
+const DS=[
+  {id:'RP',code:'7.RP',icon:'∶',name:'Ratios & Proportional Relationships',desc:'Unit rates, proportionality, percent problems',
+   c:'#FF6635',cl:'rgba(255,102,53,0.10)',cb:'rgba(255,102,53,0.22)',
+   stripe:'linear-gradient(90deg,#FFA41C,#FF6635)',
+   outcomes:[
+    {t:'Compute unit rates with fractions',d:'Compute unit rates associated with ratios of fractions, including complex fractions, in real-world contexts such as speed, price, and density.',
+     tags:['Unit rate','Complex fractions','Real-world ratios','Speed & density'],
+     skills:['Find unit rate from a ratio of fractions','Compute miles per hour with fractional values','Find price per unit with fractional quantities','Solve density problems with fractions','Compare unit rates to determine best value'],
+     qs:['A car travels ¾ of a mile in ½ a minute. What is the speed in miles per minute?','A faucet drips ⅔ of a litre in ¼ of an hour. Find the leak rate in litres per hour.','A runner covers 2½ km in ⅗ of an hour. What is their speed in km/h?']},
+    {t:'Decide if two quantities are proportional',d:'Decide whether two quantities are in a proportional relationship by testing for equivalent ratios in a table and by graphing on a coordinate plane.',
+     tags:['Proportional relationship','Equivalent ratios','Graph test','Table test'],
+     skills:['Test for equivalent ratios in a table','Check proportionality by graphing','Identify proportional vs non-proportional tables','Identify proportional vs non-proportional graphs','Explain why a relationship is or is not proportional'],
+     qs:['Does the table show a proportional relationship? x: 2, 4, 6 | y: 6, 12, 18.','A graph passes through (0,2) and (3,8). Is it proportional? Explain.','Which table is proportional? Table A: (1,3),(2,6),(3,9) or Table B: (1,2),(2,5),(3,9)?']},
+    {t:'Identify the constant of proportionality',d:'Identify the constant of proportionality (unit rate) in tables, graphs, equations, diagrams, and verbal descriptions of proportional relationships.',
+     tags:['Constant of proportionality','Unit rate','y = kx','Multiple representations'],
+     skills:['Find k from a table','Find k from a graph','Find k from an equation y=kx','Find k from a diagram','Explain the meaning of (1,r)'],
+     qs:['A graph of a proportional relationship passes through (4, 10). What is k?','The equation y = 3.5x represents a proportional relationship. What is the unit rate?','From the table: x=3, y=12 | x=5, y=20. Find k and write the equation.']},
+    {t:'Represent proportional relationships as equations',d:'Represent proportional relationships by equations of the form y=kx; explain what a point (x,y) means in context.',
+     tags:['Equation y=kx','Write equations','Interpret points'],
+     skills:['Write y=kx from a table','Write y=kx from a graph','Write y=kx from a word problem','Interpret (1,k) in context','Predict values using y=kx'],
+     qs:['A recipe needs 2 cups of flour per 12 cookies. Write y=kx. How much flour for 60 cookies?','A taxi charges $2.50 per mile. Write an equation and find the cost for 8 miles.','The table shows hours (x) and pay (y): (1,12.50),(2,25). Write the equation.']},
+    {t:'Solve multi-step ratio and percent problems',d:'Use proportional relationships to solve multistep ratio and percent problems involving simple interest, tax, markups, discounts, gratuities, percent change, and percent error.',
+     tags:['Percent','Simple interest','Tax','Discount','Percent change'],
+     skills:['Calculate simple interest I=Prt','Calculate sales tax','Calculate tip and gratuity','Find percent increase','Find percent decrease','Calculate percent error'],
+     qs:['A jacket costs $80. It is on sale for 25% off. Find the sale price.','Jake invests $1,200 at 4% simple interest for 3 years. How much does he earn?','A store buys shoes for $45 and marks them up 60%. What is the selling price?']},
+  ]},
+  {id:'NS',code:'7.NS',icon:'±',name:'The Number System',desc:'Operations with rational numbers, absolute value, number line',
+   c:'#7058FF',cl:'rgba(112,88,255,0.10)',cb:'rgba(112,88,255,0.22)',
+   stripe:'linear-gradient(90deg,#7058FF,#FF4F84)',
+   outcomes:[
+    {t:'Add and subtract rational numbers',d:'Apply and extend previous understanding of addition and subtraction to add and subtract rational numbers — integers, fractions, and decimals.',
+     tags:['Adding integers','Subtracting integers','Fractions','Number line'],
+     skills:['Add two positive integers','Add two negative integers','Add integers with different signs','Subtract integers using p−q=p+(−q)','Add and subtract fractions (positive and negative)','Solve real-world problems'],
+     qs:['Calculate: −14 + 27','Calculate: −3½ − (−1¼)','A submarine is at −45 m. It rises 18 m. What is the new depth?']},
+    {t:'Multiply and divide rational numbers',d:'Apply rules for multiplying and dividing rational numbers; understand that the product of two negatives is positive; convert to decimals.',
+     tags:['Multiply integers','Divide integers','Sign rules','Rational to decimal'],
+     skills:['Multiply two integers: same sign','Multiply two integers: different signs','Divide integers: same sign','Divide integers: different signs','Convert fraction to decimal'],
+     qs:['Calculate: (−6) × (−4) × 2','Calculate: −3¾ ÷ 1½','The temperature drops 2.5°C each hour. What is the change after 6 hours?']},
+    {t:'Solve real-world problems with rational numbers',d:'Solve real-world and mathematical problems involving the four operations with rational numbers.',
+     tags:['Real-world','Four operations','Multi-step'],
+     skills:['Multi-step problems with integers','Multi-step problems with fractions','Multi-step problems with decimals','Interpret negative results'],
+     qs:['A bank account starts at $240. Three withdrawals of $65 each are made. What is the balance?','The temperature is −8°C. It rises 3.5°C per hour for 4 hours. What is the final temp?','A recipe serves 8 people and needs ¾ cup sugar. How much sugar for 5 people?']},
+    {t:'Properties of operations with rational numbers',d:'Understand and apply properties — commutative, associative, distributive, identity, inverse — to rational numbers efficiently.',
+     tags:['Commutative','Associative','Distributive','Inverse'],
+     skills:['Apply commutative property','Apply associative property','Apply distributive property with negatives','Use additive and multiplicative inverse'],
+     qs:['Use the distributive property to simplify: −3(2x − 5)','Show that −½ + ½ = 0 and explain the property used.','Rewrite 4 × (−3 + 7) using the distributive property and evaluate.']},
+  ]},
+  {id:'EE',code:'7.EE',icon:'x',name:'Expressions & Equations',desc:'Equivalent expressions, linear equations, inequalities',
+   c:'#FFA41C',cl:'rgba(255,164,28,0.10)',cb:'rgba(255,164,28,0.22)',
+   stripe:'linear-gradient(90deg,#FFA41C,#FF6635)',
+   outcomes:[
+    {t:'Apply properties to rewrite expressions',d:'Apply properties of operations to add, subtract, factor, and expand linear expressions with rational coefficients.',
+     tags:['Expand','Factor','Like terms','Rational coefficients'],
+     skills:['Combine like terms with rational coefficients','Expand using the distributive property','Factor out a common factor','Simplify multi-step expressions'],
+     qs:['Simplify: 3x − 2y + 5x + 7y','Expand and simplify: 4(2x − 3) − 2(x + 5)','Factor: 6x + 9']},
+    {t:'Understand equivalent expressions',d:'Understand that rewriting an expression in different forms can shed light on a problem — e.g. a + 0.05a = 1.05a.',
+     tags:['Equivalence','Meaningful forms','Substitution check'],
+     skills:['Recognise equivalent forms','Explain what a simplified form reveals','Write a+0.05a=1.05a and explain','Check equivalence by substitution'],
+     qs:['Explain why a + 0.15a = 1.15a. What does 1.15a represent?','Are 2(3x + 4) and 6x + 8 equivalent? Show how you know.','Rewrite the expression for "a price reduced by 20%" in two equivalent ways.']},
+    {t:'Solve multi-step real-life problems using equations',d:'Solve multi-step real-life problems posed with positive and negative rational numbers; estimate answers and assess reasonableness.',
+     tags:['Multi-step equations','Positive and negative rationals','Real-world','Reasonableness'],
+     skills:['Solve two-step equations with integers','Solve two-step equations with rational numbers','Write an equation from a word problem','Assess reasonableness'],
+     qs:['Aisha earns $12.50 per hour. After paying $24 for lunch, she has $88. How many hours did she work?','A number is doubled then decreased by 9. The result is 23. Find the number.','Maya has $150. She buys 3 books and has $36 left. Write and solve an equation.']},
+    {t:'Use variables to represent and solve problems',d:'Use variables to represent quantities; construct equations and inequalities to solve problems and interpret solutions in context.',
+     tags:['Define a variable','Construct equations','Inequalities','Interpret solutions'],
+     skills:['Define a variable to represent an unknown','Write an equation from a scenario','Write an inequality from a scenario','Interpret the solution in context'],
+     qs:['Let x = number of apples. Write an equation: "3 more than twice the number of apples is 17."','A bag weighs at most 22 kg. It contains books (2 kg each) and a 4 kg laptop. Write an inequality.','Write and solve: "5 less than 3 times a number equals 16."']},
+    {t:'Solve equations of the form px+q=r and p(x+q)=r',d:'Solve word problems leading to equations of the form px+q=r and p(x+q)=r, where p, q, and r are rational numbers.',
+     tags:['px+q=r','p(x+q)=r','Two-step equations','Word problems'],
+     skills:['Solve px+q=r (integer coefficients)','Solve px+q=r (rational coefficients)','Solve p(x+q)=r','Verify by substitution'],
+     qs:['Solve: 3x + 7 = 22','Solve: 2(x − 4) = 14','Solve: ½x + 3 = 9']},
+    {t:'Solve inequalities and graph solution sets',d:'Solve word problems leading to inequalities of the form px+q>r or px+q<r; graph the solution set on a number line.',
+     tags:['Linear inequalities','Graph solution set','Number line','Open/closed circles'],
+     skills:['Solve px+q > r','Solve px+q < r and ≤ r','Graph on a number line','Write and solve an inequality from context'],
+     qs:['Solve and graph: 2x + 3 > 11','Solve: 4x − 8 ≤ 12. Describe all solutions.','A cinema charges $6 per ticket. Write and solve an inequality for spending at most $30.']},
+  ]},
+  {id:'G',code:'7.G',icon:'△',name:'Geometry',desc:'Scale drawings, circles, angles, surface area, volume',
+   c:'#2C81ED',cl:'rgba(44,129,237,0.10)',cb:'rgba(44,129,237,0.22)',
+   stripe:'linear-gradient(90deg,#2C81ED,#7058FF)',
+   outcomes:[
+    {t:'Solve problems with scale drawings',d:'Solve problems involving scale drawings — compute actual lengths and areas from a scale, and reproduce a drawing at a different scale.',
+     tags:['Scale drawing','Scale factor','Actual measurements','Maps'],
+     skills:['Find actual length from scale drawing','Find scale factor between drawings','Find area from a scale drawing','Reproduce figure at different scale'],
+     qs:['A map has a scale of 1:50,000. Two towns are 4.5 cm apart. Find the real distance.','A floor plan is drawn at 1 cm = 2.5 m. The living room is 6 cm × 4 cm. Find the actual area.','Redraw a 3 cm × 5 cm rectangle at a scale factor of 2.']},
+    {t:'Draw geometric shapes with given conditions',d:'Draw triangles and other shapes with given conditions; identify whether exactly one, more than one, or no triangle can be formed.',
+     tags:['Triangle conditions','Unique triangle','Ambiguous case'],
+     skills:['Draw triangle given 3 side lengths','Draw triangle given 2 sides and included angle','Identify unique/impossible/ambiguous cases'],
+     qs:['Can a triangle be formed with sides 4 cm, 7 cm, and 12 cm? Explain.','Draw a triangle with angles 40°, 60°, 80°. Is it unique?','Two triangles share sides 5 cm and 8 cm with an angle of 90° between them. How many triangles can be drawn?']},
+    {t:'Circumference and area of circles',d:'Know the formulas for area and circumference of a circle; solve problems; give an informal derivation of the area formula.',
+     tags:['Circumference C=2πr','Area A=πr²','π','Radius & diameter'],
+     skills:['Find circumference given radius/diameter','Find area given radius/diameter','Find radius given circumference/area','Real-world circle problems'],
+     qs:['Find the circumference of a circle with radius 7 cm. Use π = 22/7.','A circular pond has diameter 12 m. Find its area. Use π = 3.14.','A wheel travels 94.2 cm in one rotation. What is the radius? (Use π = 3.14)']},
+    {t:'Solve problems using angle relationships',d:'Use facts about supplementary, complementary, vertical, and adjacent angles to write and solve multi-step equations for unknown angles.',
+     tags:['Supplementary','Complementary','Vertical angles','Equations'],
+     skills:['Find unknown angle — supplementary','Find unknown angle — complementary','Find unknown angle — vertical','Multi-step angle equations'],
+     qs:['Two supplementary angles are in ratio 2:7. Find each angle.','Vertical angles are given as (3x + 15)° and (5x − 9)°. Find x and each angle.','Three angles on a straight line are x°, 2x°, and 45°. Find x.']},
+    {t:'Area of composite 2D figures',d:'Solve real-world problems involving area and perimeter of two-dimensional figures composed of triangles, quadrilaterals, and polygons.',
+     tags:['Composite figures','Area','Perimeter','Decompose shapes'],
+     skills:['Decompose a composite figure','Find area of composite figure','Find area of shaded regions','Find perimeter of composite figure'],
+     qs:['An L-shaped room is 10m × 8m with a 3m × 4m cut-out. Find the area.','A square of side 12 cm has a circle (r = 4 cm) cut from it. Find the shaded area.','Find the perimeter of a shape made by joining a 6×4 rectangle and a triangle with base 6 and height 3.']},
+    {t:'Surface area using nets',d:'Solve real-world problems involving surface area of three-dimensional figures using nets.',
+     tags:['Surface area','Nets','Rectangular prism','Triangular prism'],
+     skills:['Draw a net for a rectangular prism','Draw a net for a triangular prism','Find surface area from a net','Real-world packaging problems'],
+     qs:['A cereal box is 30 cm × 8 cm × 20 cm. Find the total surface area.','A triangular prism has a right triangle base (3 cm, 4 cm, 5 cm) and length 10 cm. Find SA.','Draw the net for a cube with side length 5 cm and find its surface area.']},
+    {t:'Volume of prisms and pyramids',d:'Solve real-world problems involving volume of three-dimensional figures including prisms; extend to pyramids.',
+     tags:['Volume','Prisms','Pyramids','V=Bh'],
+     skills:['Find volume of rectangular prism','Find volume of triangular prism','Find volume of rectangular pyramid','Compare prism and pyramid volume'],
+     qs:['Find the volume of a rectangular prism: 8 cm × 5 cm × 6 cm.','A triangular prism has a base area of 24 cm² and height 10 cm. Find the volume.','A pyramid has a square base 6 cm × 6 cm and height 9 cm. Find the volume.']},
+    {t:'Describe cross-sections of 3D figures',d:'Describe the 2D shapes that result from slicing three-dimensional figures such as prisms, pyramids, cylinders, and cones.',
+     tags:['Cross-section','3D solids','Slicing'],
+     skills:['Identify cross-section of a prism','Identify cross-section of a pyramid','Identify cross-section of a cylinder','Sketch cross-section from description'],
+     qs:['What shape is formed by slicing a cylinder parallel to its base?','A cube is sliced diagonally from one edge to the opposite edge. What shape is the cross-section?','Describe the cross-section formed by slicing a cone vertically through its apex.']},
+  ]},
+  {id:'SP',code:'7.SP',icon:'∑',name:'Statistics & Probability',desc:'Sampling, comparing populations, probability, simulations',
+   c:'#FF4F84',cl:'rgba(255,79,132,0.10)',cb:'rgba(255,79,132,0.22)',
+   stripe:'linear-gradient(90deg,#FF4F84,#7058FF)',
+   outcomes:[
+    {t:'Understand statistical sampling',d:'Understand that statistics can be used to gain information about a population by examining a sample; random sampling gives representative results.',
+     tags:['Population','Sample','Random sampling','Bias'],
+     skills:['Distinguish population from sample','Identify random vs non-random samples','Identify biased sampling methods','Critique a sampling method'],
+     qs:['A school surveys 20 students from the same sports team about lunchtime preferences. Is this a good sample? Why?','Give an example of a biased sample and explain how to improve it.','A researcher randomly selects 50 names from a school roll of 600. Is this random sampling? Explain.']},
+    {t:'Draw inferences from random samples',d:'Use data from a random sample to draw inferences about a population; generate multiple samples and observe variation.',
+     tags:['Inference','Sample proportion','Sampling variability'],
+     skills:['Use sample proportion to estimate population','Generate multiple samples and compare','Identify reasonable vs unreasonable inferences'],
+     qs:['In a sample of 40 students, 12 prefer science. Estimate how many students in a school of 500 prefer science.','Two samples of a bag of coloured counters give 30% and 40% red. What can you conclude?','A sample of 25 fish has mean length 18 cm. The lake has 2000 fish. Estimate total fish biomass if mean weight is 0.4 kg.']},
+    {t:'Compare two populations informally',d:'Informally assess the degree of visual overlap of two data distributions; use measures of centre and variability to compare populations.',
+     tags:['Compare distributions','Mean','Median','MAD','IQR','Box plots'],
+     skills:['Compare centres (means or medians)','Compare variability (MAD or IQR)','Interpret overlap in dot plots','Interpret side-by-side box plots'],
+     qs:['Class A test scores: 72, 80, 85, 90, 76. Class B: 65, 70, 88, 92, 80. Compare the means.','Two box plots show the IQR for Group A is 8 and Group B is 22. Which is more consistent?','Find the MAD for: 5, 7, 9, 11, 13. What does it tell you?']},
+    {t:'Understand probability fundamentals',d:'Understand that probability is a number between 0 and 1 expressing likelihood; interpret as long-run relative frequency.',
+     tags:['Probability scale 0–1','Theoretical probability','Complementary events'],
+     skills:['Place events on a 0–1 scale','Calculate theoretical probability P(E)','Identify complementary events','Compare experimental and theoretical probability'],
+     qs:['A bag has 3 red, 5 blue, and 2 green marbles. Find P(red).','Roll a fair die. Find P(even number) and P(not even).','If P(rain) = 0.35, what is P(no rain)? Explain which property you used.']},
+    {t:'Approximate probability through experiments',d:'Approximate the probability of a chance event by collecting data; observe convergence to theoretical probability over many trials.',
+     tags:['Experiment','Relative frequency','Long-run','Simulation'],
+     skills:['Design and conduct a probability experiment','Calculate relative frequency','Observe convergence to theoretical probability','Use technology to simulate trials'],
+     qs:['A coin is tossed 100 times. Heads comes up 48 times. Find the experimental probability of heads.','How does the experimental probability of rolling a 6 change as you increase the number of rolls from 10 to 1000?','Design an experiment to estimate P(drawing an ace from a deck of cards).']},
+    {t:'Develop probability models',d:'Develop probability models (uniform and non-uniform) and use them to find probabilities; compare model predictions to observed frequencies.',
+     tags:['Uniform model','Non-uniform model','Sample space','Observed vs expected'],
+     skills:['Assign probabilities using a uniform model','Assign probabilities using a non-uniform model','Find probability of simple events','Find probability of the complement'],
+     qs:['A spinner has 4 equal sections (red, blue, green, yellow). Find P(blue).','A biased coin lands heads 60% of the time. Find P(tails) and P(2 heads in a row).','Design a non-uniform probability model for a spinner with sections of 40%, 30%, 20%, 10%.']},
+    {t:'Find probabilities of compound events',d:'Find probabilities of compound events using organised lists, tables, tree diagrams, and simulation.',
+     tags:['Compound events','Tree diagram','Sample space table','Simulation'],
+     skills:['List outcomes of a compound event','Use a tree diagram','Use a sample space table','Find P(A and B) for independent events'],
+     qs:['Draw a tree diagram for flipping a coin and rolling a die. Find P(Head and 4).','Using a sample space table, find P(two 5s when rolling two dice).','A bag has 2 red and 3 blue balls. Find P(red, then blue) if the first ball is not replaced.']},
+    {t:'Probability as fractions of outcomes',d:'Understand that the probability of a compound event is the fraction of outcomes in the sample space for which it occurs.',
+     tags:['Sample space fractions','P(A and B)','Independent events'],
+     skills:['List complete sample space','Find P(A and B)','Find P(A or B) for mutually exclusive events','Apply P(A)×P(B) for independent events'],
+     qs:['Two dice are rolled. How many outcomes are in the sample space? Find P(sum=7).','P(A)=0.4 and P(B)=0.3. If A and B are independent, find P(A and B).','Three coins are flipped. Write out the sample space and find P(exactly 2 heads).']},
+  ]},
 ];
 
-let openDomain = null;
-let openOutcomes = {};
+/* ═══════════ ANSWER KEYS ═══════════ */
+/* Each key 'domainId-outcomeIndex' maps to an array of acceptable answers per question.
+   Each entry is an array of acceptable forms — student answer is normalised and matched. */
+const ANSWERS = {
+  // Ratios & Proportional Relationships
+  'RP-0': [
+    ['1.5','3/2','1 1/2','one and a half'],
+    ['8/3','2.67','2 2/3','2.6667'],
+    ['25/6','4 1/6','4.17','4.1667'],
+  ],
+  'RP-1': [
+    ['yes','yes proportional','proportional','yes it is'],
+    ['no','no not proportional','not proportional','no its not'],
+    ['a','table a','first','first table'],
+  ],
+  'RP-2': [
+    ['2.5','5/2','2 1/2'],
+    ['3.5','7/2'],
+    ['4','y=4x','y = 4x','k=4'],
+  ],
+  'RP-3': [
+    ['10 cups','10','y=x/6','y=(1/6)x'],
+    ['$20','20','y=2.5x','y = 2.5x'],
+    ['y=12.5x','y = 12.5x','12.5x'],
+  ],
+  'RP-4': [
+    ['$60','60','60.00','sixty dollars'],
+    ['$144','144','144.00'],
+    ['$72','72','72.00','seventy two'],
+  ],
+  // Number System
+  'NS-0': [
+    ['13','+13','positive 13'],
+    ['-2.25','-9/4','-2 1/4'],
+    ['-27 m','-27','27 below','27m below'],
+  ],
+  'NS-1': [
+    ['48','+48'],
+    ['-2.5','-5/2','-2 1/2'],
+    ['-15°c','-15','-15 c','15 below','minus 15'],
+  ],
+  'NS-2': [
+    ['$45','45'],
+    ['6°c','6','six degrees','6 c','6c'],
+    ['15/32 cup','15/32','0.469','0.47'],
+  ],
+  'NS-3': [
+    ['-6x+15','15-6x','-6x + 15','distributive'],
+    ['additive inverse','inverse property','additive inverses'],
+    ['16','4×4=16','4(4)=16'],
+  ],
+  // Expressions & Equations
+  'EE-0': [
+    ['8x+5y','5y+8x','8x + 5y'],
+    ['6x-22','-22+6x','6x - 22'],
+    ['3(2x+3)','3*(2x+3)','3(2x + 3)'],
+  ],
+  'EE-1': [
+    ['15% increase','price plus 15%','original plus 15 percent','adding 15%'],
+    ['yes','yes equivalent','equivalent','yes they are'],
+    ['0.8x','x-0.2x','80% of x','x*0.8'],
+  ],
+  'EE-2': [
+    ['9 hours','9','nine hours'],
+    ['16','number is 16'],
+    ['$38','38','x=38'],
+  ],
+  'EE-3': [
+    ['2x+3=17','3+2x=17','2(x)+3=17'],
+    ['2b+4≤22','2b + 4 <= 22','b≤9','2b+4 ≤ 22'],
+    ['3x-5=16','x=7','3x − 5 = 16'],
+  ],
+  'EE-4': [
+    ['x=5','5'],
+    ['x=11','11'],
+    ['x=12','12'],
+  ],
+  'EE-5': [
+    ['x>4','x > 4'],
+    ['x≤5','x <= 5','x ≤ 5'],
+    ['x≤5','x≤5 tickets','5 tickets max','at most 5'],
+  ],
+  // Geometry
+  'G-0': [
+    ['2.25 km','2250 m','2.25 kilometres','2.25 kilometers'],
+    ['150 m²','150 sq m','150 square metres','150'],
+    ['6×10','6 cm × 10 cm','60 cm²','6 by 10'],
+  ],
+  'G-1': [
+    ['no','triangle inequality','no impossible','not possible'],
+    ['yes unique','yes','unique','one triangle'],
+    ['1','one','exactly one','unique'],
+  ],
+  'G-2': [
+    ['44 cm','44'],
+    ['113.04 m²','113 m²','113.04','113'],
+    ['15 cm','15','15cm'],
+  ],
+  'G-3': [
+    ['40° and 140°','40 and 140','40,140'],
+    ['x=12','x = 12','51°','12'],
+    ['x=45','45','x = 45'],
+  ],
+  'G-4': [
+    ['68 m²','68','68 sq m'],
+    ['93.76 cm²','94 cm²','93.76','94'],
+    ['perimeter calculation','depends on shape','add all sides'],
+  ],
+  'G-5': [
+    ['1520 cm²','1520','1520 sq cm'],
+    ['132 cm²','132'],
+    ['150 cm²','150','150 sq cm'],
+  ],
+  'G-6': [
+    ['240 cm³','240'],
+    ['240 cm³','240'],
+    ['108 cm³','108'],
+  ],
+  'G-7': [
+    ['circle','a circle'],
+    ['rectangle','a rectangle','square'],
+    ['triangle','isosceles triangle'],
+  ],
+  // Statistics & Probability
+  'SP-0': [
+    ['no','no biased','biased','not good'],
+    ['only friends','only one group','convenience sample','example given'],
+    ['yes','yes random','random','yes it is'],
+  ],
+  'SP-1': [
+    ['150','150 students'],
+    ['variation','sampling variability','different samples differ','around 35%'],
+    ['800 kg','800','approximately 800'],
+  ],
+  'SP-2': [
+    ['class a higher','a higher','class a is higher','a > b','classes a higher'],
+    ['group a','a','group a is','a more consistent'],
+    ['mad=2.4','2.4','mad is 2.4'],
+  ],
+  'SP-3': [
+    ['3/10','0.3','30%'],
+    ['1/2','0.5','50%','one half'],
+    ['0.65','65%','13/20'],
+  ],
+  'SP-4': [
+    ['0.48','48/100','48%','12/25'],
+    ['gets closer','converges','approaches 1/6','more accurate'],
+    ['draw cards record','simulation with deck','design experiment'],
+  ],
+  'SP-5': [
+    ['1/4','0.25','25%'],
+    ['0.4','40%','2/5'],
+    ['valid model','any model summing to 1','example given'],
+  ],
+  'SP-6': [
+    ['1/12','0.083','8.3%'],
+    ['1/36','0.028','2.8%'],
+    ['3/10','0.3','30%','6/20'],
+  ],
+  'SP-7': [
+    ['36','thirty six','6/36','1/6'],
+    ['0.12','12%','3/25'],
+    ['3/8','0.375','37.5%'],
+  ],
+};
 
-function buildDomains() {
-  const container = document.getElementById('domainsContainer');
-  DOMAINS.forEach((d, di) => {
-    const block = document.createElement('div');
-    block.className = 'domain-block';
-    block.dataset.id = d.id;
-
-    // Header
-    const header = document.createElement('div');
-    header.className = 'domain-header';
-    header.innerHTML = `
-      <div class="domain-accent" style="background:${d.color};"></div>
-      <div class="domain-icon-wrap" style="background:${d.bg};">
-        <span style="font-family:var(--mono);font-size:13px;font-weight:500;color:${d.color};">${d.icon}</span>
-      </div>
-      <div class="domain-meta">
-        <div class="domain-name">${d.name}</div>
-        <div class="domain-desc">${d.desc}</div>
-      </div>
-      <div class="domain-right">
-        <span class="domain-code" style="color:${d.color};background:${d.bg};border-color:${d.color}22;">${d.code}</span>
-        <span class="domain-badge">${d.outcomes.length} outcomes</span>
-        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="4,6 8,10 12,6"/>
-        </svg>
-      </div>`;
-    header.addEventListener('click', () => toggleDomain(d.id));
-    block.appendChild(header);
-
-    // Outcomes wrap
-    const wrap = document.createElement('div');
-    wrap.className = 'outcomes-wrap';
-    const inner = document.createElement('div');
-    inner.className = 'outcomes-inner';
-    inner.innerHTML = '<div class="outcomes-divider"></div>';
-
-    d.outcomes.forEach((o, oi) => {
-      const row = document.createElement('div');
-      row.className = 'outcome-row';
-      row.id = `outcome-${d.id}-${oi}`;
-
-      const oh = document.createElement('div');
-      oh.className = 'outcome-header';
-      oh.innerHTML = `
-        <span class="outcome-index" style="color:${d.color};">${String(oi+1).padStart(2,'0')}</span>
-        <span class="outcome-bullet" style="background:${d.color};opacity:0.6;"></span>
-        <span class="outcome-title">${o.title}</span>
-        <span class="outcome-expand-icon"><span class="expand-cross"></span></span>`;
-      oh.addEventListener('click', (e) => { e.stopPropagation(); toggleOutcome(d.id, oi, d.color, o); });
-      row.appendChild(oh);
-
-      const sp = document.createElement('div');
-      sp.className = 'sub-panel';
-      sp.id = `sub-${d.id}-${oi}`;
-      row.appendChild(sp);
-
-      inner.appendChild(row);
-    });
-
-    wrap.appendChild(inner);
-    block.appendChild(wrap);
-    container.appendChild(block);
+/* answer-matching utility */
+function normaliseAns(s){
+  return String(s||'').toLowerCase().trim()
+    .replace(/\s+/g,' ')
+    .replace(/[$°]/g,'')
+    .replace(/\s*=\s*/g,'=')
+    .replace(/\s*\/\s*/g,'/');
+}
+function checkAnswer(userAns, acceptable){
+  if(!userAns || !userAns.trim()) return false;
+  if(!acceptable) return false;
+  const u = normaliseAns(userAns);
+  return acceptable.some(a => {
+    const norm = normaliseAns(a);
+    // exact match OR student answer contains the key answer (handles "I think it's 9 hours")
+    return u === norm || u.includes(norm) || (norm.includes(u) && u.length >= 2);
   });
 }
 
-function toggleDomain(id) {
-  const block = document.querySelector(`.domain-block[data-id="${id}"]`);
-  const wrap = block.querySelector('.outcomes-wrap');
-  const isOpen = block.classList.contains('is-open');
+/* ═══════════ STATE ═══════════ */
+let currentGrade = 7;
+let showTimer = null, hideTimer = null;
+let currentModalData = null;
 
-  if (isOpen) {
-    wrap.style.maxHeight = '0';
-    block.classList.remove('is-open');
-    // reset outcomes
-    block.querySelectorAll('.outcome-row').forEach(r => r.classList.remove('revealed'));
-  } else {
-    block.classList.add('is-open');
-    // measure content height
-    const inner = wrap.querySelector('.outcomes-inner');
-    wrap.style.maxHeight = inner.scrollHeight + 'px';
-    // stagger reveal
-    const rows = block.querySelectorAll('.outcome-row');
-    rows.forEach((r, i) => {
-      setTimeout(() => r.classList.add('revealed'), 60 + i * 40);
-    });
-  }
-}
-
-function toggleOutcome(domainId, outcomeIdx, color, outcome) {
-  const key = `${domainId}-${outcomeIdx}`;
-  const row = document.getElementById(`outcome-${key}`);
-  const sub = document.getElementById(`sub-${key}`);
-  const isOpen = row.classList.contains('is-open');
-
-  if (isOpen) {
-    sub.style.maxHeight = '0';
-    row.classList.remove('is-open');
-  } else {
-    // Build content if empty
-    if (!sub.querySelector('.sub-inner')) {
-      const inner = document.createElement('div');
-      inner.className = 'sub-inner';
-
-      const desc = document.createElement('p');
-      desc.className = 'sub-desc';
-      desc.textContent = outcome.desc;
-      inner.appendChild(desc);
-
-      // Tags
-      if (outcome.tags && outcome.tags.length) {
-        const tagLabel = document.createElement('div');
-        tagLabel.className = 'sub-tag-label';
-        tagLabel.textContent = 'Topics covered';
-        inner.appendChild(tagLabel);
-        const tags = document.createElement('div');
-        tags.className = 'sub-tags';
-        outcome.tags.forEach(t => {
-          const chip = document.createElement('span');
-          chip.className = 'sub-tag';
-          chip.textContent = t;
-          chip.style.cssText = `color:${color};background:${color}15;border-color:${color}30;`;
-          tags.appendChild(chip);
-        });
-        inner.appendChild(tags);
-      }
-
-      // Skills
-      if (outcome.skills && outcome.skills.length) {
-        const skillLabel = document.createElement('div');
-        skillLabel.className = 'sub-tag-label';
-        skillLabel.style.marginTop = '12px';
-        skillLabel.textContent = 'Specific skills';
-        inner.appendChild(skillLabel);
-        const skillTags = document.createElement('div');
-        skillTags.className = 'sub-tags';
-        outcome.skills.forEach(s => {
-          const chip = document.createElement('span');
-          chip.className = 'sub-tag';
-          chip.textContent = s;
-          chip.style.cssText = `color:var(--text2);background:var(--navy4);border-color:var(--border);font-weight:400;`;
-          skillTags.appendChild(chip);
-        });
-        inner.appendChild(skillTags);
-      }
-
-      sub.appendChild(inner);
-    }
-
-    row.classList.add('is-open');
-    sub.style.maxHeight = sub.scrollHeight + 800 + 'px';
-
-    // Re-measure parent wrap
-    setTimeout(() => {
-      const block = document.querySelector(`.domain-block[data-id="${domainId}"]`);
-      const wrap = block.querySelector('.outcomes-wrap');
-      const innerEl = wrap.querySelector('.outcomes-inner');
-      wrap.style.maxHeight = innerEl.scrollHeight + 'px';
-    }, 50);
-  }
-}
-
-buildDomains();
-
-/* ═════════════════════════════════════
-   GRADE 8 SAMPLE QUESTIONS — math-symbol heavy, 3 per outcome
-══════════════════════════════════════ */
-const QS_BANK = {
-  // ── 8.NS · The Number System (4) ──
-  'NS-0': ['√17 = ?  (to 1 d.p.)',         'Classify √25 :  rational or irrational?', '√50 ≈ ?'],
-  'NS-1': ['Place √8 :  __ < √8 < __',      '√11 lies between which two integers?',   '−√6 ≈ ? on the number line'],
-  'NS-2': ['Compare:  √15 __ 3.9',          '√50 __ 7  (use <, > or =)',              '√2 + 1 __ 2.5'],
-  'NS-3': ['0.272727… = ?/?',                '5/8 → decimal = ?',                       '7/11 → decimal = ?'],
-
-  // ── 8.EE · Expressions & Equations (11) ──
-  'EE-0':  ['3⁴ × 3⁻² = ?',                  '(2³)⁴ ÷ 2⁵ = ?',                          '5⁻³ = ?'],
-  'EE-1':  ['x² = 144 →  x = ?',             '∛125 = ?',                                '√81 = ?'],
-  'EE-2':  ['73,400,000 = ? × 10ⁿ',          '0.0000058 = ? × 10ⁿ',                     '3.2 × 10⁵ = ?'],
-  'EE-3':  ['(3 × 10⁴) × (2 × 10⁵) = ?',      '(8 × 10⁹) ÷ (4 × 10⁴) = ?',                '2.3 × 10⁶ + 4.5 × 10⁶ = ?'],
-  'EE-4':  ['Slope of  y = 4x  ?',           'y = kx  passes through (3, 12).  k = ?',  'Unit rate from y = 2.5x  ?'],
-  'EE-5':  ['Slope through (2, 5) & (6, 13) = ?', 'Slope of (1, 3) & (4, 9) = ?',         'Slope of (0, 0) & (5, 15) = ?'],
-  'EE-6':  ['Solve:  4(x − 3) = 2x + 6',     'Solve:  5x + 7 = 5x + 12',                'Solve:  3(2x + 1) − 2x = 4x + 3'],
-  'EE-7':  ['y = 2x + 1 ; y = 2x + 5  → solutions?', 'y = 3x ; y = 3x  → solutions?',        'y = x + 2 ; y = −x + 6  → solutions?'],
-  'EE-8':  ['Solve graphically:  y = 2x + 1 ,  y = −x + 4', 'Intersection of  y = 3x − 2 ,  y = x + 4 ?', 'y = ½x + 3 ,  y = ½x − 1  → solutions?'],
-  'EE-9':  ['Solve:  y = 2x + 1 ,  3x + y = 11', 'Solve:  2x + y = 7 ,  4x − y = 5',     'Solve:  x + 2y = 10 ,  3x − y = 9'],
-  'EE-10': ['Lattes $4, teas $2.50 ; 80 drinks = $260.  Find each.', 'Find two #s : sum = 30, diff = 4', 'a + b = 50 , 3a − b = 30.  a = ?  b = ?'],
-
-  // ── 8.F · Functions (6) ──
-  'F-0': ['Is  {(1,2), (2,4), (3,6), (2,5)}  a function?', 'f(x) = 3x − 2 ;  f(4) = ?',           'Does  y = x²  pass the vertical line test?'],
-  'F-1': ['y = 3x + 2  vs  y = 4x + 1  →  steeper slope?', 'y = 2x − 5  vs  graph thru (0, 3) →  greater y-intercept?', 'y = 0.5x + 10  vs  y = 2x − 1  →  grows faster?'],
-  'F-2': ['y = −3x + 7  →  slope = ? , y-int = ?',       'Slope 2, point (1, 5) →  y = ?',         'Graph  y = ¼x − 2'],
-  'F-3': ['Is  y = x² + 1  linear?',                       'Table (1,2)(2,4)(3,8)  →  linear?',        'Is  y = 1/x  linear?'],
-  'F-4': ['$5 + $2 × hours → write y = ?',                 'Plant: 10 cm + 2.5 cm/wk →  y = ?',      'Cost = 12 + 6x →  write a function'],
-  'F-5': ['Sketch a graph that increases, then is constant, then decreases', 'Describe what  y = |x|  looks like', 'Sketch a graph showing distance vs time for someone walking, stopping, then running'],
-
-  // ── 8.G · Geometry (13) ──
-  'G-0':  ['Rotate (3, 2) by 90° CCW →  ?',                'Rotate (−2, 5) by 180° →  ?',             'Rotate (1, 0) by 270° CCW →  ?'],
-  'G-1':  ['Reflect (3, −2) across x-axis →  ?',           'Reflect (4, 1) across y-axis →  ?',        'Reflect (−3, 5) across y = x →  ?'],
-  'G-2':  ['Translate (5, −3) by (−2, 4) →  ?',            'Translate (0, 0) by (7, −5) →  ?',        'Rule for (a, b) → (a + 3, b − 1) ?'],
-  'G-3':  ['Dilate (4, 6) by scale  k = 2  →  ?',           'Side 4 cm dilated by k = 2.5 →  ?',         'Dilate (10, 5) by k = ½ →  ?'],
-  'G-4':  ['Are △ABC and △A′B′C′ congruent after a reflection?', '△ rotated 90° → still congruent? (yes/no)', 'Rigid motion :  preserves __ and __'],
-  'G-5':  ['△ with angles 35°, 80°, 65°  vs  △ with 35°, 80°, ? — similar?', 'Similar △s : sides 3, 4, 5  vs  6, 8, ?', 'Dilation : preserves angles, not __'],
-  'G-6':  ['‖ lines cut by transversal.  alt. interior ∠s = 70° ; other = ?', '∠A = 110° , ∠B corresponding.  ∠B = ?', 'Co-interior ∠s :  ∠X + ∠Y = ?'],
-  'G-7':  ['△ angles 35°, 80°, ? = 180°',                  '△ angles 50°, 60°, ? = 180°',              'Exterior ∠ = 120° , one interior = 70° → other = ?'],
-  'G-8':  ['a² + b² = c² , a = 3, b = 4 → c = ?',          'Is  6, 8, 10  a right △ ?',                  '5² + 12² = ?² → c = ?'],
-  'G-9':  ['Legs 5 & 12 → hypotenuse = ?',                  'Ladder 13 ft, base 5 ft from wall → height = ?', 'Hyp 17, leg 8 → other leg = ?'],
-  'G-10': ['Distance (1, 2) to (4, 6) = ?',                'Distance (−3, 1) to (5, 7) = ?',           'Distance (0, 0) to (8, 15) = ?'],
-  'G-11': ['Cylinder  r = 3, h = 10 →  V = ?',              'Cone  r = 4, h = 9 →  V = ?',                'V = πr²h ,  r = 5, h = 8 →  V = ?'],
-  'G-12': ['Sphere  r = 6 →  V = ?',                        'V = (4/3)πr³ ,  r = 3 →  V = ?',             'Sphere  d = 10 →  V = ?'],
-
-  // ── 8.SP · Statistics & Probability (7) ──
-  'SP-0': ['Scatter plot:  ↗ pattern →  positive or negative association?', 'Scatter plot with no pattern →  association type?', 'Identify an outlier in:  (1,2), (2,4), (3,6), (4,20)'],
-  'SP-1': ['Pattern :  as x ↑ , y ↑  →  association = ?',  'Pattern :  as x ↑ , y ↓  →  association = ?', 'No clear pattern →  association = ?'],
-  'SP-2': ['Sketch a line of best fit through (1,2), (2,3), (3,5), (4,6)', 'Why isn\'t the line of best fit always exact?', 'Is a curve sometimes better than a line?'],
-  'SP-3': ['y = 0.8x + 2 ;  x = 5 →  y = ?',                'y = 1.5x + 4 ;  x = 10 →  y = ?',           'y = −0.5x + 12 ;  x = 6 →  y = ?'],
-  'SP-4': ['y = 0.8x + 2 →  slope = ? , intercept = ?',     'Slope = 1.5 :  shoe size per cm  →  interpret', 'y-intercept = 12 :  starting value  →  interpret'],
-  'SP-5': ['30 of 80 athletes like maths →  relative freq = ?',  'Build a 2 × 2 table for 50 people : 25 pets, 35 exercise, 18 both', 'Row frequency vs column frequency : difference?'],
-  'SP-6': ['Cell freq 18 / row total 25 →  relative freq = ?', 'Cell 30 / total 100 = ?',                'Two-way table : 40 pets out of 100 →  P(pet) = ?'],
-};
-
-/* ═════════════════════════════════════
-   GRADE SWITCHER
-══════════════════════════════════════ */
-let currentGrade = 8;
-
-function toggleGradeDropdown(e){
-  if(e) e.stopPropagation();
+function toggleGradeDropdown(){
   document.getElementById('gradeSwitcher').classList.toggle('open');
 }
-// Skeleton domains for grades that don't have content yet
-const GRADE_SKELETONS = {
-  6: [
-    { id: 'RP', code: '6.RP', name: 'Ratios & Proportional Relationships', desc: 'Ratio reasoning, unit rate, percent', color: '#E8420A', bg: 'rgba(232,66,10,0.1)', icon: '∶' },
-    { id: 'NS', code: '6.NS', name: 'The Number System', desc: 'Fractions, decimals, integers, coordinate plane', color: '#00C896', bg: 'rgba(0,200,150,0.1)', icon: '±' },
-    { id: 'EE', code: '6.EE', name: 'Expressions & Equations', desc: 'Variables, expressions, one-step equations', color: '#F5A623', bg: 'rgba(245,166,35,0.1)', icon: 'x' },
-    { id: 'G',  code: '6.G',  name: 'Geometry', desc: 'Area, surface area, volume, coordinate geometry', color: '#4A8FFF', bg: 'rgba(74,143,255,0.1)', icon: '△' },
-    { id: 'SP', code: '6.SP', name: 'Statistics & Probability', desc: 'Statistical questions, distributions, summary measures', color: '#C44DFF', bg: 'rgba(196,77,255,0.1)', icon: '∑' },
-  ],
-  7: [
-    { id: 'RP', code: '7.RP', name: 'Ratios & Proportional Relationships', desc: 'Unit rates, proportionality, percent problems', color: '#E8420A', bg: 'rgba(232,66,10,0.1)', icon: '∶' },
-    { id: 'NS', code: '7.NS', name: 'The Number System', desc: 'Operations with rational numbers, absolute value', color: '#00C896', bg: 'rgba(0,200,150,0.1)', icon: '±' },
-    { id: 'EE', code: '7.EE', name: 'Expressions & Equations', desc: 'Equivalent expressions, linear equations, inequalities', color: '#F5A623', bg: 'rgba(245,166,35,0.1)', icon: 'x' },
-    { id: 'G',  code: '7.G',  name: 'Geometry', desc: 'Scale drawings, circles, angles, surface area, volume', color: '#4A8FFF', bg: 'rgba(74,143,255,0.1)', icon: '△' },
-    { id: 'SP', code: '7.SP', name: 'Statistics & Probability', desc: 'Sampling, comparing populations, probability', color: '#C44DFF', bg: 'rgba(196,77,255,0.1)', icon: '∑' },
-  ],
-};
-
-function renderSkeletonDomains(grade){
-  const domains = GRADE_SKELETONS[grade] || [];
-  const container = document.getElementById('domainsContainer');
-  container.innerHTML = '';
-  domains.forEach((d, i) => {
-    const block = document.createElement('div');
-    block.className = 'domain-block skeleton';
-    block.dataset.id = d.id;
-    block.style.animationDelay = (0.05 + i * 0.05) + 's';
-    block.innerHTML = `
-      <div class="domain-header" style="cursor:default;">
-        <div class="domain-left">
-          <div class="domain-icon" style="background:${d.bg};color:${d.color};">${d.icon}</div>
-          <div class="domain-text">
-            <div class="domain-name">${d.name}</div>
-            <div class="domain-desc">${d.desc}</div>
-          </div>
-        </div>
-        <div class="domain-right">
-          <span class="domain-code" style="color:${d.color};background:${d.bg};border-color:${d.color}40;">${d.code}</span>
-          <span class="skeleton-tag">Coming soon</span>
-        </div>
-      </div>`;
-    container.appendChild(block);
-  });
-}
-
 function switchGrade(g){
-  document.querySelectorAll('.grade-opt').forEach(o => {
+  document.querySelectorAll('.grade-opt').forEach(o=>{
     o.classList.toggle('active', parseInt(o.dataset.grade)===g);
   });
   currentGrade = g;
-  document.getElementById('currentGradeLabel').textContent = 'Grade ' + g;
+  document.getElementById('currentGradeLabel').textContent = 'Grade '+g;
   document.getElementById('gradeSwitcher').classList.remove('open');
 
-  const domainsContainer = document.getElementById('domainsContainer');
-  const heroTitle = document.querySelector('.hero-title');
-  const empty = document.getElementById('emptyGrade');
-  if(empty) empty.remove();
-
-  domainsContainer.style.display = '';
-  heroTitle.innerHTML = `<strong>Grade ${g}</strong> Learning Outcomes`;
-
-  if(g === 8){
-    // Restore the full Grade 8 build
-    domainsContainer.innerHTML = '';
-    buildDomains();
-    setTimeout(() => {
-      DOMAINS.forEach((d, di) => setTimeout(() => toggleDomain(d.id), di * 80));
-    }, 150);
-    setTimeout(attachHoverFeatures, 250);
-    setTimeout(attachHoverFeatures, 700);
-  } else if(GRADE_SKELETONS[g]){
-    // Render lightweight skeleton (header + empty domain cards) for preview grades
-    renderSkeletonDomains(g);
+  if(g === 7){
+    // restore Grade 7 content
+    document.getElementById('accList').style.display = '';
+    document.getElementById('filterBar').style.display = '';
+    document.querySelector('.sec-hdr').style.display = '';
+    document.getElementById('emptyState') && document.getElementById('emptyState').remove();
+    document.querySelector('.hero h1').innerHTML = 'Grade 7 <span class="grad">Learning Outcomes</span>';
+  } else {
+    // empty state for other grades
+    document.getElementById('accList').style.display = 'none';
+    document.getElementById('filterBar').style.display = 'none';
+    document.querySelector('.sec-hdr').style.display = 'none';
+    document.getElementById('emptyState') && document.getElementById('emptyState').remove();
+    document.querySelector('.hero h1').innerHTML = `Grade ${g} <span class="grad">Learning Outcomes</span>`;
+    const empty = document.createElement('div');
+    empty.id = 'emptyState';
+    empty.style.cssText = 'text-align:center;padding:60px 24px;color:var(--ink4);';
+    empty.innerHTML = `
+      <div style="font-size:48px;margin-bottom:16px;">📚</div>
+      <div style="font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px;">Grade ${g} Coming Soon</div>
+      <div style="font-size:13px;line-height:1.7;max-width:320px;margin:0 auto;">
+        We're building out the Grade ${g} curriculum now. Switch back to <strong>Grade 7</strong> to explore a full set of learning outcomes.
+      </div>`;
+    document.getElementById('accList').after(empty);
   }
 }
-document.addEventListener('click', e => {
-  const sw = document.getElementById('gradeSwitcher');
-  if(sw && !sw.contains(e.target)) sw.classList.remove('open');
+
+// close dropdown when clicking elsewhere
+document.addEventListener('click', e=>{
+  if(!document.getElementById('gradeSwitcher').contains(e.target)){
+    document.getElementById('gradeSwitcher').classList.remove('open');
+  }
 });
 
-/* ═════════════════════════════════════
-   AUTO-EXPAND ALL DOMAINS ON LOAD
-══════════════════════════════════════ */
-setTimeout(() => {
-  DOMAINS.forEach((d, di) => {
-    setTimeout(() => toggleDomain(d.id), di * 80);
-  });
-}, 250);
-
-/* ═════════════════════════════════════
-   HOVER TOOLTIP — rotates question every 5s
-══════════════════════════════════════ */
-let showTimer = null, hideTimer = null, rotateTimer = null;
-let currentRotation = { qs: [], idx: 0, color: '' };
-
-function startShowTimer(e, kind, payload){
-  clearTimeout(showTimer); clearTimeout(hideTimer);
-  showTimer = setTimeout(() => showTooltip(e, kind, payload), 380);
-}
-function startHideTimer(){
-  clearTimeout(showTimer);
-  hideTimer = setTimeout(() => hideTooltip(), 220);
-}
-function hideTooltip(){
-  clearTimeout(rotateTimer);
-  document.getElementById('wsTooltip').classList.remove('visible');
-}
-function positionTooltip(e){
-  const tip = document.getElementById('wsTooltip');
-  if(!tip.classList.contains('visible')) return;
-  const tw = 295, m = 14;
-  let x = e.clientX + m, y = e.clientY - 70;
-  if(x + tw > window.innerWidth - 10) x = e.clientX - tw - m;
-  if(y < 10) y = 10;
-  const th = tip.offsetHeight || 200;
-  if(y + th > window.innerHeight - 10) y = window.innerHeight - th - 10;
-  tip.style.left = x + 'px';
-  tip.style.top = y + 'px';
-}
-
-// kind = 'outcome' (single skill, 3 sample qs rotating) | 'domain' (one q per skill rotating)
-function showTooltip(e, kind, payload){
-  clearTimeout(hideTimer);
-  const tip = document.getElementById('wsTooltip');
-  const icon = document.getElementById('wsTipIcon');
-  const title = document.getElementById('wsTipTitle');
-  const sub = document.getElementById('wsTipSub');
-  const lbl = document.getElementById('wsTipLabel');
-  const qsEl = document.getElementById('wsTipQs');
-  const cta = document.getElementById('wsTipCta');
-
-  if(kind === 'outcome'){
-    const {d, o, oi} = payload;
-    icon.textContent = d.icon;
-    icon.style.cssText = `background:${d.bg};color:${d.color};`;
-    title.textContent = o.title;
-    title.style.color = d.color;
-    sub.textContent = `${d.code} · Outcome ${String(oi+1).padStart(2,'0')}`;
-    lbl.textContent = 'Sample question';
-    cta.style.display = 'none';
-    const bank = QS_BANK[`${d.id}-${oi}`] || ['Sample question coming soon.'];
-    currentRotation = { qs: bank, idx: 0, color: d.color, kind, skillTitle: null };
-    renderRotatingQuestion();
-  } else { // domain
-    const {d} = payload;
-    icon.textContent = d.icon;
-    icon.style.cssText = `background:${d.bg};color:${d.color};`;
-    title.textContent = `${d.name} Worksheet`;
-    title.style.color = d.color;
-    sub.textContent = `${d.code} · ${d.outcomes.length} skills covered`;
-    lbl.textContent = `Sample · ${d.outcomes.length} questions across all skills`;
-    cta.style.display = 'none';
-    // Build a list: one question per outcome, paired with skill title
-    const qPairs = d.outcomes.map((o, oi) => {
-      const bank = QS_BANK[`${d.id}-${oi}`] || ['Sample coming soon.'];
-      return { q: bank[0], skill: o.title, oi };
-    });
-    currentRotation = { qs: qPairs, idx: 0, color: d.color, kind: 'domain' };
-    renderRotatingQuestion();
+/* ═══════════ FLOATING SYMBOLS ═══════════ */
+const SYMS=['∫','∑','π','√','∞','Δ','θ','λ','α','β','±','÷','×','∈','≠','≤'];
+const SCOLS=['rgba(255,102,53,0.14)','rgba(112,88,255,0.14)','rgba(255,164,28,0.16)','rgba(44,129,237,0.14)','rgba(255,79,132,0.14)'];
+function launchSymbols(){
+  const layer=document.getElementById('symLayer');
+  function add(){
+    const el=document.createElement('div');el.className='sym';
+    el.textContent=SYMS[Math.floor(Math.random()*SYMS.length)];
+    const sz=Math.random()*18+10,dur=Math.random()*18+12;
+    el.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*110}%;font-size:${sz}px;color:${SCOLS[Math.floor(Math.random()*SCOLS.length)]};animation-duration:${dur}s;`;
+    layer.appendChild(el);setTimeout(()=>el.remove(),(dur+2)*1000);
   }
+  for(let i=0;i<18;i++)setTimeout(add,i*220);
+  setInterval(add,1300);
+}
 
+/* ═══════════ FILTER BAR ═══════════ */
+function buildFilter(){
+  const bar=document.getElementById('filterBar');
+  const all=mkFB('all','All',null,true);bar.appendChild(all);
+  DS.forEach(d=>bar.appendChild(mkFB(d.id,d.id+' · '+d.name,d,false)));
+}
+function mkFB(id,label,d,on){
+  const b=document.createElement('button');
+  b.className='fb'+(on?' on':'');b.dataset.fid=id;
+  b.innerHTML=d?`<span class="fb-dot" style="background:${d.c}"></span>${d.name}<span class="fb-count">${d.outcomes.length}</span>`
+              :`All Domains<span class="fb-count">${DS.reduce((a,x)=>a+x.outcomes.length,0)}</span>`;
+  if(on){b.style.background='#0F1574';b.style.color='#fff';}
+  b.onclick=()=>setFilter(id,b,d);
+  return b;
+}
+function setFilter(id,btn,d){
+  document.querySelectorAll('.fb').forEach(b=>{b.classList.remove('on');b.style.background='';b.style.color='';});
+  btn.classList.add('on');
+  if(id==='all'){btn.style.background='#0F1574';btn.style.color='#fff';}
+  else{btn.style.background=d.c;btn.style.color='#fff';}
+  document.querySelectorAll('.dom-card').forEach(c=>{
+    c.style.display=(id==='all'||c.dataset.did===id)?'':'none';
+  });
+}
+
+/* ═══════════ BUILD ACCORDION ═══════════ */
+function buildAccordion(){
+  const list=document.getElementById('accList');
+  DS.forEach((d,di)=>{
+    const card=document.createElement('div');
+    card.className='dom-card';card.dataset.did=d.id;
+    card.style.animationDelay=(0.12+di*0.05)+'s';
+    const stripe=document.createElement('div');
+    stripe.className='dom-stripe';stripe.style.background=d.stripe;
+    const hdr=document.createElement('div');hdr.className='dom-hdr';
+    hdr.innerHTML=`
+      <div class="dom-icon" style="background:${d.cl};color:${d.c}">${d.icon}</div>
+      <div class="dom-info"><div class="dom-name">${d.name}</div><div class="dom-desc">${d.desc}</div></div>
+      <div class="dom-right">
+        <span class="dom-code" style="color:${d.c};background:${d.cl};border-color:${d.cb}">${d.code}</span>
+        <span class="dom-count">${d.outcomes.length} outcomes</span>
+        <button class="dom-ws-btn" data-did="${d.id}" style="color:${d.c};background:${d.cl};border-color:${d.cb};">
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><rect x="0.5" y="0.5" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3"/><line x1="2.5" y1="3.2" x2="8.5" y2="3.2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="2.5" y1="5.5" x2="8.5" y2="5.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><line x1="2.5" y1="7.8" x2="6.5" y2="7.8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+          Worksheet
+        </button>
+        <div class="dom-chev"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="2,3 5,7 8,3"/></svg></div>
+      </div>`;
+    hdr.onclick=(e)=>{ if(!e.target.closest('.dom-ws-btn')) toggleDomain(d.id); };
+
+    // Worksheet button on domain header — hover for preview, click to open modal
+    const wsBtn = hdr.querySelector('.dom-ws-btn');
+    wsBtn.addEventListener('mouseenter', e=>{ clearTimeout(hideTimer); showDomainTooltip(e,d); });
+    wsBtn.addEventListener('mousemove', e=>positionTooltip(e));
+    wsBtn.addEventListener('mouseleave', ()=>startHideTimer());
+    wsBtn.addEventListener('click', e=>{ e.stopPropagation(); openDomainWorksheet(d); });
+
+    const body=document.createElement('div');body.className='dom-body';body.id='body-'+d.id;
+    const inner=document.createElement('div');inner.className='dom-body-inner';inner.id='inner-'+d.id;
+    const sep=document.createElement('div');sep.className='dom-sep';inner.appendChild(sep);
+    d.outcomes.forEach((o,oi)=>{
+      const row=document.createElement('div');row.className='oc-row';row.id=`row-${d.id}-${oi}`;
+      const left=document.createElement('div');left.className='oc-row-left';
+      const num=document.createElement('span');num.className='oc-num';
+      num.textContent=String(oi+1).padStart(2,'0');num.style.cssText=`background:${d.cl};color:${d.c};`;
+      const title=document.createElement('span');title.className='oc-title';title.textContent=o.t;
+      left.appendChild(num);left.appendChild(title);
+      const tog=document.createElement('div');tog.className='oc-toggle';
+      row.appendChild(left);row.appendChild(tog);
+      // Show sample-questions tooltip on row hover (no worksheet button)
+      row.addEventListener('mouseenter', e=>{if(!row.classList.contains('is-open'))startShowTimer(e,d,o,oi);});
+      row.addEventListener('mousemove', e=>positionTooltip(e));
+      row.addEventListener('mouseleave', ()=>startHideTimer());
+      row.addEventListener('click', ()=>toggleRow(d.id,oi));
+      const det=document.createElement('div');det.className='oc-det';det.id=`det-${d.id}-${oi}`;
+      inner.appendChild(row);inner.appendChild(det);
+    });
+    body.appendChild(inner);
+    card.appendChild(stripe);card.appendChild(hdr);card.appendChild(body);
+    list.appendChild(card);
+  });
+  DS.forEach((d,di)=>setTimeout(()=>toggleDomain(d.id),80+di*55));
+}
+
+function toggleDomain(did){
+  const card=document.getElementById('body-'+did).closest('.dom-card');
+  const body=document.getElementById('body-'+did);
+  const inner=document.getElementById('inner-'+did);
+  const isOpen=card.classList.contains('open');
+  if(isOpen){card.classList.remove('open');body.style.maxHeight='0';}
+  else{
+    card.classList.add('open');
+    const rows=inner.querySelectorAll('.oc-row');
+    rows.forEach((r,i)=>setTimeout(()=>r.classList.add('revealed'),30+i*25));
+    body.style.maxHeight='0';
+    requestAnimationFrame(()=>body.style.maxHeight=inner.scrollHeight+3000+'px');
+  }
+}
+
+function toggleRow(did,oi){
+  const row=document.getElementById(`row-${did}-${oi}`);
+  const det=document.getElementById(`det-${did}-${oi}`);
+  const body=document.getElementById('body-'+did);
+  const inner=document.getElementById('inner-'+did);
+  const d=DS.find(x=>x.id===did);const o=d.outcomes[oi];
+  const isOpen=row.classList.contains('is-open');
+  if(isOpen){row.classList.remove('is-open');det.style.maxHeight='0';return;}
+  row.classList.add('is-open');
+  if(!det.querySelector('.oc-det-in')){
+    const tags=o.tags.map(t=>`<span class="oc-tag" style="color:${d.c};background:${d.cl};border-color:${d.cb}">${t}</span>`).join('');
+    const skills=o.skills.map(s=>`<div class="oc-skill"><span class="oc-skill-dot" style="background:${d.c}"></span>${s}</div>`).join('');
+    det.innerHTML=`<div class="oc-det-in"><div class="oc-desc">${o.d}</div><div class="oc-cols"><div><div class="oc-col-lbl">Topics</div><div class="oc-tags">${tags}</div></div><div><div class="oc-col-lbl">Skills</div><div class="oc-skills">${skills}</div></div></div></div>`;
+  }
+  det.style.maxHeight='0';
+  requestAnimationFrame(()=>{
+    det.style.maxHeight=det.scrollHeight+20+'px';
+    setTimeout(()=>body.style.maxHeight=inner.scrollHeight+3000+'px',40);
+  });
+}
+
+/* ═══════════ TOOLTIP — FIXED HOVER HANDOFF ═══════════ */
+
+function startShowTimer(e,d,o,oi){
+  clearTimeout(showTimer);clearTimeout(hideTimer);
+  showTimer=setTimeout(()=>showTooltip(e,d,o,oi),380);
+}
+
+// Outcome row hover — shows sample questions only (no CTA)
+function showTooltip(e,d,o,oi){
+  clearTimeout(hideTimer);
+  const tip=document.getElementById('wsTooltip');
+  document.getElementById('wsTipIcon').textContent=d.icon;
+  document.getElementById('wsTipIcon').style.cssText=`background:${d.cl};color:${d.c};`;
+  document.getElementById('wsTipTitle').textContent=o.t;
+  document.getElementById('wsTipTitle').style.color=d.c;
+  document.getElementById('wsTipSub').textContent=d.code+' · '+d.name;
+  document.getElementById('wsTipPreviewLabel').textContent='Sample questions';
+  const qsEl=document.getElementById('wsTipQs');
+  qsEl.innerHTML=o.qs.slice(0,3).map((q,i)=>`<div class="ws-q"><span class="ws-q-num">${i+1}.</span><span>${q}</span></div>`).join('');
+  // Hide CTA on outcome-row preview
+  document.getElementById('wsTipCta').style.display='none';
   positionTooltip(e);
   tip.classList.add('visible');
-  tip.onmouseenter = () => clearTimeout(hideTimer);
-  tip.onmouseleave = () => startHideTimer();
+  tip.onmouseenter=()=>clearTimeout(hideTimer);
+  tip.onmouseleave=()=>startHideTimer();
 }
 
-function renderRotatingQuestion(){
-  const qsEl = document.getElementById('wsTipQs');
-  const r = currentRotation;
-  if(!r.qs.length) return;
+// Domain header worksheet button hover — shows preview of cross-outcome questions + CTA
+function showDomainTooltip(e,d){
+  clearTimeout(hideTimer);
+  const tip=document.getElementById('wsTooltip');
+  document.getElementById('wsTipIcon').textContent=d.icon;
+  document.getElementById('wsTipIcon').style.cssText=`background:${d.cl};color:${d.c};`;
+  document.getElementById('wsTipTitle').textContent=d.name+' Worksheet';
+  document.getElementById('wsTipTitle').style.color=d.c;
+  document.getElementById('wsTipSub').textContent=d.code+' · '+d.outcomes.length+' skills covered';
+  document.getElementById('wsTipPreviewLabel').textContent=`Sample — ${d.outcomes.length} questions across all skills`;
+  const qsEl=document.getElementById('wsTipQs');
+  // Pick one preview question from each outcome, prefix with skill number
+  const preview = d.outcomes.slice(0,3).map((o,oi)=>{
+    return `<div class="ws-q"><span class="ws-q-num" style="color:${d.c};">${String(oi+1).padStart(2,'0')}</span><span><strong style="color:var(--ink);font-size:10.5px;display:block;margin-bottom:2px;">${o.t}</strong>${o.qs[0]}</span></div>`;
+  }).join('');
+  const more = d.outcomes.length > 3
+    ? `<div style="font-size:10px;color:var(--ink4);text-align:center;padding:6px 0 2px;font-weight:600;">+ ${d.outcomes.length-3} more skill${d.outcomes.length-3===1?'':'s'} in the full worksheet</div>`
+    : '';
+  qsEl.innerHTML = preview + more;
+  // Show CTA — opens the domain-wide worksheet
+  const cta = document.getElementById('wsTipCta');
+  cta.style.display='flex';
+  cta.style.color=d.c;cta.style.background=d.cl;cta.style.borderTopColor=d.cb;
+  cta.onclick=()=>openDomainWorksheet(d);
+  positionTooltip(e);
+  tip.classList.add('visible');
+  tip.onmouseenter=()=>clearTimeout(hideTimer);
+  tip.onmouseleave=()=>startHideTimer();
+}
 
-  if(r.kind === 'outcome'){
-    const q = r.qs[r.idx];
-    qsEl.innerHTML = `<div class="ws-q"><span class="ws-q-num">${r.idx+1}.</span><span>${q}</span></div>`;
+function positionTooltip(e){
+  const tip=document.getElementById('wsTooltip');
+  if(!tip.classList.contains('visible'))return;
+  const tw=295,margin=14;
+  let x=e.clientX+margin, y=e.clientY-70;
+  if(x+tw>window.innerWidth-10)x=e.clientX-tw-margin;
+  if(y<10)y=10;
+  const th=tip.offsetHeight||260;
+  if(y+th>window.innerHeight-10)y=window.innerHeight-th-10;
+  tip.style.left=x+'px';tip.style.top=y+'px';
+}
+
+function startHideTimer(){
+  clearTimeout(showTimer);
+  hideTimer=setTimeout(()=>{
+    document.getElementById('wsTooltip').classList.remove('visible');
+  },200);
+}
+
+/* ═══════════ DOMAIN WORKSHEET ═══════════ */
+// Build a synthetic outcome containing one question from each sub-skill
+function openDomainWorksheet(d){
+  // Pick first question from each outcome and build aggregated lists
+  const aggregatedQs = d.outcomes.map(o => o.qs[0]);
+  const aggregatedSkillTitles = d.outcomes.map(o => o.t);
+  const aggregatedTags = [...new Set(d.outcomes.flatMap(o => o.tags))].slice(0,8);
+  const aggregatedSkills = d.outcomes.map((o,i) => `Outcome ${String(i+1).padStart(2,'0')} · ${o.t}`);
+
+  const combinedAnswerKey = d.outcomes.map((o,oi) => {
+    const k = ANSWERS[`${d.id}-${oi}`];
+    return k && k[0] ? k[0] : [];
+  });
+
+  const synth = {
+    t: `${d.name} — Full Worksheet`,
+    d: `A mixed-skill worksheet covering all ${d.outcomes.length} outcomes in ${d.code}: ${d.name}. One question is given from each sub-skill so you can practise the full domain in one go.`,
+    tags: aggregatedTags,
+    skills: aggregatedSkills,
+    qs: aggregatedQs,
+    skillTitles: aggregatedSkillTitles,  // used in worksheet rendering
+    isDomain: true,
+    domainAnswerKey: combinedAnswerKey,
+  };
+  openModal(d, synth, -1);
+}
+
+/* ═══════════ MODAL — MODE CHOICE + ONLINE ANSWERING ═══════════ */
+
+function openModal(d,o,oi){
+  clearTimeout(hideTimer);
+  document.getElementById('wsTooltip').classList.remove('visible');
+  // For domain worksheets oi = -1 and the answer key is on the synthetic outcome itself
+  const outcomeIdx = (oi === -1) ? -1 : d.outcomes.indexOf(o);
+  const key = outcomeIdx === -1 ? null : `${d.id}-${outcomeIdx}`;
+  currentModalData = {d, o, oi, key};
+
+  document.getElementById('mIcon').textContent=d.icon;
+  document.getElementById('mIcon').style.cssText=`background:${d.cl};color:${d.c};`;
+  document.getElementById('mDomain').textContent=d.code+' · '+d.name;
+  document.getElementById('mDomain').style.color=d.c;
+  document.getElementById('mTitle').textContent=o.t;
+
+  // hide footer + progress until mode chosen
+  document.getElementById('wsFooter').style.display='none';
+  document.getElementById('wsProgressBar').style.display='none';
+
+  // show mode choice screen
+  showModeScreen(d,o);
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function showModeScreen(d,o){
+  document.getElementById('mBody').innerHTML=`
+    <div class="mode-screen">
+      <div class="mode-screen-label">How would you like to work on this?</div>
+      <div class="mode-card mode-online" onclick="startOnlineWorksheet()">
+        <div class="mode-card-icon" style="background:${d.cl}">✏️</div>
+        <div class="mode-card-body">
+          <div class="mode-card-title">Answer Online</div>
+          <div class="mode-card-desc">Type your answers and get instant feedback. We'll mark your work and show your mastery level.</div>
+        </div>
+        <svg class="mode-card-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,4 12,9 6,14"/></svg>
+      </div>
+      <div class="mode-card mode-pdf" onclick="downloadPDF()">
+        <div class="mode-card-icon" style="background:rgba(255,102,53,0.10)">📄</div>
+        <div class="mode-card-body">
+          <div class="mode-card-title">Download PDF</div>
+          <div class="mode-card-desc">Get a printable worksheet to complete on paper — perfect for class or homework.</div>
+        </div>
+        <svg class="mode-card-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,4 12,9 6,14"/></svg>
+      </div>
+    </div>`;
+}
+
+function startOnlineWorksheet(){
+  const {d,o} = currentModalData;
+  // show progress + footer
+  document.getElementById('wsProgressBar').style.display='block';
+  document.getElementById('wsFooter').style.display='flex';
+  updateProgress(0,o.qs.length);
+
+  document.getElementById('mBody').innerHTML=`
+    <div class="ws-screen">
+      <div class="ws-screen-back" onclick="showModeScreen(currentModalData.d, currentModalData.o)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="7,2 3,6 7,10"/></svg>
+        Back
+      </div>
+      <div class="ws-intro">${o.d}</div>
+      <div class="ws-section-lbl">Practice Questions</div>
+      ${o.qs.map((q,i)=>{
+        // For domain worksheets, prefix with the skill title
+        const skillLine = (o.isDomain && o.skillTitles && o.skillTitles[i])
+          ? `<div class="ws-q-skill" style="color:${d.c};">${o.skillTitles[i]}</div>`
+          : '';
+        return `
+        <div class="ws-question" id="wq${i}">
+          <div class="ws-q-label" style="color:${d.c}">Question ${i+1} of ${o.qs.length}</div>
+          ${skillLine}
+          <div class="ws-q-text">${q}</div>
+          <textarea
+            class="ws-q-textarea"
+            placeholder="Type your answer here — show all working…"
+            rows="3"
+            oninput="onAnswerInput(${i}, ${o.qs.length})"
+            id="wqa${i}"
+          ></textarea>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+function onAnswerInput(idx, total){
+  const ta = document.getElementById('wqa'+idx);
+  const qBox = document.getElementById('wq'+idx);
+  qBox.classList.toggle('answered', ta.value.trim().length > 0);
+  // count filled
+  let filled=0;
+  for(let i=0;i<total;i++){
+    const t=document.getElementById('wqa'+i);
+    if(t && t.value.trim().length>0) filled++;
+  }
+  updateProgress(filled,total);
+  document.getElementById('wsSubmitBtn').disabled = filled===0;
+}
+
+function updateProgress(filled,total){
+  const pct = total>0 ? Math.round(filled/total*100) : 0;
+  document.getElementById('wsProgressFill').style.width=pct+'%';
+  document.getElementById('wsFooterLeft').textContent=`${filled} of ${total} answered`;
+}
+
+function submitWorksheet(){
+  const {d, o, key} = currentModalData;
+  const total = o.qs.length;
+
+  // Get answer key — either per-outcome or per-question for domain mode
+  const getAcceptable = (i) => {
+    if(o.isDomain && o.domainAnswerKey){
+      return o.domainAnswerKey[i] || [];
+    }
+    const ak = ANSWERS[key] || [];
+    return ak[i] || [];
+  };
+
+  // grade each question
+  const results = o.qs.map((q, i)=>{
+    const ta = document.getElementById('wqa'+i);
+    const userAns = ta ? ta.value.trim() : '';
+    const acceptable = getAcceptable(i);
+    let status;
+    if(!userAns) status = 'skipped';
+    else if(checkAnswer(userAns, acceptable)) status = 'correct';
+    else status = 'incorrect';
+    const skillLabel = o.isDomain && o.skillTitles ? o.skillTitles[i] : null;
+    return {q, userAns, acceptable, status, i, skillLabel};
+  });
+
+  const correct = results.filter(r=>r.status==='correct').length;
+  const incorrect = results.filter(r=>r.status==='incorrect').length;
+  const skipped = results.filter(r=>r.status==='skipped').length;
+  const pct = Math.round((correct/total)*100);
+
+  // mastery tier
+  let tier, tierLabel, tierColor, tierBg, tierMsg, scoreColor, emoji;
+  if(pct >= 80){
+    tier = 'mastered';
+    tierLabel = 'Mastered';
+    tierColor = '#5a8a0a';
+    tierBg = 'rgba(176,235,51,0.18)';
+    scoreColor = 'linear-gradient(135deg,#B0EB33,#5a8a0a)';
+    tierMsg = "You've mastered this skill — fantastic work! Ready to tackle the next outcome?";
+    emoji = '🎉';
+  } else if(pct >= 50){
+    tier = 'know';
+    tierLabel = 'Know the topic';
+    tierColor = '#7058FF';
+    tierBg = 'rgba(112,88,255,0.14)';
+    scoreColor = 'linear-gradient(135deg,#7058FF,#FF4F84)';
+    tierMsg = "You've got the basics down. A little more practice will get you to mastery.";
+    emoji = '💪';
   } else {
-    const item = r.qs[r.idx];
-    qsEl.innerHTML = `<div class="ws-q"><span class="ws-q-num">${String(item.oi+1).padStart(2,'0')}</span><div><div class="ws-q-skill" style="color:${r.color};">${item.skill}</div>${item.q}</div></div>`;
+    tier = 'practice';
+    tierLabel = 'Keep practising';
+    tierColor = '#FF6635';
+    tierBg = 'rgba(255,102,53,0.14)';
+    scoreColor = 'linear-gradient(135deg,#FFA41C,#FF6635)';
+    tierMsg = "This one needs a bit more work. Review the outcome description and try again — you've got this!";
+    emoji = '🌱';
   }
 
-  clearTimeout(rotateTimer);
-  rotateTimer = setTimeout(() => {
-    currentRotation.idx = (currentRotation.idx + 1) % currentRotation.qs.length;
-    renderRotatingQuestion();
-  }, 5000);
+  // hide footer + progress
+  document.getElementById('wsFooter').style.display='none';
+  document.getElementById('wsProgressBar').style.display='none';
+
+  // build review markup
+  const reviewMarkup = results.map(r => {
+    const userText = r.userAns || '<em style="color:var(--ink4);font-style:italic;">No answer given</em>';
+    const keyText  = r.acceptable.length ? r.acceptable[0] : '—';
+    const statusClass = r.status;
+    const statusLabel = r.status==='correct' ? '✓ Correct' : r.status==='incorrect' ? '✗ Try again' : '— Skipped';
+    const skillLine = r.skillLabel ? `<div style="font-size:10px;font-weight:700;color:${d.c};margin-bottom:4px;">${r.skillLabel}</div>` : '';
+    return `
+      <div class="review-q">
+        <div class="review-q-head">
+          <span class="review-q-num">${String(r.i+1).padStart(2,'0')}</span>
+          <div style="flex:1;">
+            ${skillLine}
+            <span class="review-q-text">${r.q}</span>
+          </div>
+          <span class="review-status ${statusClass}">${statusLabel}</span>
+        </div>
+        <div class="review-answers">
+          <div class="review-ans-block">
+            <div class="review-ans-lbl">Your answer</div>
+            <div class="review-ans-txt">${userText}</div>
+          </div>
+          <div class="review-ans-block correct-key">
+            <div class="review-ans-lbl" style="color:#5a8a0a;">Sample answer</div>
+            <div class="review-ans-txt">${keyText}</div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('mBody').innerHTML = `
+    <div class="results-screen">
+      <div class="results-headline">
+        <div class="results-emoji">${emoji}</div>
+        <div class="results-title">${tier==='mastered' ? 'Excellent work!' : tier==='know' ? 'Good job!' : 'Nice effort!'}</div>
+        <div class="results-sub">Here's how you did on <strong>${o.t}</strong></div>
+      </div>
+
+      <div class="score-card">
+        <div class="score-circle" style="background:${scoreColor};">${correct}/${total}</div>
+        <div class="score-info">
+          <div class="score-fraction">${correct}<span class="score-fraction-total">/${total} correct</span></div>
+          <div class="score-label">${incorrect>0 ? incorrect+' incorrect · ' : ''}${skipped>0 ? skipped+' skipped' : (incorrect===0?'Perfect!':'')}</div>
+        </div>
+      </div>
+
+      <div class="mastery-bar-wrap">
+        <div class="mastery-row">
+          <span class="mastery-label">Mastery level</span>
+          <span class="mastery-pill" style="background:${tierBg};color:${tierColor};">${tierLabel}</span>
+        </div>
+        <div class="mastery-track">
+          <div class="mastery-fill" id="masteryFill" style="background:${scoreColor};"></div>
+        </div>
+        <div class="mastery-segments">
+          <span>Practising</span>
+          <span>Knows it</span>
+          <span>Mastered</span>
+        </div>
+        <div class="mastery-msg">${tierMsg}</div>
+      </div>
+
+      <div class="ws-section-lbl">Question review</div>
+      <div class="review-section">${reviewMarkup}</div>
+
+      <div class="result-actions">
+        <button class="result-btn" onclick="startOnlineWorksheet()">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="2,6 5,3 5,5 9,5 9,7 5,7 5,9"/></svg>
+          Try again
+        </button>
+        <button class="result-btn primary" onclick="closeModalDirect()">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Done
+        </button>
+      </div>
+    </div>`;
+
+  // animate the mastery bar
+  setTimeout(()=>{
+    const fill = document.getElementById('masteryFill');
+    if(fill) fill.style.width = pct+'%';
+  }, 250);
 }
 
-/* Attach hover handlers to all outcome rows + add worksheet btn to each domain header */
-function attachHoverFeatures(){
-  // outcome rows
-  DOMAINS.forEach(d => {
-    d.outcomes.forEach((o, oi) => {
-      const row = document.getElementById(`outcome-${d.id}-${oi}`);
-      if(!row || row._hoverAttached) return;
-      row._hoverAttached = true;
-      const head = row.querySelector('.outcome-header');
-      head.addEventListener('mouseenter', e => startShowTimer(e, 'outcome', {d, o, oi}));
-      head.addEventListener('mousemove', e => positionTooltip(e));
-      head.addEventListener('mouseleave', () => startHideTimer());
-    });
-  });
-
-  // domain headers — add worksheet button if not present
-  DOMAINS.forEach(d => {
-    const block = document.querySelector(`.domain-block[data-id="${d.id}"]`);
-    if(!block) return;
-    const right = block.querySelector('.domain-right');
-    if(!right || right.querySelector('.domain-ws-btn')) return;
-
-    const wsBtn = document.createElement('button');
-    wsBtn.className = 'domain-ws-btn';
-    wsBtn.style.cssText = `color:${d.color};border-color:${d.color}40;background:${d.bg};`;
-    wsBtn.innerHTML = `
-      <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
-        <rect x="0.5" y="0.5" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
-        <line x1="2.5" y1="3.2" x2="8.5" y2="3.2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-        <line x1="2.5" y1="5.5" x2="8.5" y2="5.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-        <line x1="2.5" y1="7.8" x2="6.5" y2="7.8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-      </svg>
-      Worksheet`;
-    wsBtn.addEventListener('mouseenter', e => { e.stopPropagation(); startShowTimer(e, 'domain', {d}); });
-    wsBtn.addEventListener('mousemove', e => positionTooltip(e));
-    wsBtn.addEventListener('mouseleave', () => startHideTimer());
-    wsBtn.addEventListener('click', e => { e.stopPropagation(); openDomainWorksheet(d); });
-
-    // insert before the chevron
-    const chev = right.querySelector('.chevron');
-    right.insertBefore(wsBtn, chev);
-  });
+function downloadPDF(){
+  const {d,o} = currentModalData;
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"/><title>${o.t} — Worksheet</title>
+  <style>body{font-family:Arial,sans-serif;max-width:680px;margin:40px auto;color:#1a1a2e;line-height:1.6;}
+  h1{font-size:20px;margin-bottom:4px;color:#0F1574;}
+  .meta{font-size:12px;color:#878AB9;margin-bottom:24px;}
+  .intro{font-size:13px;color:#575863;margin-bottom:20px;padding:12px;background:#f9f9fc;border-radius:8px;border-left:3px solid ${d.c};}
+  .q{margin-bottom:20px;padding:14px;border:1px solid #e0e0f0;border-radius:8px;}
+  .q-num{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:${d.c};margin-bottom:4px;}
+  .q-skill{font-size:11px;font-weight:700;color:${d.c};margin-bottom:6px;}
+  .q-text{font-size:14px;font-weight:500;margin-bottom:10px;}
+  .answer-box{border:1px dashed #ccc;border-radius:6px;height:80px;margin-top:8px;}
+  @media print{body{margin:20px;}}</style>
+  </head><body>
+  <h1>${o.t}</h1>
+  <div class="meta">${d.code} · ${d.name} &nbsp;|&nbsp; Strive Math Grade 7</div>
+  <div class="intro">${o.d}</div>
+  ${o.qs.map((q,i)=>{
+    const skill = (o.isDomain && o.skillTitles && o.skillTitles[i]) ? `<div class="q-skill">${o.skillTitles[i]}</div>` : '';
+    return `<div class="q"><div class="q-num">Question ${i+1}</div>${skill}<div class="q-text">${q}</div><div class="answer-box"></div></div>`;
+  }).join('')}
+  <script>window.print();</scr`+'ipt></body></html>';
+  const w=window.open('','_blank');
+  w.document.write(html);w.document.close();
 }
-// initial pass + retry as accordions render
-setTimeout(attachHoverFeatures, 100);
-setTimeout(attachHoverFeatures, 600);
 
-/* ═════════════════════════════════════
-   WORKSHEET — opens Strive's hosted worksheet
-══════════════════════════════════════ */
-// Map each domain to its worksheet URL on Strive's platform.
-// Add new domain-specific URLs here as they're created.
-const WORKSHEET_URLS = {
-  'NS': 'https://strivemath.org/worksheet/f0f89253-03e9-4207-a848-7a25dbaaf251',
-  'EE': 'https://strivemath.org/worksheet/9960f073-47ab-401c-8a9f-f27fc9694c7c',
-};
-const WORKSHEET_PLACEHOLDER = 'https://strivemath.org/worksheet';
-
-function openDomainWorksheet(d){
-  hideTooltip();
-  const url = WORKSHEET_URLS[d.id] || WORKSHEET_PLACEHOLDER;
-  window.open(url, '_blank', 'noopener,noreferrer');
+function closeModal(e){
+  if(e.target===document.getElementById('modalOverlay'))closeModalDirect();
 }
-function closeModal(){
+function closeModalDirect(){
   document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
+  document.body.style.overflow='';
 }
-function closeModalOuter(e){
-  if(e.target === document.getElementById('modalOverlay')) closeModal();
+
+/* ═══════════ FOOTER ═══════════ */
+function buildFooter(){
+  const fc=document.getElementById('footCodes');
+  DS.forEach(d=>{
+    const s=document.createElement('span');s.className='foot-code';
+    s.textContent=d.code;s.style.cssText=`color:${d.c};background:${d.cl};border:1.5px solid ${d.cb};`;
+    fc.appendChild(s);
+  });
 }
+
+/* ═══════════ INIT ═══════════ */
+launchSymbols();
+buildFilter();
+buildAccordion();
+buildFooter();
 </script>
 </body>
 </html>
